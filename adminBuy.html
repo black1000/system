@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+	<html lang="ja">
+		<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>注文詳細</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<header class="app-header">
+  <div class="nav-bar px-4 sm:px-6 lg:px-8">
+
+  <!-- メニュー内容 -->
+  <div class="hamburger-menu" id="menu">
+    <h1 class="text-2xl font-bold text-black-600 mb-4bg-gray-100 flex items-center justify-center min-h-[30vh]">注文詳細</h1>
+  </div>
+</header>
+	<div class="bg-gray-100 flex items-center justify-center min-h-screen">
+	<div class="text-align: center">
+				<div id="main" class="container">
+
+			<!-- 入力フォーム -->
+			<form>
+				<table class="input-table" align="center">
+					<tr>
+						<th>注文者:</th>
+						<td>
+							<input type="text" name="isbn" value="注文者">
+							<p></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<th>メールアドレス:</th>
+						<td>
+							<input type="text" name="title" value="メールアドレス">
+							<p></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<th>住所:</th>
+						<td>
+							<input type="text" name="title" value="住所">
+							<p></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<th>注文商品と個数:</th>
+						<td>
+							<button class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-blue-600">
+      			商品を見る
+    			</button>
+    			
+    			<button class="mt-4 px-4 py-2 bg-blue-300 text-white rounded hover:bg-blue-600">
+      			ユニフォーム注文
+    			</button>
+    			
+    			
+    			<button class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-blue-600">
+      			注文履歴
+    			</button>
+    			
+    			<button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600">
+      			会員情報
+    			</button>
+    			
+    			<button class="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-blue-600">
+      			ログアウト
+    			</button>
+						</td>
+					</tr>
+					
+					<tr>
+						<th></th>
+						<td>
+							<input type="text" name="title" value="" size="7" class="border px-2 py-1 rounded">枚
+							<input type="text" name="title" value="" size="7" class="border px-2 py-1 rounded">枚
+							<input type="text" name="title" value="" size="7" class="border px-2 py-1 rounded">枚
+							<input type="text" name="title" value="" size="7" class="border px-2 py-1 rounded">枚
+							<input type="text" name="title" value="" size="7" class="border px-2 py-1 rounded">枚
+						</td>
+					</tr>
+					
+					
+				</table>
+				
+				
+				<form>
+				<table class="input-table" align="center">
+					<tr>
+						<th>合計価格（税込み）:</th>
+						<td>
+							<input type="text" name="isbn" value="">
+							<p></p>
+						</td>
+					</tr>
+				</table>
+				
+				<td><select name="nyuukin" id="nyuukin-select">
+                    <option value="nyuukinzumi">入金状況</option>
+                                 <option value="nyuukinmati">入金待ち</option>
+                                 </select>
+                                </td>
+                    
+                        
+                    <td><select name="hassou" id="hassou-select">
+                    <option value="hassouzumi">発送状況</option>
+                                 <option value="junbityuu">済</option>
+                                 </select>
+                                </td>
+                                
+			</form>
+		</div>
+</body>
+</html>
