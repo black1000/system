@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>受注状況一覧</title>
+<style>
+.example{
+    width: fit-content;
+    margin: auto;
+   
+ 
+}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body><!-- ブラウザ全体 -->
+	<div id="wrap">
+
+		<!-- ヘッダー部分 -->
+		<h1 style="text-align: center">受注状況一覧</h1>
+	<hr style="text-align: center; height: 5px; background-color: blue; ">
+	<br>
+
+
+		</header>
+		<!-- メニュー部分 -->
+		<div id="menu">
+
+			<!-- ページタイトル -->
+			<div style="text-align: right">
+				<p>8月の売り上げ: ￥X,XXX </p>
+				<p>9月の売り上げ: ￥X,XXX  </p>
+			</div>
+			
+		</div>
+		<hr>
+		<br>
+		<!-- 注文リスト部分 -->
+		<div style="text-align: center">
+			
+			
+				<table class="example">
+					<tr>
+						<th>　注文No.</th>
+						<th>注文者</th>
+						<th>注文日</th>
+						<th>合計金額</th>
+						
+						<th>　　入金/発送状況</th>
+						
+					</tr>
+					<tr>
+						<td>0003</td>
+					
+						<td>　神田太郎(例)</td>
+				
+						<td>　　2026/09/16 22:00(例)</td>
+					
+					<td>　￥ X,XXX</td>
+					
+					<td><select name="nyuukin" id="nyuukin-select">
+					<option value="nyuukinzumi">入金済</option>
+                 				<option value="nyuukinmati">入金待ち</option>
+                 				</select>
+                				</td>
+					
+						
+					<td><select name="hassou" id="hassou-select">
+					<option value="hassouzumi">発送済</option>
+                 				<option value="junbityuu">発送準備中</option>
+                 				</select>
+                				</td>
+					</tr>
+							<tr>
+						<td>0002</td>
+					
+						<td>　神田花子(例)</td>
+				
+						<td>　　2026/09/16 18:00(例)</td>
+					
+					<td>　￥ X,XXX</td>
+					
+					<td><select name="nyuukin" id="nyuukin-select">
+					<option value="nyuukinzumi">入金済</option>
+                 				<option value="nyuukinmati">入金待ち</option>
+                 				</select>
+                				</td>
+					
+						
+					<td><select name="hassou" id="hassou-select">
+					<option value="hassouzumi">発送済</option>
+                 				<option value="junbityuu">発送準備中</option>
+                 				</select>
+                				</td>
+					</tr>
+							<tr>
+						<td>0001</td>
+					
+						<td>　神田ジョン(例)</td>
+				
+						<td>　　2026/09/15 12:00(例)</td>
+					
+					<td>　￥ X,XXX</td>
+					
+					<td><select name="nyuukin" id="nyuukin-select">
+					<option value="nyuukinzumi">入金済</option>
+                 				<option value="nyuukinmati">入金待ち</option>
+                 				</select>
+                				</td>
+					
+						
+					<td><select name="hassou" id="hassou-select">
+					<option value="hassouzumi">発送済</option>
+                 				<option value="junbityuu">発送準備中</option>
+                 				</select>
+                				</td>
+					</tr>
+
+
+				</table>
+				<br>
+	
+		
+
+			
+</div>
+<br>
+
+			<!-- フッター部分 -->
+			<hr
+		style="text-align: center; height: 5px; background-color: blue; ">
+
+	<table
+		style="margin: auto; border: 0; width: 950px; text-align: left">
+		<tr>
+			<td></td>
+		</tr>
+
+			</footer>
+
+		</div>
+
+</body>
+
+</html>
