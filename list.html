@@ -1,54 +1,255 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-			<title>商品一覧</title>
-			<link rel="stylesheet" href="style.css">
-			<script src="https://cdn.tailwindcss.com"></script>
-	</head>
-	<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-	<div style="margin:auto">
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品一覧</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-	<table style="margin:auto">
-		<tr style="text-align:center; width:508px; font-size:24px;">
-		商品一覧</tr>
-		<tr>
-			<th>商品名</th>
-			<th>価格</th>
-			<th>在庫数</th>
-		</tr>
-		<tr>
-			<th>×××</th>
-			<th>￥×,×××</th>
-			<th>××枚</th>
-		</tr>
-		<tr>
-			<th>×××</th>
-			<th>￥×,×××</th>
-			<th>××枚</th>
-		</tr>
-		<tr>
-			<th>×××</th>
-			<th>￥×,×××</th>
-			<th>××枚</th>
-		</tr>
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow">
+    <h1 class="mb-6 text-center text-2xl font-bold">
+      商品一覧
+    </h1>
 
-	</table>
-		
-		
-		
-	<table class="custom-underline">
-	
-	
-		<u><a href="">会員登録</a></u>&emsp;
-		<u><a href="">ログイン</a></u><br>
-		<u><a href="">管理者としてログイン</a></u>
-	</table>
-	<button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                  注文
-                </button>
-	
-	</div>
+    <p id="quantity-help" class="mb-4 text-sm text-gray-600">
+      購入したい商品の個数を選択してください。
+      購入しない商品は「0枚」のままにしてください。
+    </p>
+
+    <form action="/cart/add" method="post">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-center">
+          <thead class="bg-blue-100">
+            <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                商品名
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                税込価格
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                在庫数
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                購入個数
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- 商品 在庫10-->
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/1"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームA
+                </a>
+                <input type="hidden" name="productIds" value="1">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                3,000円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                10枚
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                <select
+                  name="quantities"
+                  aria-label="ユニフォームAの購入個数"
+                  aria-describedby="quantity-help"
+                  class="w-24 rounded border border-gray-400 bg-white p-2
+                         focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="0" selected>0枚</option>
+                  <option value="1">1枚</option>
+                  <option value="2">2枚</option>
+                  <option value="3">3枚</option>
+                  <option value="4">4枚</option>
+                  <option value="5">5枚</option>
+                  <option value="6">6枚</option>
+                  <option value="7">7枚</option>
+                  <option value="8">8枚</option>
+                  <option value="9">9枚</option>
+                  <option value="10">10枚</option>
+                </select>
+              </td>
+            </tr>
+
+            <!-- 商品 在庫5-->
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/2"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームB
+                </a>
+                <input type="hidden" name="productIds" value="2">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                4,000円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                5枚
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                <select
+                  name="quantities"
+                  aria-label="ユニフォームBの購入個数"
+                  aria-describedby="quantity-help"
+                  class="w-24 rounded border border-gray-400 bg-white p-2
+                         focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="0" selected>0枚</option>
+                  <option value="1">1枚</option>
+                  <option value="2">2枚</option>
+                  <option value="3">3枚</option>
+                  <option value="4">4枚</option>
+                  <option value="5">5枚</option>
+                </select>
+              </td>
+            </tr>
+
+            <!-- 商品 在庫なし -->
+            <tr class="bg-gray-50">
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/3"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームC
+                </a>
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                5,000円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3 font-bold text-red-700">
+                売り切れ
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3 text-sm text-gray-600">
+                購入できません
+              </td>
+            </tr>
+
+            <!-- 商品 在庫8 -->
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/4"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームD
+                </a>
+                <input type="hidden" name="productIds" value="4">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                3,500円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                8枚
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                <select
+                  name="quantities"
+                  aria-label="ユニフォームDの購入個数"
+                  aria-describedby="quantity-help"
+                  class="w-24 rounded border border-gray-400 bg-white p-2
+                         focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="0" selected>0枚</option>
+                  <option value="1">1枚</option>
+                  <option value="2">2枚</option>
+                  <option value="3">3枚</option>
+                  <option value="4">4枚</option>
+                  <option value="5">5枚</option>
+                  <option value="6">6枚</option>
+                  <option value="7">7枚</option>
+                  <option value="8">8枚</option>
+                </select>
+              </td>
+            </tr>
+
+            <!-- 商品 在庫3-->
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/5"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームE
+                </a>
+                <input type="hidden" name="productIds" value="5">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                4,500円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                3枚
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3">
+                <select
+                  name="quantities"
+                  aria-label="ユニフォームEの購入個数"
+                  aria-describedby="quantity-help"
+                  class="w-24 rounded border border-gray-400 bg-white p-2
+                         focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="0" selected>0枚</option>
+                  <option value="1">1枚</option>
+                  <option value="2">2枚</option>
+                  <option value="3">3枚</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 text-center">
+        <button
+          type="submit"
+          class="rounded bg-blue-600 px-6 py-3 font-bold text-white
+                 hover:bg-blue-700 focus:outline-none
+                 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          まとめてカートに追加
+        </button>
+      </div>
+    </form>
+
+    <nav
+      aria-label="購入者用メニュー"
+      class="mt-6 flex flex-wrap justify-center gap-6">
+
+      <a href="/"
+
+         class="text-blue-700 underline hover:text-blue-900">
+
+        登録しないで購入
+
+      </a>
+
+      <a href="/"
+         class="text-blue-700 underline hover:text-blue-900">
+        会員登録
+      </a>
+
+      <a href="/"
+         class="text-blue-700 underline hover:text-blue-900">
+        ログイン
+      </a>
+    </nav>
+
+    <nav aria-label="管理者用メニュー" class="mt-6 text-center">
+      <a href="/"
+         class="text-sm text-gray-600 underline hover:text-gray-900">
+        管理者としてログイン
+      </a>
+    </nav>
+  </main>
 </body>
-
 </html>
