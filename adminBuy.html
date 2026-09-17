@@ -3,7 +3,7 @@
 		<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>注文詳細</title>
+		<title>（管理者）注文の詳細</title>
 		<link rel="stylesheet" href="style.css">
 		<script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -20,13 +20,17 @@
 	<div class="text-align: center">
 				<div id="main" class="container">
 
-			<!-- 入力フォーム -->
+			<!-- 注文の詳細 -->
 			<form>
 				<table class="input-table" align="center">
+				<tr>
+				 <th>注文No.</th>
+				 <td>0001</td>
+				</tr>
 					<tr>
 						<th>注文者:</th>
 						<td>
-							<input type="text" name="isbn" value="注文者">
+							<input type="text" name="isbn" value="神田太郎">
 							<p></p>
 						</td>
 					</tr>
@@ -34,7 +38,7 @@
 					<tr>
 						<th>メールアドレス:</th>
 						<td>
-							<input type="text" name="title" value="メールアドレス">
+							<input type="text" name="title" value="kanda@email.com">
 							<p></p>
 						</td>
 					</tr>
@@ -42,45 +46,30 @@
 					<tr>
 						<th>住所:</th>
 						<td>
-							<input type="text" name="title" value="住所">
+							<input type="text" name="title" value="XX県XX丁目XXX-X">
 							<p></p>
 						</td>
 					</tr>
 					
 					<tr>
-						<th>注文商品と個数:</th>
+						<th>商品種類と個数:</th>
 						<td>
-							<button class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-blue-600">
-      			商品A
-    			</button>
-    			
-    			<button class="mt-4 px-4 py-2 bg-blue-300 text-white rounded hover:bg-blue-600">
-      			商品B
-    			</button>
-    			
-    			
-    			<button class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-blue-600">
-      			商品C
-    			</button>
-    			
-    			<button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600">
-      			商品D
-    			</button>
-    			
-    			<button class="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-blue-600">
-      			商品E
-    			</button>
+							<select name="goods" id="goods-select">
+                    <option value="all">すべての商品</option>
+                                 <option value="uniformA">ユニフォームA</option>
+                                  <option value="uniformB">ユニフォームB</option>
+                                   <option value="uniformC">ユニフォームC</option>
+                                  <option value="uniformD">ユニフォームD</option>
+                                  <option value="uniformE">ユニフォームE</option>
+                                    <option value="uniformF">ユニフォームF</option>
+                                 </select>
 						</td>
 					</tr>
 					
 					<tr>
 						<th></th>
 						<td>
-							<input type="text" name="title" value="" size="2" class="border px-2 py-1 rounded">枚
-							<input type="text" name="title" value="" size="2" class="border px-2 py-1 rounded">枚
-							<input type="text" name="title" value="" size="2" class="border px-2 py-1 rounded">枚
-							<input type="text" name="title" value="" size="2" class="border px-2 py-1 rounded">枚
-							<input type="text" name="title" value="" size="2" class="border px-2 py-1 rounded">枚
+							<input type="text" name="title" value="10" size="2" class="border px-2 py-1 rounded">枚
 						</td>
 					</tr>
 					
@@ -93,12 +82,14 @@
 					<tr>
 						<th>合計価格（税込み）:</th>
 						<td>
-							<input type="text" name="isbn" value="">
+							<input type="text" name="isbn" value="￥X,XXX">
 							<p></p>
 						</td>
 					</tr>
 				</table>
-				
+				<div>
+				<br>
+				</div>
 				<td><select name="nyuukin" id="nyuukin-select">
                     <option value="nyuukinzumi">入金状況</option>
                                  <option value="nyuukinmati">入金待ち</option>
