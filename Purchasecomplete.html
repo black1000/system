@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>購入完了</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow">
+    <h1 class="mb-6 text-center text-2xl font-bold">
+      購入完了
+    </h1>
+     <h2 class="mb-6 text-center text-2xl font-bold">
+      下記の商品を購入しました。<br>
+      ご利用ありがとうございました。
+    </h2>
+    
+    <p id="quantity-help" class="mb-4 text-center text-sm text-gray-600">
+    振込先に関してはメールに送信しています</p>
+
+
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-center">
+          <thead class="bg-blue-100">
+            <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                商品名
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                税込価格
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                購入個数
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/1"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームA
+                </a>
+                <input type="hidden" name="productIds" value="1">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                3,000円
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                5枚
+              </td>
+            </tr>
+
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/2"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームB
+                </a>
+                <input type="hidden" name="productIds" value="2">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                4,000円
+              </td>
+
+               <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                15枚
+              </td>
+            </tr>
+
+            <tr class="bg-gray-50">
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/3"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームC
+                </a>
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                5,000円
+              </td>
+
+              <td class="border border-gray-300 px-4 py-3 text-sm text-gray-600">
+                8枚
+              </td>
+            </tr>
+
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/4"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームD
+                </a>
+                <input type="hidden" name="productIds" value="4">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                3,500円
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                10枚
+              </td>
+            </tr>
+            </table>
+            <nav class="mt-6 text-center">
+     <a href="/"
+         class="text-blue-700 underline hover:text-blue-900">
+        商品一覧へ
+      </a>
+      </nav>
+            </div>
+    <table>
+    <tr>
+    	<td style="background-color:#6666ff;">合計:<td>150,000円
+    </tr>
+    
+    
+      </table>
+
+  </main>
+</body>
+</html>
