@@ -7,21 +7,22 @@
 		<link rel="stylesheet" href="style.css">
 		<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow"><header class="app-header">
 <header class="app-header">
   <div class="nav-bar px-4 sm:px-6 lg:px-8">
 
   <!-- メニュー内容 -->
   <div class="hamburger-menu" id="menu">
-    <h1 class="text-2xl font-bold text-black-600 mb-4bg-gray-100 flex items-center justify-center min-h-[30vh]">注文詳細</h1>
+    <h1 class="text-2xl font-bold text-black-600 mb-4bg-gray-100 flex items-center justify-center min-h-[15vh]">注文詳細</h1>
   </div>
 </header>
-	<div class="bg-gray-100 flex items-center justify-center min-h-screen">
+	
 	<div class="text-align: center">
 				<div id="main" class="container">
 
 			<!-- 注文の詳細 -->
-			<form>
+			
 				<table class="input-table" align="center">
 				<tr>
 				 <th>注文No.</th>
@@ -34,15 +35,7 @@
 							<p></p>
 						</td>
 					</tr>
-					
-					<tr>
-						<th>メールアドレス:</th>
-						<td>
-							<input type="text" name="title" value="kanda@email.com">
-							<p></p>
-						</td>
-					</tr>
-					
+										
 					<tr>
 						<th>住所:</th>
 						<td>
@@ -50,35 +43,52 @@
 							<p></p>
 						</td>
 					</tr>
-					
-					<tr>
-						<th>商品種類と個数:</th>
-						<td>
-							<select name="goods" id="goods-select">
-                    <option value="all">すべての商品</option>
-                                 <option value="uniformA">ユニフォームA</option>
-                                  <option value="uniformB">ユニフォームB</option>
-                                   <option value="uniformC">ユニフォームC</option>
-                                  <option value="uniformD">ユニフォームD</option>
-                                  <option value="uniformE">ユニフォームE</option>
-                                    <option value="uniformF">ユニフォームF</option>
-                                 </select>
-						</td>
-					</tr>
-					
-					<tr>
-						<th></th>
-						<td>
-							<input type="text" name="title" value="10" size="2" class="border px-2 py-1 rounded">枚
-						</td>
-					</tr>
+		</table>
+		<table  class="input-table" align="center">
+
+					<thead class="bg-blue-100">
+            <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                商品名
+              </th>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                購入個数
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/1"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームA
+                </a>
+                <input type="hidden" name="productIds" value="1">
+              </td>
+
+              <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                5枚
+              </td>
+            </tr>
+
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <a href="/products/2"
+                   class="text-blue-700 underline hover:text-blue-900">
+                  ユニフォームB
+                </a>
+                <input type="hidden" name="productIds" value="2">
+              </td>
+               <td class="whitespace-nowrap border border-gray-300 px-4 py-3">
+                15枚
+              </td>
+            </tr>
 					
 					
 				</table>
 				
-				
-				<form>
-				<table class="input-table" align="center">
+			<table  class="input-table" align="center">
 					<tr>
 						<th>合計価格（税込み）:</th>
 						<td>
@@ -87,37 +97,17 @@
 						</td>
 					</tr>
 				</table>
-				<div>
-				<br>
-				</div>
-				
-				<table>
-				<tr>
-				<th>入金状況と発送状況：</th>
-				<td><select name="nyuukin" id="nyuukin-select">
-                    <option value="nyuukinzumi">入金状況</option>
-                                 <option value="nyuukinmati">入金待ち</option>
-                                 </select>
-                                </td>
-                    
+<table  class="input-table" align="center">
+
+	<a href="/"class="text-blue-700 underline hover:text-blue-900">受注状況一覧
+    			</a><br>
+	<a href="/"class="text-blue-700 underline hover:text-blue-900">管理者メニュー    			</a>
+
+</table>
+
+			                    
                         
-                    <td><select name="hassou" id="hassou-select">
-                    <option value="hassouzumi">発送状況</option>
-                                 <option value="junbityuu">済</option>
-                                 </select>
-                                </td>
-                                </tr>
-                                </table>
-                                <div style="text-align: center">
-                                 <button
-          type="submit"
-          class="rounded bg-blue-600 px-6 py-3 font-bold text-white
-                 hover:bg-blue-700 focus:outline-none
-                 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">状況変更する
-          
-        </button>
-        </div>
-			</form>
-		</div>
+    </div>
+</main>
 </body>
 </html>
