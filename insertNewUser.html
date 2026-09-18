@@ -1,90 +1,69 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>新規登録画面</title>
-<style>
-.example{
-    width: fit-content;
-    margin: auto;
-    border: 1px solid #333;
-    background: #e3f5ff;
-}
-</style>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規会員登録</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
-<body><!-- ブラウザ全体 -->
-	<div id="wrap">
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow">
+    <h1 class="mb-6 text-center text-2xl font-bold">
+      新規会員登録
+    </h1>
 
-		<!-- ヘッダー部分 -->
-		<h1 style="text-align: center">新規会員登録</h1>
-	<hr style="text-align: center; height: 5px; background-color: blue; ">
-	<br>
+<hr>
+
+    <form action="/" method="post">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-center">
+          <thead class="bg-blue-100">
+         <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                名前
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="username" placeholder="神田太郎（例）" size="20" ></td>
+              </tr>
+              
+                 <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                メールアドレス
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="email" size="30"  placeholder="example@email.com（例）" ></td>
+              </tr>
+              
+                <tr>
+              <th scope="col" class="border border-gray-300 ">
+                住所
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><textarea cols="30" rows="5"name="address" placeholder="東京都千代田区大手町0-0-1 (例)" ></textarea></td>
+              </tr>
+              <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                パスワード
+              </th>
+              <td class="border border-gray-300 px-4 py-3">
+              <input type ="password" name="password" >
+             </td>
+            
+
+          </thead>
+
+          <table>
+<div class="text-center mt-8">
+      <button
+        type="submit"
+        class="rounded bg-blue-600 px-6 py-3 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        会員登録
+      </button>
+    </div>
+            </table>
+
+    </form>
 
 
-		</header>
-		<!-- メニュー部分 -->
-		<div id="menu">
-
-			<!-- ページタイトル -->
-			<div id="page_title">
-				<br>
-			</div>
-			
-		</div>
-		<!-- ログインフォーム部分 -->
-		<div style="text-align: center">
-			
-			<form class="example">
-				<table>
-					<tr>
-						<th>名前</th>
-						<td><input type="text" name="userid"></td>
-					</tr>
-					<tr>
-						<th>パスワード</th>
-						<td><input type="password" name="password"></td>
-					</tr>
-					<tr>
-						<th>パスワード(確認用)</th>
-						<td><input type="password" name="checkpassword"></td>
-					</tr>
-					<tr>
-						<th>メールアドレス</th>
-						<td><input type="text" name="email"></td>
-					</tr>
-					<tr>
-						<th>住所</th>
-						<td><input type="textarea" name="address"></td>
-					</tr>
-
-
-				</table>
-				<br>
-				<button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                  登録
-                </button>
-		<br>
-
-			</form>
-</div>
-
-			<!-- フッター部分 -->
-			<hr
-		style="text-align: center; height: 5px; background-color: blue; ">
-
-	<table
-		style="margin: auto; border: 0; width: 950px; text-align: left">
-		<tr>
-			<td></td>
-		</tr>
-
-			</footer>
-
-		</div>
-
+  </main>
 </body>
-
 </html>
