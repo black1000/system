@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>過去の注文</title>
+
 <style>
 .example{
     width: fit-content;
@@ -12,15 +13,19 @@
     
 }
 </style>
+<link rel="stylesheet" href="style.css">
+		<script src="https://cdn.tailwindcss.com"></script>
+
 
 </head>
 
-<body><!-- ブラウザ全体 -->
-	<div id="wrap">
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow"><header class="app-header">
+<!-- ブラウザ全体 -->
 
 		<!-- ヘッダー部分 -->
-		<h1 style="text-align: center">注文履歴</h1>
-	<hr style="text-align: center; height: 5px; background-color: blue; ">
+		 <h1 class="text-2xl font-bold text-black-600 mb-4bg-gray-100 flex items-center justify-center min-h-[15vh]">注文履歴</h1>
+
 	<br>
 
 
@@ -192,22 +197,25 @@
 
 
 				</table>
+			<br>
+  			 <nav class="mt-6 text-center">
+   		  <a href="/"
+       		  class="text-blue-700 underline hover:text-blue-900">
+   		   		  会員メニューへ
+  		    </a>
+ 			<a href="/"
+       		  class="text-blue-700 underline hover:text-blue-900">
+   		   		  商品一覧へ
+  		    </a>
+
+  		    </nav>
+
 			
 </div>
 
-			<!-- フッター部分 -->
-			<hr
-		style="text-align: center; height: 5px; background-color: blue; ">
-
-	<table
-		style="margin: auto; border: 0; width: 950px; text-align: left">
-		<tr>
-			<td></td>
-		</tr>
-
-			</footer>
-
+			
 		</div>
+</main>
 
 </body>
 
