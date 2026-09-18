@@ -1,87 +1,68 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>商品登録画面</title>
-<style>
-.example{
-    width: fit-content;
-    margin: auto;
-    border: 1px solid #333;
-    background: #e3f5ff;
-}
-</style>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品登録画面</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body><!-- ブラウザ全体 -->
-	<div id="wrap">
+<body class="min-h-screen bg-gray-100 p-4 text-gray-800">
+  <main class="mx-auto my-8 max-w-3xl rounded-lg bg-white p-6 shadow">
+    <h1 class="mb-6 text-center text-2xl font-bold">
+      新規商品登録
+    </h1>
 
-		<!-- ヘッダー部分 -->
-		<h1 style="text-align: center">新規商品登録</h1>
-	<hr style="text-align: center; height: 5px; background-color: blue; ">
-	<br>
+<hr>
+
+    <form action="/" method="post">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-center">
+          <thead class="bg-blue-100">
+         <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                商品番号
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="username" placeholder="" size="30" ></td>
+              </tr>
+              
+                 <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+                商品名
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="email" size="30"  placeholder="" ></td>
+              </tr>
+              
+ <th scope="col" class="border border-gray-300 px-4 py-3">
+              価格(税込み)
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="email" size="30"  placeholder="" ></td>
+              </tr>
+                
+              <tr>
+              <th scope="col" class="border border-gray-300 px-4 py-3">
+               在庫数
+              </th>
+              <td class="border border-gray-300 px-4 py-3"><input type="text"name="email" size="30"  placeholder="" ></td>
+              </tr>
+            
+
+          </thead>
+
+          <table>
+<div class="text-center mt-8">
+      <button
+        type="submit"
+        class="rounded bg-blue-600 px-6 py-3 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        商品登録
+      </button>
+    </div>
+            </table>
+
+    </form>
 
 
-		</header>
-		<!-- メニュー部分 -->
-		<div id="menu">
-
-			<!-- ページタイトル -->
-			<div id="page_title">
-				<br>
-			</div>
-			
-		</div>
-		<!-- ログインフォーム部分 -->
-		<div style="text-align: center">
-			
-			<form class="example">
-				<table>
-					<tr>
-						<th>商品番号</th>
-						<td><input type="text" name="goodsNumber"></td>
-					</tr>
-					<tr>
-						<th>商品名</th>
-						<td><input type="text" name="goodsName"></td>
-					</tr>
-					<tr>
-						<th>価格(税込み)</th>
-						<td><input type="text" name="price"></td>
-					</tr>
-					<tr>
-						<th>在庫数</th>
-						<td><input type="text" name="quantity"></td>
-					</tr>
-				
-
-
-				</table>
-				<br>
-				<button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                  商品登録
-                </button>
-		<br>
-
-			</form>
-</div>
-
-			<!-- フッター部分 -->
-			<hr
-		style="text-align: center; height: 5px; background-color: blue; ">
-
-	<table
-		style="margin: auto; border: 0; width: 950px; text-align: left">
-		<tr>
-			<td></td>
-		</tr>
-
-			</footer>
-
-		</div>
-
+  </main>
 </body>
-
 </html>
