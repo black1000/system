@@ -1,5 +1,7 @@
 package jp.co.f1.spring.uos.controller;
 
+import java.util.Optional;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import jp.co.f1.spring.uos.repository.UserRepository;
 @Controller
 public class LoginController {
 
+	private static final UserRepository userinfo = null;
 	private final UserRepository userRepository;
 
 	public LoginController(UserRepository userRepository) {
@@ -86,6 +89,7 @@ public class LoginController {
 					"errorMessage",
 					"ユーザーIDとパスワードを入力してください。");
 
+			mav.setViewName("view/error");
 			return mav;
 		}
 
@@ -102,6 +106,8 @@ public class LoginController {
 					"errorMessage",
 					"ユーザーIDまたはパスワードが違います。");
 
+			mav.setViewName("view/error");
+
 			return mav;
 		}
 
@@ -116,6 +122,8 @@ public class LoginController {
 					"errorMessage",
 					"このアカウントではログインできません。");
 
+			mav.setViewName("view/error");
+
 			return mav;
 		}
 
@@ -126,6 +134,21 @@ public class LoginController {
 					"errorMessage",
 					"管理者アカウントでログインしてください。");
 
+			mav.setViewName("view/error");
+
+			return mav;
+		}
+
+		//入力されたユーザーIDとパスワードでユーザー検索
+		Optional<User> optionalUser = userinfo.findByUseridAndPassword(user.getUsreid(), user.getPassword());
+
+		//該当ユーザーが存在しない場合
+		if (!(optionalUser.isPresent())) {
+			//エラーメッセージ
+			mav.addObject("errorMessage", "入力内容に誤りがあります。");
+			// 画面に出力するViewを指定
+			mav.setViewName("view/login");
+			//ModelとView情報を返す
 			return mav;
 		}
 

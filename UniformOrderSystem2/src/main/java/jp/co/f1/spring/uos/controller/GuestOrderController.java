@@ -20,6 +20,8 @@ public class GuestOrderController {
 					"errorMessage",
 					"カートに商品が入っていません。");
 
+			mav.setViewName("view/error");
+			
 			return mav;
 		}
 		return mav;
