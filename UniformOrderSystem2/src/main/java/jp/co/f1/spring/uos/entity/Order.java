@@ -22,14 +22,14 @@ public class Order {
 
 	@Id
 	@Column(length = 20)
-	private int orderno;
+	private String orderno;
 
-	public int getOrderno() {
+	public String getOrderno() {
 		return orderno;
 
 	}
 
-	public void setOrderno(int orderno) {
+	public void setOrderno(String orderno) {
 		this.orderno = orderno;
 	}
 

@@ -1,6 +1,7 @@
 package jp.co.f1.spring.uos.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -86,15 +87,25 @@ public class OrderDAO {
 		List<Object[]> result = entityManager.createQuery(query).getResultList();
 
 		// 結果をOrderオブジェクトに変換して返す
-		List<Sales> salesList = new ArrayList<>();
+		List<Order> orderList = new ArrayList<>();
 		for (Object[] row : result) {
-			Sales sales = new Sales();
-			sales.setIsbn((String) row[0]); // isbn
-			sales.setTitle((String) row[1]); // title
-			sales.setPrice(Integer.parseInt((String) row[2])); // priceをStringからintに変換
-			sales.setQuantity(((Number) row[3]).intValue()); // 合計個数 (Longをintに変換)
-			salesList.add(sales);
+			Order order = new Order();
+			order.setOrderno((String) row[0]); // 注文no
+			order.setUserid((String) row[1]); // 注文者のID
+			order.setTotalPrice((int) row[2]); // 合計金額
+			order.setTotalQuantity((int) row[3]); // 合計個数 
+			order.setDatetime((Date) row[4]); // 注文日時
+			order.setName((String) row[5]);	// 注文者の名前
+			order.setAddress((String) row[6]);	// 注文者の住所
+			order.setEmail((String) row[7]);		// 注文者のメールアドレス
+			order.setRemarks((String) row[8]);	  // 備考
+			order.setPayment((String) row[9]);	  // 入金状況
+			order.setShipment((String) row[10]);	// 発送状況
+			
+			
+			orderList.add(order);
 		}
 
-		return salesList;
+		return orderList;
 	}
+}
