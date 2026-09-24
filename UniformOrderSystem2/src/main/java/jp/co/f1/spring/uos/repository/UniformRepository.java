@@ -1,5 +1,14 @@
 package jp.co.f1.spring.uos.repository;
 
-public interface UniformRepository {
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import jp.co.f1.spring.uos.entity.Uniform;
+
+
+@Repository
+public interface UniformRepository extends JpaRepository<Uniform , String>{
+	public Optional<Uniform> findByProductno(String productno);
 }
