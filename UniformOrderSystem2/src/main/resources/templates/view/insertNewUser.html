@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>新規会員登録</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="user-registration">
+
+    <h1 class="page-title">新規会員登録</h1>
+
+    <p class="page-description">
+      会員情報を入力してください。
+    </p>
+
+    <p class="error-message"
+       th:if="${errorMessage}"
+       th:text="${errorMessage}">
+      入力内容を確認してください。
+    </p>
+
+    <form action="/members"
+          th:action="@{/members}"
+          th:object="${user}"
+          method="post">
+
+      <table class="input-table">
+        <tbody>
+          <tr>
+            <th>
+              <label for="name">
+                名前
+                <span class="required">必須</span>
+              </label>
+            </th>
+
+            <td>
+              <input id="name"
+                     type="text"
+                     th:field="*{name}"
+                     maxlength="100"
+                     placeholder="例：神田 太郎"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">
+                名前の入力に誤りがあります。
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="email">
+                メールアドレス
+                <span class="required">必須</span>
+              </label>
+            </th>
+
+            <td>
+              <input id="email"
+                     type="email"
+                     th:field="*{email}"
+                     maxlength="100"
+                     placeholder="例：example@email.com"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+                メールアドレスの入力に誤りがあります。
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="address">
+                住所
+                <span class="required">必須</span>
+              </label>
+            </th>
+
+            <td>
+              <textarea id="address"
+                        th:field="*{address}"
+                        rows="5"
+                        maxlength="255"
+                        placeholder="例：東京都千代田区大手町0-0-1"
+                        required></textarea>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('address')}"
+                 th:errors="*{address}">
+                住所の入力に誤りがあります。
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="password">
+                パスワード
+                <span class="required">必須</span>
+              </label>
+            </th>
+
+            <td>
+              <input id="password"
+                     type="password"
+                     th:field="*{password}"
+                     maxlength="20"
+                     required>
+
+              <p class="input-help">
+                20文字以内で入力してください。
+              </p>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+                パスワードの入力に誤りがあります。
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="button-area">
+        <button class="register-button" type="submit">
+          会員登録
+        </button>
+      </div>
+
+    </form>
+
+    <nav class="page-navigation">
+      <a class="page-link"
+         href="/products"
+         th:href="@{/products}">
+        商品一覧へ戻る
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>

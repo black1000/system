@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>注文履歴</title>
+
+  <link rel="stylesheet"
+        href="/css/rireki.css"
+        th:href="@{/css/rireki.css}">
+</head>
+
+<body>
+  <main class="history-container">
+
+    <h1 class="page-title">注文履歴</h1>
+
+    <p class="customer-name">
+      <span th:text="${user.name}">
+        神田太郎
+      </span>
+      様
+    </p>
+
+    <!-- 注文1件ごとに繰り返す -->
+    <section class="order-history"
+             th:each="order : ${orders}">
+
+      <div class="order-header">
+        <p>
+          注文No.：
+          <strong th:text="${order.orderno}">
+            0001
+          </strong>
+        </p>
+
+        <p>
+          注文日時：
+          <strong th:text="${order.datetime}">
+            2026/09/16 22:00
+          </strong>
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>税込価格</th>
+              <th>購入個数</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- その注文に含まれる商品を繰り返す -->
+            <tr th:each="detail : ${order.details}">
+
+              <td th:text="${detail.productname}">
+                ユニフォームA
+              </td>
+
+              <td class="nowrap"
+                  th:text="${#numbers.formatInteger(
+                    detail.price, 1, 'COMMA'
+                  )} + '円'">
+                3,000円
+              </td>
+
+              <td th:text="${detail.quantity} + '枚'">
+                2枚
+              </td>
+
+              <td class="nowrap"
+                  th:text="${#numbers.formatInteger(
+                    detail.price * detail.quantity,
+                    1,
+                    'COMMA'
+                  )} + '円'">
+                6,000円
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="order-information">
+        <p>
+          備考：
+          <span th:text="${order.remarks != null
+                          and !order.remarks.isEmpty()}
+                          ? ${order.remarks}
+                          : 'なし'">
+            なし
+          </span>
+        </p>
+
+        <p class="order-total">
+          合計金額：
+          <strong th:text="${#numbers.formatInteger(
+            order.totalprice, 1, 'COMMA'
+          )} + '円'">
+            6,000円
+          </strong>
+        </p>
+      </div>
+
+    </section>
+
+    <!-- 注文履歴がない場合 -->
+    <p class="no-history"
+       th:if="${orders == null or #lists.isEmpty(orders)}">
+      注文履歴はありません。
+    </p>
+
+    <nav class="page-navigation">
+
+      <a class="page-link"
+         href="#"
+         th:href="@{/member/menu}">
+        会員メニューへ
+      </a>
+
+      <a class="page-link"
+         href="#"
+         th:href="@{/products}">
+        商品一覧へ
+      </a>
+
+    </nav>
+
+  </main>
+</body>
+</html>

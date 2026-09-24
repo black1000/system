@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>商品一覧（購入者）</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="product-list-container">
+
+    <h1 class="page-title">商品一覧</h1>
+
+    <p id="quantity-help" class="page-description">
+      購入したい商品の個数を選択してください。
+      購入しない商品は「0枚」のままにしてください。
+    </p>
+
+    <p class="error-message"
+       th:if="${errorMessage}"
+       th:text="${errorMessage}">
+      購入する商品を選択してください。
+    </p>
+
+    <form action="/cart/add"
+          th:action="@{/cart/add}"
+          method="post">
+
+      <div class="table-scroll">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>税込価格</th>
+              <th>在庫数</th>
+              <th>購入個数</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- DBから取得した商品を繰り返し表示 -->
+            <tr th:each="product : ${products}"
+                th:classappend="${product.stock == 0}
+                  ? 'sold-out-row'">
+
+              <td>
+                <a class="product-link"
+                   href="/products/0001"
+                   th:href="@{/products/{id}(
+                     id=${product.productno}
+                   )}"
+                   th:text="${product.productname}">
+                  ユニフォームA
+                </a>
+
+                <!-- 在庫がある商品だけ送信する -->
+                <input th:if="${product.stock > 0}"
+                       type="hidden"
+                       name="productIds"
+                       value="0001"
+                       th:value="${product.productno}">
+              </td>
+
+              <td class="nowrap"
+                  th:text="${#numbers.formatInteger(
+                    product.price, 1, 'COMMA'
+                  )} + '円'">
+                3,000円
+              </td>
+
+              <!-- 在庫がある場合 -->
+              <td th:if="${product.stock > 0}"
+                  th:text="${product.stock} + '枚'">
+                10枚
+              </td>
+
+              <!-- 在庫が0の場合 -->
+              <td class="sold-out"
+                  th:if="${product.stock == 0}">
+                売り切れ
+              </td>
+
+              <!-- 在庫がある場合の個数選択 -->
+              <td th:if="${product.stock > 0}">
+                <select class="quantity-select"
+                        name="quantities"
+                        aria-describedby="quantity-help"
+                        th:attr="aria-label=
+                          ${product.productname} + 'の購入個数'">
+
+                  <!-- 0から在庫数まで自動生成 -->
+                  <option th:each="count :
+                            ${#numbers.sequence(0, product.stock)}"
+                          th:value="${count}"
+                          th:text="${count} + '枚'">
+                    0枚
+                  </option>
+                </select>
+              </td>
+
+              <!-- 在庫が0の場合 -->
+              <td class="cannot-purchase"
+                  th:if="${product.stock == 0}">
+                購入できません
+              </td>
+            </tr>
+
+            <!-- 商品が登録されていない場合 -->
+            <tr th:if="${products == null or #lists.isEmpty(products)}">
+              <td colspan="4">
+                現在、購入できる商品はありません。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-area">
+        <button class="cart-button" type="submit">
+          まとめてカートに追加
+        </button>
+      </div>
+
+    </form>
+
+    <nav class="customer-navigation"
+         aria-label="購入者用メニュー">
+
+      <a class="page-link"
+         href="/members/new"
+         th:href="@{/members/new}">
+        会員登録
+      </a>
+
+      <a class="page-link"
+         href="/login"
+         th:href="@{/login}">
+        ログイン
+      </a>
+
+      <a class="page-link"
+         href="/cart"
+         th:href="@{/cart}">
+        カートを見る
+      </a>
+    </nav>
+
+    <nav class="admin-navigation"
+         aria-label="管理者用メニュー">
+
+      <a class="admin-link"
+         href="/login?role=admin"
+         th:href="@{/login(role='admin')}">
+        管理者としてログイン
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>

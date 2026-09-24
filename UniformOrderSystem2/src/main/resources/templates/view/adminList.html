@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>商品一覧</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="admin-product-list">
+
+    <h1 class="page-title">商品一覧</h1>
+
+    <!-- 売り切れ商品がある場合だけ表示 -->
+    <p class="warning-message"
+       th:if="${hasSoldOutProduct}">
+      売り切れの商品があります。
+    </p>
+
+    <!-- 処理完了メッセージ -->
+    <p class="success-message"
+       th:if="${message}"
+       th:text="${message}">
+      商品情報を更新しました。
+    </p>
+
+    <div class="top-navigation">
+      <a class="page-link"
+         href="/admin/menu"
+         th:href="@{/admin/menu}">
+        ［メニューに戻る］
+      </a>
+    </div>
+
+    <div class="table-scroll">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>商品No.</th>
+            <th>商品名</th>
+            <th>税込価格</th>
+            <th>在庫数</th>
+            <th>商品情報変更／削除</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- Controllerから受け取った商品を繰り返し表示 -->
+          <tr th:each="product : ${products}"
+              th:classappend="${product.stock == 0} ? 'sold-out-row'">
+
+            <td th:text="${product.productno}">
+              0001
+            </td>
+
+            <td>
+              <a class="page-link"
+                 href="/products/0001"
+                 th:href="@{/products/{id}(id=${product.productno})}"
+                 th:text="${product.productname}">
+                ユニフォームA
+              </a>
+            </td>
+
+            <td class="nowrap"
+                th:text="${#numbers.formatInteger(
+                  product.price, 1, 'COMMA'
+                )} + '円'">
+              3,000円
+            </td>
+
+            <!-- 在庫がある場合 -->
+            <td th:if="${product.stock > 0}"
+                th:text="${product.stock} + '枚'">
+              10枚
+            </td>
+
+            <!-- 在庫が0の場合 -->
+            <td class="sold-out"
+                th:if="${product.stock == 0}">
+              売り切れ
+            </td>
+
+            <td>
+              <div class="product-actions">
+
+                <!-- 変更画面 -->
+                <a class="page-link"
+                   href="/admin/products/0001/edit"
+                   th:href="@{/admin/products/{id}/edit(
+                     id=${product.productno}
+                   )}">
+                  変更
+                </a>
+
+                <!-- 削除処理 -->
+                <form class="delete-form"
+                      action="/admin/products/0001/delete"
+                      th:action="@{/admin/products/{id}/delete(
+                        id=${product.productno}
+                      )}"
+                      method="post">
+
+                  <button class="delete-button"
+                          type="submit"
+                          onclick="return confirm('この商品を削除してもよろしいですか？');">
+                    削除
+                  </button>
+                </form>
+
+              </div>
+            </td>
+          </tr>
+
+          <!-- 商品が1件もない場合 -->
+          <tr th:if="${products == null or #lists.isEmpty(products)}">
+            <td colspan="5">
+              登録されている商品はありません。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <nav class="bottom-navigation">
+      <a class="page-link"
+         href="/admin/products/new"
+         th:href="@{/admin/products/new}">
+        商品を新規登録する
+      </a>
+
+      <span class="login-status">
+        管理者としてログイン中
+      </span>
+    </nav>
+
+  </main>
+</body>
+</html>
