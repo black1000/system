@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>受注状況一覧</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="order-list-container">
+
+    <h1 class="page-title">受注状況一覧</h1>
+
+    <!-- 売上情報 -->
+    <section class="sales-summary" aria-label="売上情報">
+      <p>
+        先月の売上：
+        <strong th:text="${#numbers.formatInteger(
+          previousMonthSales, 1, 'COMMA'
+        )} + '円'">
+          50,000円
+        </strong>
+      </p>
+
+      <p>
+        今月の売上：
+        <strong th:text="${#numbers.formatInteger(
+          currentMonthSales, 1, 'COMMA'
+        )} + '円'">
+          35,203円
+        </strong>
+      </p>
+    </section>
+
+    <nav class="top-navigation">
+      <a class="page-link"
+         href="/admin/menu"
+         th:href="@{/admin/menu}">
+        ［管理者メニューに戻る］
+      </a>
+    </nav>
+
+
+
+    <div class="table-scroll">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>注文No.</th>
+            <th>注文者</th>
+            <th>注文日時</th>
+            <th>合計金額</th>
+            <th>入金状況</th>
+            <th>発送状況</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- 注文日時の新しい順で表示 -->
+          <tr th:each="order : ${orders}">
+
+            <td>
+              <a class="page-link"
+                 href="/admin/orders/0001"
+                 th:href="@{/admin/orders/{id}(
+                   id=${order.orderno}
+                 )}"
+                 th:text="${order.orderno}">
+                0001
+              </a>
+            </td>
+
+            <td th:text="${order.name}">
+              神田太郎
+            </td>
+
+            <td class="nowrap"
+                th:text="${order.datetime}">
+              2026/09/16 22:00
+            </td>
+
+            <td class="nowrap"
+                th:text="${#numbers.formatInteger(
+                  order.totalprice, 1, 'COMMA'
+                )} + '円'">
+              22,000円
+            </td>
+
+            <!-- 1：入金待ち、2：入金済み -->
+            <td>
+              <span class="status"
+                    th:classappend="${order.payment == '2'}
+                      ? 'status-complete'
+                      : 'status-waiting'"
+                    th:text="${order.payment == '2'}
+                      ? '入金済み'
+                      : '入金待ち'">
+                入金済み
+              </span>
+            </td>
+
+            <!-- 1：発送準備中、2：発送済み -->
+            <td>
+              <span class="status"
+                    th:classappend="${order.shipment == '2'}
+                      ? 'status-complete'
+                      : 'status-waiting'"
+                    th:text="${order.shipment == '2'}
+                      ? '発送済み'
+                      : '発送準備中'">
+                発送準備中
+              </span>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</body>
+</html>

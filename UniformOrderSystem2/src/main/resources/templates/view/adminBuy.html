@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>（管理者）注文の詳細</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="admin-order-detail">
+
+    <h1 class="page-title">注文詳細</h1>
+
+    <!-- 注文者情報 -->
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th>注文No.</th>
+          <td th:text="${order.orderno}">0001</td>
+        </tr>
+
+        <tr>
+          <th>注文者</th>
+          <td th:text="${order.name}">神田太郎</td>
+        </tr>
+
+        <tr>
+          <th>住所</th>
+          <td th:text="${order.address}">
+            test県test市1-2-3
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 購入商品 -->
+    <h2 class="section-title">購入商品</h2>
+
+    <div class="table-scroll">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>購入個数</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="detail : ${orderDetails}">
+            <td>
+              <a class="page-link"
+                 href="/products/1"
+                 th:href="@{/products/{id}(id=${detail.productno})}"
+                 th:text="${detail.productname}">
+                ユニフォームA
+              </a>
+            </td>
+
+            <td class="nowrap"
+                th:text="${detail.quantity} + '枚'">
+              5枚
+            </td>
+          </tr>
+
+          <tr th:if="${orderDetails == null or #lists.isEmpty(orderDetails)}">
+            <td colspan="2">購入商品はありません。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 合計金額 -->
+    <table class="detail-table total-table">
+      <tbody>
+        <tr>
+          <th>合計価格（税込み）</th>
+          <td th:text="${#numbers.formatInteger(order.totalprice, 1, 'COMMA')} + '円'">
+            15,000円
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 画面下部のリンク -->
+    <nav class="page-navigation">
+      <a class="page-link"
+         href="/admin/orders"
+         th:href="@{/admin/orders}">
+        受注状況一覧
+      </a>
+
+      <a class="page-link"
+         href="/admin/menu"
+         th:href="@{/admin/menu}">
+        管理者メニュー
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>

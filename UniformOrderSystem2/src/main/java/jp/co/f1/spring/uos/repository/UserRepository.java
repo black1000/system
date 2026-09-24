@@ -11,4 +11,6 @@ import jp.co.f1.spring.uos.entity.User;
 public interface UserRepository extends JpaRepository<User, String> {
 	
 	public Optional<User> findByUserid(String userid);
+
+	public Optional<User> findByUseridAndPassword(String usreid, String password);
 }
