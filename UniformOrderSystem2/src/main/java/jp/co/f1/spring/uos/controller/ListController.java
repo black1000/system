@@ -43,10 +43,10 @@ public class ListController {
 	
 	//商品情報の取得
 	// Uniformテーブルから商品情報全件取得
-	Iterable<Uniform> uniformList = productinfo.findAll();
+	Iterable<Uniform> products = productinfo.findAll();
 	
 	//取得した商品データをModelに格納
-	mav.addObject("uniformList", uniformList);
+	mav.addObject("uniformList", products);
 
 	// 画面に出力するViewを指定
 	mav.setViewName("view/menu");
