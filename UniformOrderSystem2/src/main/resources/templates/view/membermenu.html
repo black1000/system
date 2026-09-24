@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>会員メニュー</title>
+
+  <link rel="stylesheet"
+        href="/css/membermenu.css"
+        th:href="@{/css/membermenu.css}">
+</head>
+
+<body>
+  <main class="member-menu-container">
+
+    <h1 class="page-title">会員メニュー</h1>
+
+    <!-- ログイン中の会員名を表示する場合 -->
+    <p class="welcome-message"
+       th:if="${session.loginUser != null}">
+      <span th:text="${session.loginUser.name}">
+        神田太郎
+      </span>
+      様、ようこそ
+    </p>
+
+    <nav aria-label="会員メニュー">
+      <ul class="menu-list">
+
+        <li>
+          <a class="menu-link"
+             href="#"
+             th:href="@{/products}">
+            商品を見る
+          </a>
+        </li>
+
+        <li>
+          <a class="menu-link"
+             href="#"
+             th:href="@{/cart}">
+            カートを見る
+          </a>
+        </li>
+
+        <li>
+          <a class="menu-link"
+             href="#"
+             th:href="@{/member/orders}">
+            注文履歴
+          </a>
+        </li>
+
+        <li>
+          <a class="menu-link"
+             href="#"
+             th:href="@{/member/profile}">
+            会員情報
+          </a>
+        </li>
+
+        <li>
+          <a class="menu-link logout-link"
+             href="#"
+             th:href="@{/logout}">
+            ログアウト
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+  </main>
+</body>
+</html>

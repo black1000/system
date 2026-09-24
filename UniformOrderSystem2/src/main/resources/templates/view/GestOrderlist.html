@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ゲスト購入</title>
+
+  <link rel="stylesheet"
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <main class="guest-order-container">
+
+    <h1 class="page-title">ゲスト購入</h1>
+
+    <p class="page-description">
+      注文者の情報を入力してください。
+    </p>
+
+    <form action="/guest/order/confirm"
+          th:action="@{/guest/order/confirm}"
+          th:object="${guestOrder}"
+          method="post">
+
+      <table class="input-table">
+        <tbody>
+          <tr>
+            <th>
+              <label for="email">
+                メールアドレス
+                <span class="required">必須</span>
+              </label>
+            </th>
+            <td>
+              <input id="email"
+                     type="email"
+                     th:field="*{email}"
+                     maxlength="100"
+                     placeholder="example@email.com"
+                     required>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="name">
+                名前
+                <span class="required">必須</span>
+              </label>
+            </th>
+            <td>
+              <input id="name"
+                     type="text"
+                     th:field="*{name}"
+                     maxlength="100"
+                     placeholder="神田 太郎"
+                     required>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="address">
+                住所
+                <span class="required">必須</span>
+              </label>
+            </th>
+            <td>
+              <input id="address"
+                     type="text"
+                     th:field="*{address}"
+                     maxlength="255"
+                     placeholder="東京都千代田区○○1-2-3"
+                     required>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="remarks">備考</label>
+            </th>
+            <td>
+              <textarea id="remarks"
+                        th:field="*{remarks}"
+                        rows="5"
+                        maxlength="200"
+                        placeholder="200文字以内で入力してください"></textarea>
+
+              <p class="input-help">
+                備考がない場合は、入力しなくても構いません。
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="button-area">
+        <button class="order-button" type="submit">
+          注文内容を確認する
+        </button>
+      </div>
+
+    </form>
+
+    <nav class="page-navigation">
+      <a class="page-link"
+         href="/cart"
+         th:href="@{/cart}">
+        カートへ戻る
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>
