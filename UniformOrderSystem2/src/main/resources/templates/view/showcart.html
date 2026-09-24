@@ -87,7 +87,7 @@
     </div>
 
     <!-- 商品がある場合だけ購入ボタンを表示 -->
-    <form action="#"
+    <form action="/buyComfirm"
           th:action="@{/order/checkout}"
           method="post"
           th:if="${cartItems != null

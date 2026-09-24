@@ -140,7 +140,7 @@ public class LoginController {
 		}
 
 		//入力されたユーザーIDとパスワードでユーザー検索
-		Optional<User> optionalUser = userinfo.findByUseridAndPassword(user.getUsreid(), user.getPassword());
+		Optional<User> optionalUser = userinfo.findByUseridAndPassword(user.getUserid(), user.getPassword());
 
 		//該当ユーザーが存在しない場合
 		if (!(optionalUser.isPresent())) {
@@ -160,7 +160,7 @@ public class LoginController {
 
 		// パスワードは保存しない
 		session.setAttribute(
-				"loginUserId", user.getUsreid());
+				"loginUserId", user.getUserid());
 
 		session.setAttribute(
 				"loginUserName", user.getName());
