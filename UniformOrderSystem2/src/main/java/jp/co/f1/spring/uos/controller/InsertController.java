@@ -102,7 +102,7 @@ public class InsertController {
 
 			mav.addObject("user", user);
 
-			// 書籍情報の検索
+			// 商品情報の検索
 			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(uniform.getProductNo());
 
 			// 入力エラーがある場合
@@ -116,7 +116,7 @@ public class InsertController {
 				// ModelとView情報を返す
 				return mav;
 
-				// ISBNの重複チェック
+				// 商品番号の重複チェック
 			} else if (optionalUniform.isPresent()) {
 				// エラーメッセージ
 
