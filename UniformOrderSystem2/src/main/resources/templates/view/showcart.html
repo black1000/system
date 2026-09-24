@@ -87,7 +87,7 @@
     </div>
 
     <!-- 商品がある場合だけ購入ボタンを表示 -->
-    <form action="#"
+    <form action="/buyComfirm"
           th:action="@{/order/checkout}"
           method="post"
           th:if="${cartItems != null
@@ -95,7 +95,9 @@
 
       <div class="button-area">
         <button class="purchase-button" type="submit">
-          購入手続きへ
+          購入
+		  <input type="hidden" name="payment" th:value="1">
+		  <input type="hidden" name="shipment" th:value="1">
         </button>
       </div>
 

@@ -15,6 +15,8 @@ import jp.co.f1.spring.uos.repository.OrderRepository;
 import jp.co.f1.spring.uos.repository.UniformRepository;
 
 public class BuyConfirmController {
+	
+	
 
 	// Repositoryインターフェースを自動インスタンス化
 	@Autowired

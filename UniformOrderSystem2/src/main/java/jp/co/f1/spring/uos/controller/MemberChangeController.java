@@ -84,14 +84,14 @@ public class MemberChangeController {
 		}
 		
 		// セッションから読み取ったuser情報を検索
-		Optional<User> optionalUser = userinfo.findByUserid(user.getUsreid());
+		Optional<User> optionalUser = userinfo.findByUserid(user.getUserid());
 		
 		
 	
 		
 		User oldUser = optionalUser.get();
 		mav.addObject("oldUser", oldUser);
-		mav.addObject("userid", user.getUsreid());
+		mav.addObject("userid", user.getUserid());
 
 		mav.setViewName("view/memberChange");
 
