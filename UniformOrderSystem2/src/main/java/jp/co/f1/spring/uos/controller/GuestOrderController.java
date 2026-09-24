@@ -5,14 +5,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class GuestOrderController {
 
 	@GetMapping("/guest/order")
-	public String showGuestOrder(
-			HttpSession session,
-			Model model) {
+	public ModelAndView showGuestOrder(ModelAndView mav, HttpSession session,Model model) {
 
 		Object cart = session.getAttribute("cart");
 
@@ -21,9 +20,8 @@ public class GuestOrderController {
 					"errorMessage",
 					"カートに商品が入っていません。");
 
-			return "showcart";
+			return mav;
 		}
-
-		return "GestOrderlist";
+		return mav;
 	}
 }

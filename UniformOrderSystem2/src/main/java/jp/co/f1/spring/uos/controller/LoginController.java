@@ -1,119 +1,161 @@
 package jp.co.f1.spring.uos.controller;
 
-import java.util.Optional;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.co.f1.spring.uos.entity.CheckUser;
 import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.repository.UserRepository;
 
+@Controller
 public class LoginController {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	private final UserRepository userRepository;
 
-	@Autowired
-	private UserRepository userinfo;
+	public LoginController(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
-	@Autowired
-	private User userDao;
-
-	//セッション使用
-	@Autowired
-	private HttpSession session;
-
-	/* login
-	 *  
-	 */
+	// 一般のログイン画面を表示
 	@GetMapping("/login")
-	public ModelAndView loginForm(ModelAndView mav, HttpServletRequest request) {
+	public ModelAndView showLogin(ModelAndView mav) {
 
-		// クッキーを取得
-		Cookie[] cookies = request.getCookies();
-		String strUserid = null;
-		String strPassword = null;
+		mav.addObject("adminLogin", false);
+		mav.setViewName("login");
 
-		//クッキーが存在するかチェック
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if ("strUserid".equals(cookie.getName())) {
-					strUserid = cookie.getValue();
-				} else if ("strPassword".equals(cookie.getName())) {
-					strPassword = cookie.getValue();
-				}
-			}
-		}
-
-		// Modelにクッキーの値を追加
-		mav.addObject("strUserid", strUserid);
-		mav.addObject("strPassword", strPassword);
-		// mav.addObject("strAuthority", strAuthority);
-
-		// 画面に出力するViewを指定
-		mav.setViewName("view/login");
-
-		// ModelとView情報を返す
 		return mav;
 	}
 
-	/*
-	 * login   POST
-	 */
+	// 管理者のログイン画面を表示
+	// 今回は同じlogin.htmlを使用
+	@GetMapping("/admin/login")
+	public ModelAndView showAdminLogin(ModelAndView mav) {
+
+		mav.addObject("adminLogin", true);
+		mav.setViewName("login");
+
+		return mav;
+	}
+
+	// 一般のログインボタンが押されたとき
 	@PostMapping("/login")
-	public ModelAndView loginPost(@ModelAttribute User user, BindingResult result,
-			ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView login(
+			@RequestParam(name = "userid", defaultValue = "") String userid,
+			@RequestParam(name = "password", defaultValue = "") String password,
+			HttpServletRequest request,
+			ModelAndView mav) {
 
-		//入力されたユーザーIDとパスワードでユーザー,名前、アドレス、email検索
-		Optional<User> optionalUser = userinfo.findByUseridAndPassword(user.getUsreid(), user.getPassword());
+		return checkLogin(
+				userid, password, false, request, mav);
+	}
 
-		//該当ユーザーが存在しない場合
-		if (!(optionalUser.isPresent())) {
-			//エラーメッセージ
-			mav.addObject("errorMessage", "入力内容に誤りがあります。");
-			// 画面に出力するViewを指定
-			mav.setViewName("view/login");
-			//ModelとView情報を返す
+	// 管理者のログインボタンが押されたとき
+	@PostMapping("/admin/login")
+	public ModelAndView adminLogin(
+			@RequestParam(name = "userid", defaultValue = "") String userid,
+			@RequestParam(name = "password", defaultValue = "") String password,
+			HttpServletRequest request,
+			ModelAndView mav) {
+
+		return checkLogin(
+				userid, password, true, request, mav);
+	}
+
+	// 一般・管理者の共通ログイン処理
+	private ModelAndView checkLogin(
+			String userid,
+			String password,
+			boolean adminLogin,
+			HttpServletRequest request,
+			ModelAndView mav) {
+
+		// 失敗した場合に表示する画面と入力済みID
+		mav.setViewName("login");
+		mav.addObject("adminLogin", adminLogin);
+		mav.addObject("userid", userid);
+
+		//  未入力を確認
+		if (userid.isBlank() || password.isBlank()) {
+
+			mav.addObject(
+					"errorMessage",
+					"ユーザーIDとパスワードを入力してください。");
+
 			return mav;
 		}
 
-		//クッキーの登録
-		//ユーザーID
-		Cookie useridCookie = new Cookie("strUserid", user.getUsreid());
-		useridCookie.setMaxAge(60 * 60 * 24 * 5); // 5日（秒）に設定
-		response.addCookie(useridCookie);
-		//パスワード
-		Cookie passCookie = new Cookie("strPassword", user.getPassword());
-		passCookie.setMaxAge(60 * 60 * 24 * 5); // 5日（秒）に設定
-		response.addCookie(passCookie);
+		//  ユーザーIDでDBを検索
+		User user = userRepository.findById(userid)
+				.orElse(null);
 
-		//現在ログインしているユーザー情報をセッションに登録
-		user = optionalUser.get();
-		session.setAttribute("user", user);
+		//  ID・パスワードを確認
+		// 演習用：DBに平文で保存されている場合の照合
+		if (user == null
+				|| !password.equals(user.getPassword())) {
 
-		//パスワード変更の際に使うものをセッションに登録
-		CheckUser checkUser = new CheckUser();
-		checkUser.setUserid(user.getUsreid());
-		checkUser.setOldPassword(user.getPassword());
-		checkUser.setEmail(user.getEmail());
-		checkUser.setAuthority(user.getAuthority());
-		session.setAttribute("checkUser", checkUser);
+			mav.addObject(
+					"errorMessage",
+					"ユーザーIDまたはパスワードが違います。");
 
-		//リダイレクト先を指定
-		mav = new ModelAndView("redirect:/menu");
-		//ModelとView情報を返す
+			return mav;
+		}
+
+		//  DBの権限を確認
+		boolean isAdmin = "1".equals(user.getAuthority());
+
+		boolean isMember = "2".equals(user.getAuthority());
+
+		if (!isAdmin && !isMember) {
+
+			mav.addObject(
+					"errorMessage",
+					"このアカウントではログインできません。");
+
+			return mav;
+		}
+
+		// 管理者用入口では一般会員を受け付けない
+		if (adminLogin && !isAdmin) {
+
+			mav.addObject(
+					"errorMessage",
+					"管理者アカウントでログインしてください。");
+
+			return mav;
+		}
+
+		//  ログイン成功：セッションを取得
+		HttpSession session = request.getSession();
+
+		// カートの内容を残してセッションIDを変更
+		request.changeSessionId();
+
+		// パスワードは保存しない
+		session.setAttribute(
+				"loginUserId", user.getUsreid());
+
+		session.setAttribute(
+				"loginUserName", user.getName());
+
+		session.setAttribute(
+				"authority", user.getAuthority());
+
+		//  画面へ渡すログイン用データを消す
+		// リダイレクト先のURLへ付けないため
+		mav.clear();
+
+		//  権限によって移動先を分ける
+		if (isAdmin) {
+			mav.setViewName("redirect:/admin/menu");
+		} else {
+			mav.setViewName("redirect:/member/menu");
+		}
+
 		return mav;
 	}
 }
