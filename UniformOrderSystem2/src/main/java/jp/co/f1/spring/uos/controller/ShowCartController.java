@@ -134,7 +134,7 @@ public class ShowCartController {
              * 合計金額を計算.
              */
             totalPrice +=
-                    uniform.getPrice()quantity;.
+                    uniform.getPrice() * quantity;
         }
 
         /*
