@@ -1,98 +1,164 @@
 package jp.co.f1.spring.uos.controller;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.f1.spring.uos.entity.OrderDetail;
 import jp.co.f1.spring.uos.entity.Uniform;
-import jp.co.f1.spring.uos.repository.OrderRepository;
 import jp.co.f1.spring.uos.repository.UniformRepository;
 
+@Controller
 public class ShowCartController {
-	
-	// Repositoryインターフェースを自動インスタンス化
-		@Autowired
-		private UniformRepository productinfo;
 
-		@Autowired
-		private OrderRepository orderinfo;
+	private static final String CART_SESSION_NAME = "cart";
 
-		@PersistenceContext
-		private EntityManager entityManager;
+	private final UniformRepository uniformRepository;
 
+	public ShowCartController(
+			UniformRepository uniformRepository) {
 
-		@Autowired
-		private HttpSession session;
-	
+		this.uniformRepository = uniformRepository;
+	}
+
 	/*
-	 * カート一覧
+	 *カート画面を表示.
 	 */
-	
-	@GetMapping("showcart")
-	public ModelAndView showcart(HttpServletRequest request ,ModelAndView mav) {
+	@GetMapping("/cart")
+    public ModelAndView showCart(
+            HttpSession session,
+            ModelAndView mav) {
 
-		//セッションからカート情報を取得
-		ArrayList<Uniform> uniformlist = (ArrayList<Uniform>) session.getAttribute("uniformlist");
+        /*
+         * セッションからカートを取得.
+         */
+        Object cartObject =
+                session.getAttribute(
+                        CART_SESSION_NAME);
 
-		//削除リンクを押下した場合
-		if (request.getParameter("uniformlist") != null && uniformlist != null) {
+        Map<String, Integer> cart;
 
-		//該当書籍検索
-		int i = 0;							//カウント用変数
-		Uniform uniform = new Uniform();		//uniform初期化
+        /*
+         * カートが存在する場合.
+         */
+        if (cartObject instanceof Map<?, ?>) {
 
-		//繰り返して取り出す
-		while (i < uniformlist.size()) {
-			uniform = uniformlist.get(i);
-				if (uniform.getProductNo().equals(request.getParameter("delno"))) {
-					break;
-					}
-				i++;
-			}
-			//該当する書籍がカートにある場合のみ、カートから削除
-			if (i < uniformlist.size()) {
-				uniformlist.remove(uniformlist.indexOf(uniform));
-			}
-			//リダイレクト先を指定
-			mav = new ModelAndView("redirect:/showCart");
-			//ModelとView情報を返す
-			return mav;
-			}
-		
+            @SuppressWarnings("unchecked")
+            Map<String, Integer> sessionCart =
+                    (Map<String, Integer>)
+                    cartObject;
 
-			//合計値計算用の変数
-			int total = 0;
+            cart = sessionCart;
 
-			//計算用ループ
-			if (uniformlist != null) {
+        } else {
 
-			//uniformリストからユニフォーム情報を取り出す
-			for (Uniform uniform : uniformlist) {
+            /*
+             *カートが存在しない場合.
+             */
+            cart =
+                    new LinkedHashMap<>();
+        }
 
-			//書籍検索
-			Optional<Uniform> uniformList = productinfo.findById(uniform.getProductNo());
+        /*
+         * HTMLへ渡すカート商品.
+         */
+        List<OrderDetail> cartItems =
+                new ArrayList<>();
 
-			//合計金額を計算
-			total += uniformList.get().getPrice() * orderinfo.getQuantity();
-			}
-		}
+        int totalPrice = 0;
 
-		//Viewに渡す変数をModelに格納
-		mav.addObject("total", total);
-		mav.addObject("uniformlist", uniformlist);
+        /*
+         *カート内の商品を順番に取得.
+         */
+        for (Map.Entry<String, Integer> entry
+                : cart.entrySet()) {
 
-		//画面に出力するViewを指定
-		mav.setViewName("view/showCart");
-		//ModelとView情報を返す
-		return mav;
-	}
-	}
+            String productno =
+                    entry.getKey();
 
+            Integer quantity =
+                    entry.getValue();
+
+            /*
+             *個数が正しくない場合は除外.
+             */
+            if (quantity == null
+                    || quantity <= 0) {
+
+                continue;
+            }
+
+            /*
+             *商品番号から商品を検索.
+             */
+            Uniform uniform =
+                    uniformRepository
+                            .findById(productno)
+                            .orElse(null);
+
+            /*
+             *商品が削除されている場合.
+             */
+            if (uniform == null) {
+                continue;
+            }
+
+            /*
+             *カート表示用データを作成.
+             */
+            OrderDetail item =
+                    new OrderDetail();
+
+            item.setProductno(
+                    uniform.getProductNo());
+
+            item.setProductname(
+                    uniform.getProductNo());
+
+            item.setPrice(
+                    uniform.getPrice());
+
+            item.setQuantity(
+                    quantity);
+
+            cartItems.add(item);
+
+            /*
+             * 合計金額を計算.
+             */
+            totalPrice +=
+                    uniform.getPrice()quantity;.
+        }
+
+        /*
+		 *showcart.htmlへ渡す.
+         */
+        mav.addObject(
+                "cartItems",
+                cartItems);
+
+        mav.addObject(
+                "totalPrice",
+                totalPrice);
+
+        mav.addObject(
+                "loginUserId",
+                session.getAttribute(
+                        "loginUserId"));
+
+        /*
+         * templates/view/showcart.html.
+         */
+        mav.setViewName(
+                "view/showcart");
+
+        return mav;
+    }
+}
