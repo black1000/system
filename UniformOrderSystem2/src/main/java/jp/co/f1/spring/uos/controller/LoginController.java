@@ -173,11 +173,11 @@ public class LoginController {
 		mav.clear();
 
 		//  権限によって移動先を分ける
-		if (isAdmin) {
-			mav.setViewName("redirect:/admin/menu");
-		} else {
-			mav.setViewName("redirect:/member/menu");
-		}
+		//if (isAdmin) {
+		//	mav.setViewName("redirect:/admin/menu");
+		//} else {
+		//	mav.setViewName("redirect:/member/menu");
+		//}
 
 		return mav;
 	}
