@@ -14,7 +14,7 @@ public class User {
 	@Column(length = 20, nullable = true)
 	private String userid;
 
-	public String getUsreid() {
+	public String getUserid() {
 		return userid;
 	}
 

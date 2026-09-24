@@ -78,7 +78,7 @@ public class CheckUser {
 
 	//Email
 	@Column(length = 100, nullable = false)
-	@NotEmpty(message = "メールアドレス入力値不正の為、変更できません。")
+	@NotEmpty(message = "メールアドレスを入力してください")
 	private String email;
 
 	public String getEmail() {
@@ -91,7 +91,7 @@ public class CheckUser {
 	
 	//住所
 	@Column(length = 255, nullable = false)
-	@NotEmpty(message = "住所入力値不正の為、変更できません。")
+	@NotEmpty(message = "住所を入力してください。")
 	private String address;
 
 	public String getAddress() {
