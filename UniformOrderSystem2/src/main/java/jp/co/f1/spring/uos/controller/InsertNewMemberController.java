@@ -1,5 +1,5 @@
 package jp.co.f1.spring.uos.controller;
 
-public class InsertNewMenberController {
+public class InsertNewMemberController {
 
 }
