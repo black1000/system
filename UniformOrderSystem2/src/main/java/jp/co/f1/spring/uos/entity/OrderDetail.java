@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class OrderDetail {
 	
 	//注文番号
-	@ManyToOne
+	@Column(length = 20)
 	@JoinColumn(name = "orderno", referencedColumnName = "orderno", insertable = false, updatable = false)
 	private int orderno;
 	
@@ -26,6 +26,7 @@ public class OrderDetail {
 	
 	
 	//価格
+	@Column(length = 20)
 	private int price;
 	
 	public int getPrice() {
@@ -38,6 +39,7 @@ public class OrderDetail {
 	
 	
 	//注文個数
+	@Column(length = 20)
 	private int quantity;
 	
 	public int getQuantity() {
@@ -53,7 +55,6 @@ public class OrderDetail {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "productno", referencedColumnName = "productno", insertable = false, updatable = false)
-	@Column(length = 4)
 	private String productno;
 	
 	public String getProductno() {
