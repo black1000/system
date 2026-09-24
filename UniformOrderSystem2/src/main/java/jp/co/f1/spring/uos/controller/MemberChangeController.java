@@ -41,7 +41,7 @@ import jp.co.f1.spring.uos.entity.Order;
 
 
 @Controller
-public class MenberInfoController {
+public class MemberChangeController {
 	
 	
 	// EntityManager自動インスタンス化
