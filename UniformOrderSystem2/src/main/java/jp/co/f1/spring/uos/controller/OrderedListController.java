@@ -40,6 +40,7 @@ public class OrderedListController {
 			// ModelとView情報を返す
 			return mav;
 		}
+		
 
 		//検索した年、月をパラメータ取得
 		String year = request.getParameter("year");
@@ -48,8 +49,10 @@ public class OrderedListController {
 		//データを検索
 		Iterable<Order> order_list = OrderDAO.findByMonth(year, month);
 
+		
 		//キャスト
 		ArrayList<Order> orderList = (ArrayList<Order>) order_list;
+		
 		//小計用のArrayListを作成
 		ArrayList<Integer> subtotal_list = new ArrayList<Integer>();
 
@@ -59,11 +62,11 @@ public class OrderedListController {
 		for (int i = 0; i < orderList.size(); i++) {
 
 			//該当商品を取り出す
-			Optional<Order> bookList = orderinfo.findByIsbn(orderList.get(i).getOrderno());
-			Order Book = bookList.get();
+			Optional<Order> orderList1 = orderinfo.findByOrderno(orderList.get(i).getOrderno());
+			Order order = orderList.get(i);
 
 			//合計値を合算
-			Order order = new Order();
+			
 			total += order.getTotalPrice();
 		}
 
