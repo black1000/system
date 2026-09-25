@@ -258,7 +258,7 @@ public class BuyConfirmController {
 			if (uniform.getStock() < quantity) {
 				redirectAttributes.addFlashAttribute(
 						"errorMessage",
-						uniform.getProductNo()
+						uniform.getProductno()
 								+ "は在庫数を超えて"
 								+ "購入できません。");
 				mav.setViewName(
@@ -270,9 +270,9 @@ public class BuyConfirmController {
 			 */
 			OrderDetail detail = new OrderDetail();
 			detail.setProductno(
-					uniform.getProductNo());
+					uniform.getProductno());
 			detail.setProductname(
-					uniform.getProductNo());
+					uniform.getProductno());
 			/*
 			 * 購入時点の価格を保存
 			 */
@@ -307,9 +307,9 @@ public class BuyConfirmController {
 		/*
 		 * 注文情報を設定
 		 */
-		order.setTotalPrice(
+		order.setTotalprice(
 				totalPrice);
-		order.setTotalQuantity(
+		order.setTotalquantity(
 				totalQuantity);
 		order.setDatetime(
 				new Date());
@@ -453,7 +453,7 @@ public class BuyConfirmController {
 		}
 		text.append("合計金額：")
 				.append(
-						order.getTotalPrice())
+						order.getTotalprice())
 				.append("円\n\n");
 		/*
 		 * 実際の振込先へ変更する

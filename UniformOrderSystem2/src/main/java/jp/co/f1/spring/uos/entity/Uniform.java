@@ -25,11 +25,11 @@ public class Uniform {
 	@NotEmpty(message="商品番号を入力してください", groups = Group1.class)
 	private String productno;
 
-	public String getProductNo() {
+	public String getProductno() {
 		return productno;
 	}
 
-	public void setProductNo(String productno) {
+	public void setProductno(String productno) {
 		this.productno = productno;
 	}
 
@@ -38,11 +38,11 @@ public class Uniform {
 	@NotEmpty(message="商品名を入力してください", groups = Group1.class)
 	private String productname;
 
-	public String getProductName() {
+	public String getProductname() {
 		return productname;
 	}
 
-	public void setProductName(String productname) {
+	public void setProductname(String productname) {
 		this.productname = productname;
 	}
 

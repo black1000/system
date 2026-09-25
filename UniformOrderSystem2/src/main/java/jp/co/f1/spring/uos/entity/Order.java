@@ -46,11 +46,11 @@ public class Order {
 	@Column(length = 20)
 	private int totalprice;
 
-	public int getTotalPrice() {
+	public int getTotalprice() {
 		return totalprice;
 	}
 
-	public void setTotalPrice(int totalprice) {
+	public void setTotalprice(int totalprice) {
 		this.totalprice = totalprice;
 	}
 
@@ -58,12 +58,12 @@ public class Order {
 	@Column(length = 20)
 	private int totalquantity;
 
-	public int getTotalQuantity() {
+	public int getTotalquantity() {
 		return totalquantity;
 
 	}
 
-	public void setTotalQuantity(int totalquantity) {
+	public void setTotalquantity(int totalquantity) {
 		this.totalquantity = totalquantity;
 	}
  // 注文日時
@@ -160,12 +160,12 @@ public class Order {
 	@JoinColumn(name = "orderno", referencedColumnName = "orderno", insertable = false, updatable = false)
 	private  OrderDetail orderdetail;
 
-	public OrderDetail getOrderDetail() {
+	public OrderDetail getOrderdetail() {
 		return orderdetail;
 
 	}
 
-	public void setOrderDetail(OrderDetail orderdetail) {
+	public void setOrderdetail(OrderDetail orderdetail) {
 		this.orderdetail = orderdetail;
 	}
 }

@@ -94,8 +94,8 @@ public class OrderDAO {
 			Order order = new Order();
 			order.setOrderno((String) row[0]); // 注文no
 			order.setUserid((String) row[1]); // 注文者のID
-			order.setTotalPrice((int) row[2]); // 合計金額
-			order.setTotalQuantity((int) row[3]); // 合計個数 
+			order.setTotalprice((int) row[2]); // 合計金額
+			order.setTotalquantity((int) row[3]); // 合計個数 
 			order.setDatetime((Date) row[4]); // 注文日時
 			order.setName((String) row[5]);	// 注文者の名前
 			order.setAddress((String) row[6]);	// 注文者の住所

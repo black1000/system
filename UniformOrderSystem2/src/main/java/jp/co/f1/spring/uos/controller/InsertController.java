@@ -103,7 +103,7 @@ public class InsertController {
 			mav.addObject("user", user);
 
 			// 商品情報の検索
-			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(uniform.getProductNo());
+			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(uniform.getProductno());
 
 			// 入力エラーがある場合
 			if (result.hasErrors()) {

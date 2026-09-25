@@ -214,7 +214,7 @@ public class ListController {
 
 				redirectAttributes.addFlashAttribute(
 						"errorMessage",
-						uniform.getProductNo()
+						uniform.getProductno()
 								+ "は在庫数を超えて"
 								+ "購入できません。");
 

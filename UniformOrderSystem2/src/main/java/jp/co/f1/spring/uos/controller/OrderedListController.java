@@ -74,7 +74,7 @@ public class OrderedListController {
 
 			//合計値を合算
 			
-			total += order.getTotalPrice();
+			total += order.getTotalprice();
 		}
 
 		// Modelに検索した年、月、合計を追加
