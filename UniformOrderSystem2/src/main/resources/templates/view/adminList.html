@@ -19,13 +19,13 @@
 
     <!-- 売り切れ商品がある場合だけ表示 -->
     <p class="warning-message"
-       th:if="${hasSoldOutProduct}">
+       th:if="${hasSoldOutProduct == true}">
       売り切れの商品があります。
     </p>
 
     <!-- 処理完了メッセージ -->
     <p class="success-message"
-       th:if="${message}"
+       th:if="${message != null}"
        th:text="${message}">
       商品情報を更新しました。
     </p>
@@ -53,7 +53,7 @@
         <tbody>
           <!-- Controllerから受け取った商品を繰り返し表示 -->
           <tr th:each="product : ${products}"
-              th:classappend="${product.stock == 0} ? 'sold-out-row'">
+		  th:classappend="${product.stock == 0 ? 'sold-out-row' : ''}">
 
             <td th:text="${product.productno}">
               0001
