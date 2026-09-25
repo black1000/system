@@ -57,6 +57,34 @@
               </p>
             </td>
           </tr>
+		  <tr>
+		             <th>
+		  <label for="userid">
+		                 ユーザーID
+		                 <span class="required">必須</span>
+		               </label>
+		             </th>
+
+		             <td>
+		               <input id="userid"
+		                      type="text"
+		                      th:field="*{userid}"
+		                      maxlength="16"
+		                      placeholder="例：kanda1"
+		                      required>
+							  
+							  <p class="input-help">
+							                 16文字以内で入力してください。
+							               </p>
+
+		               <p class="field-error"
+		                  th:if="${#fields.hasErrors('name')}"
+		                  th:errors="*{name}">
+		                 名前の入力に誤りがあります。
+		               </p>
+		             </td>
+		           </tr>
+
 
           <tr>
             <th>
@@ -125,11 +153,11 @@
                 20文字以内で入力してください。
               </p>
 
-              <p class="field-error"
-                 th:if="${#fields.hasErrors('password')}"
-                 th:errors="*{password}">
-                パスワードの入力に誤りがあります。
-              </p>
+			  <p class="field-error"
+			  	                th:if="${#fields.hasErrors('newPassword')}"
+			  	                th:errors="*{newPassword}">
+			  	               パスワードの入力に誤りがあります。
+			  	             </p>
             </td>
 			</tr>
 			<tr>
@@ -152,8 +180,8 @@
 			             </p>
 
 			             <p class="field-error"
-			                th:if="${#fields.hasErrors('password')}"
-			                th:errors="*{password}">
+			                th:if="${#fields.hasErrors('confirmPassword')}"
+			                th:errors="*{confirmPassword}">
 			               パスワードの入力に誤りがあります。
 			             </p>
 						 </td>

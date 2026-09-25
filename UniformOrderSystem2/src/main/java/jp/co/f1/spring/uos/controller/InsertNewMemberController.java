@@ -132,7 +132,7 @@ public class InsertNewMemberController {
 	
 
 		// 入力されたデータをDBに保存
-		userinfo.saveAndFlush(newUser); // セッションの値を入れないように注意
+		userinfo.saveAndFlush(newUser); 
 
 		// Viewに渡す変数をModelに格納
 		mav.addObject("message", "ユーザー登録完了しました！");
