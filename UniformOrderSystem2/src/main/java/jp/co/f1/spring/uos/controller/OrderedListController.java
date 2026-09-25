@@ -21,8 +21,7 @@ public class OrderedListController {
 
 	@Autowired
 	private HttpSession session;
-	private OrderRepository orderinfo;
-	private OrderDAO orderDao;
+	private OrderRepository orderinfo;;
 
 	@GetMapping("orderedList")
 	public ModelAndView orderedList(HttpServletRequest request, ModelAndView mav) {
@@ -48,7 +47,7 @@ public class OrderedListController {
 		String month = request.getParameter("month");
 
 		//データを検索
-		Iterable<Order> order_list = orderDao.findByMonth(year, month);
+		Iterable<Order> order_list = OrderDAO.findByMonth(year, month);
 
 		
 		//キャスト

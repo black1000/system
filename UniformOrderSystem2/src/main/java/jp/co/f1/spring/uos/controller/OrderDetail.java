@@ -1,5 +1,6 @@
 package jp.co.f1.spring.uos.controller;
 
+<<<<<<< HEAD
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -103,3 +104,8 @@ public class OrderDetail {
 		return mav;
 	}
 }
+=======
+public class OrderDetail {
+
+}
+>>>>>>> b087766432f08ede320c69fb78f44c9ed95d3eef
