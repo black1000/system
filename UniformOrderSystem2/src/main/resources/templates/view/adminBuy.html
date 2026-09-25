@@ -1,146 +1,107 @@
+
 <!DOCTYPE html>
-<html lang="ja"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>（管理者）注文の詳細</title>
+
   <link rel="stylesheet"
         href="/css/style.css"
         th:href="@{/css/style.css}">
 </head>
+
 <body>
-  <main class="admin-order-detail-container">
-    <h1 class="page-title">
-      注文詳細
-    </h1>
+  <main class="admin-order-detail">
+
+    <h1 class="page-title">注文詳細</h1>
+
     <!-- 注文者情報 -->
-    <section class="order-customer-information"
-             aria-labelledby="customer-title">
-      <h2 id="customer-title"
-          class="section-title">
-        注文者情報
-      </h2>
-      <table class="input-table">
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th>注文No.</th>
+          <td th:text="${order.orderno}">0001</td>
+        </tr>
+
+        <tr>
+          <th>注文者</th>
+          <td th:text="${order.name}">神田太郎</td>
+        </tr>
+
+        <tr>
+          <th>住所</th>
+          <td th:text="${order.address}">
+            test県test市1-2-3
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 購入商品 -->
+    <h2 class="section-title">購入商品</h2>
+
+    <div class="table-scroll">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>購入個数</th>
+          </tr>
+        </thead>
+
         <tbody>
-          <tr>
-            <th>注文No.</th>
-            <td th:text="${order.orderno}">
-              0001
+          <tr th:each="detail : ${orderDetails}">
+            <td>
+              <a class="page-link"
+                 href="/products/1"
+                 th:href="@{/products/{id}(id=${detail.productno})}"
+                 th:text="${detail.productname}">
+                ユニフォームA
+              </a>
+            </td>
+
+            <td class="nowrap"
+                th:text="${detail.quantity} + '枚'">
+              5枚
             </td>
           </tr>
-          <tr>
-            <th>注文者</th>
-            <td th:text="${order.name}">
-              神田太郎
-            </td>
-          </tr>
-          <tr>
-            <th>住所</th>
-            <td th:text="${order.address}">
-              test県test市1-2-3
-            </td>
+
+          <tr th:if="${orderDetails == null or #lists.isEmpty(orderDetails)}">
+            <td colspan="2">購入商品はありません。</td>
           </tr>
         </tbody>
       </table>
-    </section>
-    <!-- 注文明細 -->
-    <section class="order-detail-information"
-             aria-labelledby="detail-title">
-      <h2 id="detail-title"
-          class="section-title">
-        注文内容
-      </h2>
-      <div class="table-scroll">
-        <table class="order-detail-table">
-          <thead>
-            <tr>
-              <th>商品名</th>
-              <th>金額</th>
-              <th>購入個数</th>
-              <th>小計</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- 複数商品を繰り返し表示 -->
-            <tr th:each="detail
-                         : ${orderDetails}">
-              <td>
-                <a class="page-link"
-                   href="/products/0001"
-                   th:href="@{/products/{id}(
-                     id=${detail.productno}
-                   )}"
-                   th:text="${detail.productname}">
-                  ユニフォームA
-                </a>
-              </td>
-              <td class="nowrap"
-                  th:text="${#numbers.formatInteger(
-                    detail.price,
-                    1,
-                    'COMMA'
-                  )} + '円'">
-                3,000円
-              </td>
-              <td class="nowrap"
-                  th:text="${detail.quantity}
-                           + '枚'">
-                5枚
-              </td>
-              <td class="nowrap"
-                  th:text="${#numbers.formatInteger(
-                    detail.price
-                    * detail.quantity,
-                    1,
-                    'COMMA'
-                  )} + '円'">
-                15,000円
-              </td>
-            </tr>
-            <!-- 注文明細がない場合 -->
-            <tr th:if="${orderDetails == null
-                        or
-                        #lists.isEmpty(
-                          orderDetails)}">
-              <td colspan="4">
-                注文された商品を
-                表示できませんでした。
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <!-- 合計金額 -->
-    <div class="total-area">
-      <span>
-        合計価格（税込）：
-      </span>
-      <strong th:text="${#numbers.formatInteger(
-        order.totalPrice,
-        1,
-        'COMMA'
-      )} + '円'">
-        75,000円
-      </strong>
     </div>
-    <!-- 画面遷移 -->
-    <nav class="page-navigation"
-         aria-label="管理者用メニュー">
+
+    <!-- 合計金額 -->
+    <table class="detail-table total-table">
+      <tbody>
+        <tr>
+          <th>合計価格（税込み）</th>
+          <td th:text="${#numbers.formatInteger(order.totalprice, 1, 'COMMA')} + '円'">
+            15,000円
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 画面下部のリンク -->
+    <nav class="page-navigation">
       <a class="page-link"
          href="/admin/orders"
          th:href="@{/admin/orders}">
         受注状況一覧
       </a>
+
       <a class="page-link"
          href="/admin/menu"
          th:href="@{/admin/menu}">
         管理者メニュー
       </a>
     </nav>
+
   </main>
 </body>
 </html>
