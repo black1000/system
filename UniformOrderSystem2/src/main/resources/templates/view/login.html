@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ログイン画面</title>
+
+  <link rel="stylesheet"
+        href="/css/login.css"
+        th:href="@{/css/login.css}">
+</head>
+
+<body>
+  <main class="login-container">
+
+    <h1 class="page-title"
+        th:text="${param.role != null
+          and param.role[0] == 'admin'}
+          ? '管理者ログイン'
+          : 'ログイン'">
+      ログイン
+    </h1>
+
+    <!-- ログインに失敗した場合 -->
+    <p class="error-message"
+       th:if="${loginError}"
+       th:text="${loginError}">
+      ユーザーIDまたはパスワードが違います。
+    </p>
+
+    <!-- ログアウト後 -->
+    <p class="success-message"
+       th:if="${logoutMessage}"
+       th:text="${logoutMessage}">
+      ログアウトしました。
+    </p>
+
+    <form class="login-form"
+          action="/login"
+          th:action="@{/login}"
+          method="post">
+
+      <!-- 管理者ログインかどうかを引き継ぐ -->
+      <input type="hidden"
+             name="role"
+             value="admin"
+             th:if="${param.role != null}"
+             th:value="${param.role[0]}">
+
+      <table class="input-table">
+        <tbody>
+          <tr>
+            <th>
+              <label for="userid">ユーザーID</label>
+            </th>
+
+            <td>
+              <input id="userid"
+                     type="text"
+                     name="userid"
+                     maxlength="8"
+                     autocomplete="username"
+                     required>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label for="password">パスワード</label>
+            </th>
+
+            <td>
+              <input id="password"
+                     type="password"
+                     name="password"
+                     maxlength="20"
+                     autocomplete="current-password"
+                     required>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="button-area">
+        <button class="login-button" type="submit">
+          ログイン
+        </button>
+      </div>
+
+    </form>
+
+    <!-- 一般購入者向けのリンク -->
+    <nav class="customer-navigation"
+         th:if="${param.role == null}">
+
+      <a class="page-link"
+         href="/members/new"
+         th:href="@{/members/new}">
+        新規会員登録
+      </a>
+
+      <a class="page-link"
+         href="/guest/order"
+         th:href="@{/guest/order}">
+        登録しないで購入
+      </a>
+    </nav>
+
+    <nav class="bottom-navigation">
+      <a class="page-link"
+         href="/products"
+         th:href="@{/products}">
+        商品一覧へ戻る
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>
