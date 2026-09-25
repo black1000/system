@@ -1,17 +1,13 @@
 package jp.co.f1.spring.uos.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-
 import java.util.Date;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import lombok.Data;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orderinfo")
@@ -34,7 +30,7 @@ public class Order {
 	}
 
 	// ユーザID(外部キー制約)
-	@Column(length = 8)
+	@Column(length = 16)
 	private String userid;
 
 	public String getUserid() {
