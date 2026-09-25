@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class User {
 	// userid
 	@Id
-	@Column(length = 20, nullable = true)
+	@Column(length = 16, nullable = true)
 	private String userid;
 
 	public String getUserid() {
