@@ -44,10 +44,10 @@
           </thead>
 
           <tbody>
-            <!-- DBから取得した商品を繰り返し表示 -->
-            <tr th:each="products : ${products}"
-                th:classappend="${products.stock == 0}
-                  ? 'sold-out-row'">
+            <!-- DBから取得した商品を繰り返し表示 修正したとこ-->
+			<tr th:each="product : ${products}"
+			    th:classappend="${product.stock == 0
+			      ? 'sold-out-row' : ''}">
 
               <td>
                 <a class="product-link"
@@ -133,8 +133,8 @@
          aria-label="購入者用メニュー">
 
       <a class="page-link"
-         href="/members/new"
-         th:href="@{/members/new}">
+         href="/inserNewUser"
+         th:href="@{/insertNewUser}">
         会員登録
       </a>
 
@@ -155,8 +155,8 @@
          aria-label="管理者用メニュー">
 
       <a class="admin-link"
-         href="/login?role=admin"
-         th:href="@{/login(role='admin')}">
+         href="admin/login"
+         th:href="@{/admin/login}">
         管理者としてログイン
       </a>
     </nav>
