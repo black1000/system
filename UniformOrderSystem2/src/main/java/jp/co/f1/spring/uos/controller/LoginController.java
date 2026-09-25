@@ -34,7 +34,7 @@ public class LoginController {
 	}
 
 	/*
-	*一般会員用ログイン画面を表示.
+	 *一般会員用ログイン画面を表示.
 	 */
 	@GetMapping("/login")
 	public ModelAndView showLogin(
@@ -47,8 +47,7 @@ public class LoginController {
 	}
 
 	/*
-	
-	◦ 管理者用ログイン画面を表示.
+	 *管理者用ログイン画面を表示.
 	 */
 	@GetMapping("/admin/login")
 	public ModelAndView showAdminLogin(
@@ -61,8 +60,7 @@ public class LoginController {
 	}
 
 	/*
-	
-	◦ 一般会員のログイン処理.
+	 *一般会員のログイン処理.
 	 */
 	@PostMapping("/login")
 	public ModelAndView login(
@@ -82,8 +80,7 @@ public class LoginController {
 	}
 
 	/*
-	
-	◦ 管理者のログイン処理.
+	 *管理者のログイン処理.
 	 */
 	@PostMapping("/admin/login")
 	public ModelAndView adminLogin(
@@ -103,8 +100,7 @@ public class LoginController {
 	}
 
 	/*
-	
-	◦ 一般会員・管理者の共通ログイン処理.
+	 *一般会員・管理者の共通ログイン処理.
 	 */
 	private ModelAndView checkLogin(
 			String userid,
@@ -114,17 +110,15 @@ public class LoginController {
 			ModelAndView mav) {
 
 		/*
-		
-		◦ エラー時にログイン画面を.
-		◦ 再表示するための情報.
+	     *エラー時にログイン画面を.
+		 *再表示するための情報.
 		 */
 		mav.addObject("adminLogin", adminLogin);
 		mav.addObject("userid", userid);
 		mav.setViewName("login");
 
 		/*
-		
-		◦ 未入力確認.
+		 *未入力確認.
 		 */
 		if (userid.isBlank()
 				|| password.isBlank()) {
@@ -138,16 +132,14 @@ public class LoginController {
 		}
 
 		/*
-		
-		◦ ユーザーIDでDBを検索.
+		 *ユーザーIDでDBを検索.
 		 */
 		User user = userRepository
 				.findById(userid)
 				.orElse(null);
 
 		/*
-		
-		◦ ユーザーID・パスワードを確認.
+		 *ユーザーID・パスワードを確認.
 		 */
 		if (user == null
 				|| !password.equals(
@@ -162,8 +154,7 @@ public class LoginController {
 		}
 
 		/*
-		
-		◦ DBに登録された権限を確認.
+		 *DBに登録された権限を確認.
 		 */
 		boolean isAdmin = ADMIN_AUTHORITY.equals(
 				user.getAuthority());
@@ -172,8 +163,7 @@ public class LoginController {
 				user.getAuthority());
 
 		/*
-		
-		◦ 権限が1または2ではない場合.
+		 *権限が1または2ではない場合.
 		 */
 		if (!isAdmin && !isMember) {
 
@@ -186,9 +176,8 @@ public class LoginController {
 		}
 
 		/*
-		
-		◦ 管理者用ログイン画面に.
-		◦ 一般会員が入力された場合.
+		 * 管理者用ログイン画面に.
+		 *一般会員が入力された場合.
 		 */
 		if (adminLogin && !isAdmin) {
 
@@ -201,9 +190,8 @@ public class LoginController {
 		}
 
 		/*
-		
-		◦ 一般会員用ログイン画面に.
-		◦ 管理者が入力された場合.
+		 *一般会員用ログイン画面に.
+		 *管理者が入力された場合.
 		 */
 		if (!adminLogin && isAdmin) {
 
@@ -216,22 +204,19 @@ public class LoginController {
 		}
 
 		/*
-		
-		◦ ログイン成功.
+		 *ログイン成功.
 		 */
 		HttpSession session = request.getSession();
 
 		/*
-		
-		◦ カートの内容などを残したまま.
-		◦ セッションIDだけを変更.
+		 *カートの内容などを残したまま.
+		 *セッションIDだけを変更.
 		 */
 		request.changeSessionId();
 
 		/*
-		
-		◦ ログイン情報をセッションに保存.
-		◦ パスワードは保存しない.
+		 *ログイン情報をセッションに保存.
+		 *パスワードは保存しない.
 		 */
 		session.setAttribute(
 				"loginUserId",
@@ -246,15 +231,13 @@ public class LoginController {
 				user.getAuthority());
 
 		/*
-		
-		◦ ログイン画面用のModelを消す.
+		 *ログイン画面用のModelを消す.
 		 */
 		mav.clear();
 
 		/*
-		
-		◦ 権限とカートの有無によって.
-		◦ ログイン後の移動先を決める.
+		 *権限とカートの有無によって.
+		 *ログイン後の移動先を決める.
 		 */
 		if (isAdmin) {
 
@@ -265,9 +248,8 @@ public class LoginController {
 		} else {
 
 			/*
-			
-			■ ログイン前に商品をカートへ.
-			■ 入れていたか確認.
+			 *ログイン前に商品をカートへ.
+			 *入れていたか確認.
 			 */
 			Object cart = session.getAttribute(
 					CART_SESSION_NAME);
@@ -276,10 +258,9 @@ public class LoginController {
 					&& !cartMap.isEmpty()) {
 
 				/*
-				
-				• カートがある場合は.
-				• 選択した商品を引き継いで.
-				• カート画面へ移動.
+				 *カートがある場合は.
+				 *選択した商品を引き継いで.
+				 *カート画面へ移動.
 				 */
 				mav.setViewName(
 						"redirect:/cart");
@@ -287,9 +268,8 @@ public class LoginController {
 			} else {
 
 				/*
-				
-				• カートがない場合は.
-				• 会員メニューへ移動.
+				 *カートがない場合は.
+				 *会員メニューへ移動.
 				 */
 				mav.setViewName(
 						"redirect:/member/menu");

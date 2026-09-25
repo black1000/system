@@ -21,8 +21,7 @@ public class GuestOrderController {
 	private static final String GUEST_ORDER_SESSION_NAME = "guestOrder";
 
 	/*
-	
-	 ゲスト購入者情報入力画面を表示.
+	 *ゲスト購入者情報入力画面を表示.
 	 */
 	@GetMapping("/guest/order")
 	public ModelAndView showGuestOrder(
@@ -31,15 +30,13 @@ public class GuestOrderController {
 			ModelAndView mav) {
 
 		/*
-		
-		 セッションからカートを取得.
+		 *セッションからカートを取得.
 		 */
 		Object cart = session.getAttribute(
 				CART_SESSION_NAME);
 
 		/*
-		
-		 カートがない、または空の場合.
+		 *カートがない、または空の場合.
 		 */
 		if (!(cart instanceof Map<?, ?> cartMap)
 				|| cartMap.isEmpty()) {
@@ -54,16 +51,14 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		 入力途中のゲスト情報が.
-		 セッションに残っているか確認.
+		 *入力途中のゲスト情報が.
+		 *セッションに残っているか確認.
 		 */
 		Order guestOrder = (Order) session.getAttribute(
 				GUEST_ORDER_SESSION_NAME);
 
 		/*
-		
-		 まだゲスト情報がない場合.
+		 *まだゲスト情報がない場合.
 		 */
 		if (guestOrder == null) {
 
@@ -71,10 +66,7 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		 HTMLの.
-		 th:object="${guestOrder}".
-		 へ渡す.
+		 *HTMLの.th:object="${guestOrder}".へ渡す.
 		 */
 		mav.addObject(
 				"guestOrder",
@@ -86,8 +78,7 @@ public class GuestOrderController {
 	}
 
 	/*
-	
-	 ゲスト購入者情報を受け取る.
+	 *ゲスト購入者情報を受け取る.
 	 */
 	@PostMapping("/guest/order/confirm")
 	public ModelAndView confirmGuestOrder(
@@ -98,8 +89,7 @@ public class GuestOrderController {
 			ModelAndView mav) {
 
 		/*
-		
-		カートが残っているか確認.
+		 *カートが残っているか確認.
 		 */
 		Object cart = session.getAttribute(
 				CART_SESSION_NAME);
@@ -117,8 +107,7 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		 入力値を整える.
+		 *入力値を整える.
 		 */
 		String email = normalize(
 				guestOrder.getEmail());
@@ -138,8 +127,7 @@ public class GuestOrderController {
 		guestOrder.setRemarks(remarks);
 
 		/*
-		
-		◦ 必須項目の確認.
+		 *必須項目の確認.
 		 */
 		if (email.isBlank()
 				|| name.isBlank()
@@ -156,8 +144,7 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		◦ メールアドレスの簡単な確認.
+		 *メールアドレスの簡単な確認.
 		 */
 		if (!email.contains("@")) {
 
@@ -172,8 +159,7 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		◦ 文字数の確認.
+		 *文字数の確認.
 		 */
 		if (email.length() > 100) {
 
@@ -224,23 +210,20 @@ public class GuestOrderController {
 		}
 
 		/*
-		
-		◦ ゲストなのでユーザーIDはnull.
+		 *ゲストなのでユーザーIDはnull.
 		 */
 		guestOrder.setUserid(null);
 
 		/*
-		
-		◦ 注文確定処理でも使うため.
-		◦ セッションへ一時保存.
+		 * 注文確定処理でも使うため.
+		 *セッションへ一時保存.
 		 */
 		session.setAttribute(
 				GUEST_ORDER_SESSION_NAME,
 				guestOrder);
 
 		/*
-		
-		◦ 購入内容確認画面へ移動.
+		 *購入内容確認画面へ移動.
 		 */
 		mav.setViewName(
 				"redirect:/buy/confirm");
@@ -249,9 +232,8 @@ public class GuestOrderController {
 	}
 
 	/*
-	
-	◦ nullを空文字へ変換して.
-	◦ 前後の空白を削除.
+	 *nullを空文字へ変換して.
+	 *前後の空白を削除.
 	 */
 	private String normalize(
 			String value) {
