@@ -13,11 +13,9 @@ import jp.co.f1.spring.uos.entity.Uniform;
 public interface UniformRepository extends JpaRepository<Uniform , String>{
 	public Optional<Uniform> findByProductno(String productno);
 
-<<<<<<< HEAD
-	
-=======
-	public Optional<Uniform> findByIsbn(String productNo);
+
+
 
 	public List<Uniform> findAllByOrderByProductnoAsc();
->>>>>>> 7dc6ae7931b526e8685593f88517464304dbe085
+
 }

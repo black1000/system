@@ -101,6 +101,19 @@ public class CheckUser {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	// Authority
+	@Column(length = 1,nullable = true)
+	private String authority;
+	
+	public String getAuthority() {
+		return authority;
+	}
+	
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
 
 
 	}

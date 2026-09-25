@@ -14,13 +14,13 @@ public class OrderDetail {
 	//注文番号
 	@Column(length = 20)
 	@JoinColumn(name = "orderno", referencedColumnName = "orderno", insertable = false, updatable = false)
-	private int orderno;
+	private String orderno;
 	
-	public int getOrderno() {
+	public String getOrderno() {
 		return orderno;
 	}
 
-	public void setOrderno(int orderno) {
+	public void setOrderno(String orderno) {
 		this.orderno = orderno;
 	}
 	
@@ -53,7 +53,6 @@ public class OrderDetail {
 	
 	//商品番号
 	@Id
-	@ManyToOne
 	@JoinColumn(name = "productno", referencedColumnName = "productno", insertable = false, updatable = false)
 	private String productno;
 	

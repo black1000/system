@@ -7,8 +7,11 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
+
 import jp.co.f1.spring.uos.entity.User;
 
+@Repository
 public class UserDAO {
 	// エンティティマネージャー
 	private EntityManager entityManager;

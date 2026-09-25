@@ -27,9 +27,9 @@
       入力内容を確認してください。
     </p>
 
-    <form action="/members"
-          th:action="@{/members}"
-          th:object="${user}"
+    <form action="/insertNewMember"
+          th:action="@{/insertNewMember}"
+          th:object="${checkUser}"
           method="post">
 
       <table class="input-table">
@@ -117,7 +117,7 @@
             <td>
               <input id="password"
                      type="password"
-                     th:field="*{password}"
+                     th:field="*{newPassword}"
                      maxlength="20"
                      required>
 
@@ -131,12 +131,40 @@
                 パスワードの入力に誤りがあります。
               </p>
             </td>
-          </tr>
+			</tr>
+			<tr>
+			  <th>
+			<label for="password">
+			               パスワード(確認用)
+			               <span class="required">必須</span>
+			             </label>
+			           </th>
+
+			           <td>
+			             <input id="password"
+			                    type="password"
+			                    th:field="*{confirmPassword}"
+			                    maxlength="20"
+			                    required>
+
+			             <p class="input-help">
+			               20文字以内で入力してください。
+			             </p>
+
+			             <p class="field-error"
+			                th:if="${#fields.hasErrors('password')}"
+			                th:errors="*{password}">
+			               パスワードの入力に誤りがあります。
+			             </p>
+						 </td>
+						 </tr>
         </tbody>
       </table>
 
       <div class="button-area">
         <button class="register-button" type="submit">
+			<!-- 隠しフィールドで権限＝２（一般ユーザー）を固定値で送る -->
+			<input type="hidden" name="auhtority" value="2">
           会員登録
         </button>
       </div>

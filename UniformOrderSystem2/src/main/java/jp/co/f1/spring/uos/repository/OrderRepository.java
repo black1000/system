@@ -10,5 +10,5 @@ import jp.co.f1.spring.uos.entity.Order;
 public interface OrderRepository extends JpaRepository<Order, String> {
 	public Iterable<Order> findByOrderno(String orderno);
 
-	public int getQuantity();
+	
 }
