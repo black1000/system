@@ -1,173 +1,354 @@
 package jp.co.f1.spring.uos.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.EntityManager;
-
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Cookie;
-
-import jp.co.f1.spring.uos.dao.UniformDAO;
-import jp.co.f1.spring.uos.entity.Uniform;
-import jp.co.f1.spring.uos.repository.UniformRepository;
-
-
-import jp.co.f1.spring.uos.entity.User;
-import jp.co.f1.spring.uos.dao.UserDAO;
-import jp.co.f1.spring.uos.repository.UserRepository;
-
-
-import jp.co.f1.spring.uos.repository.OrderRepository;
 import jp.co.f1.spring.uos.entity.CheckUser;
-import jp.co.f1.spring.uos.dao.OrderDAO;
-import jp.co.f1.spring.uos.entity.Order;
-
+import jp.co.f1.spring.uos.entity.User;
+import jp.co.f1.spring.uos.repository.UserRepository;
 
 @Controller
 public class MemberChangeController {
-	
-	
-	// EntityManager自動インスタンス化
-	@PersistenceContext
-	private EntityManager entityManager;
 
-	// DAO自動インスタンス化
-	@Autowired
-	private UserDAO userDao;
+	private static final String MEMBER_AUTHORITY = "2";
 
-	@PostConstruct
-	public void init() {
-		userDao = new UserDAO(entityManager);
+	private final UserRepository userRepository;
+
+	/*
+	 *コンストラクタ.
+	 */
+	public MemberChangeController(
+			UserRepository userRepository) {
+
+		this.userRepository = userRepository;
 	}
 
-	// Repositoryインターフェースを自動インスタンス化
-	@Autowired
-	private UserRepository userinfo;
-
-	@Autowired
-	private HttpSession session;
-	
 	/*
-	 * 「memberChange」へGETアクセスがあった場合
+	 *会員情報変更画面を表示.
+	 *
+	 *会員メニューのURLが.
+	 * /member/profileの場合にも対応.
 	 */
-	@GetMapping("/memberChange")
-	public ModelAndView memberChange(ModelAndView mav) {
-		User user = (User) session.getAttribute("user");
+	@GetMapping({
+			"/memberChange",
+			"/member/profile"
+	})
+	public ModelAndView showMemberChange(
+			HttpSession session,
+			ModelAndView mav) {
 
-		// セッション切れの時のエラー処理
+		/*
+		 *セッションからログイン情報を取得.
+		 */
+		String loginUserId = (String) session.getAttribute(
+				"loginUserId");
+
+		String authority = (String) session.getAttribute(
+				"authority");
+
+		/*
+		 *未ログインまたは.
+		 *一般会員ではない場合.
+		 */
+		if (loginUserId == null
+				|| !MEMBER_AUTHORITY.equals(
+						authority)) {
+
+			mav.addObject(
+					"errorMessage",
+					"セッションが切れています。"
+							+ "もう一度ログインしてください。");
+
+			mav.setViewName(
+					"view/error");
+
+			return mav;
+		}
+
+		/*
+		 *DBから会員情報を取得.
+		 */
+		User user = userRepository
+				.findById(loginUserId)
+				.orElse(null);
+
+		/*
+		 *会員情報が存在しない場合.
+		 */
 		if (user == null) {
 
-			mav.addObject("errorMessage", "セッション切れの為、再度ログインしてください。 ");
-			mav.addObject("cmd", "logout");
-			mav.addObject("next", "[ログイン画面へ]");
-			mav.setViewName("view/error");
+			session.invalidate();
+
+			mav.addObject(
+					"errorMessage",
+					"会員情報を確認できませんでした。"
+							+ "もう一度ログインしてください。");
+
+			mav.setViewName(
+					"view/error");
+
 			return mav;
-
 		}
-		
-		// セッションから読み取ったuser情報を検索
-		Optional<User> optionalUser = userinfo.findByUserid(user.getUserid());
-		
-		
-	
-		
-		User oldUser = optionalUser.get();
-		mav.addObject("oldUser", oldUser);
-		mav.addObject("userid", user.getUserid());
 
-		mav.setViewName("view/memberChange");
+		/*
+		 *HTMLのth:object="${checkUser}".
+		 *へ渡すフォームを作成.
+		 */
+		CheckUser checkUser = new CheckUser();
+
+		checkUser.setUserid(
+				user.getUserid());
+
+		checkUser.setName(
+				user.getName());
+
+		checkUser.setEmail(
+				user.getEmail());
+
+		checkUser.setAddress(
+				user.getAddress());
+
+		/*
+		 *パスワードは画面へ渡さない.
+		 */
+		checkUser.setOldPassword("");
+		checkUser.setNewPassword("");
+		checkUser.setConfirmPassword("");
+
+		mav.addObject(
+				"checkUser",
+				checkUser);
+
+		/*
+		 *templates/view/memberChange.html.
+		 */
+		mav.setViewName(
+				"view/memberChange");
 
 		return mav;
 	}
 
 	/*
-	 * 「menberChange」へPost送信でアクセスがあった場合
+	 *会員情報を変更.
 	 */
 	@PostMapping("/memberChange")
-	public ModelAndView postUpdateUser(@ModelAttribute @Validated CheckUser checkUser, BindingResult result,
-			HttpServletRequest request, ModelAndView mav) {
+	public ModelAndView updateMember(
+			@Validated @ModelAttribute("checkUser") CheckUser checkUser,
 
-		User user = (User) session.getAttribute("user");
-		
-		// セッション切れのエラー処理
-		if (user == null) {
+			BindingResult result,
+			HttpSession session,
+			RedirectAttributes redirectAttributes,
+			ModelAndView mav) {
 
-			mav.addObject("errorMessage", "セッション切れの為、再度ログインしてください。 ");
-			mav.addObject("cmd", "logout");
-			mav.addObject("next", "[ログイン画面へ]");
-			mav.setViewName("view/error");
+		/*
+		 *セッションからログイン情報を取得.
+		 */
+		String loginUserId = (String) session.getAttribute(
+				"loginUserId");
+
+		String authority = (String) session.getAttribute(
+				"authority");
+
+		/*
+		 *未ログインまたは.
+		 *一般会員ではない場合.
+		 */
+		if (loginUserId == null
+				|| !MEMBER_AUTHORITY.equals(
+						authority)) {
+
+			mav.addObject(
+					"errorMessage",
+					"セッションが切れています。"
+							+ "もう一度ログインしてください。");
+
+			mav.setViewName(
+					"view/error");
+
 			return mav;
-
 		}
 
-		checkUser = (CheckUser) session.getAttribute("checkUser");
+		/*
+		 *送信されたユーザーIDを信用せず、.
+		 *セッションのIDを設定.
+		 */
+		checkUser.setUserid(
+				loginUserId);
 
-		// ユーザーを検索
-		Optional<User> optionalUser = userinfo.findByUserid(checkUser.getUserid());
+		/*
+		 *DBから現在の会員情報を取得.
+		 */
+		User oldUser = userRepository
+				.findById(loginUserId)
+				.orElse(null);
 
+		if (oldUser == null) {
 
-		// ユーザーがいた場合はoldUserに格納
-		User oldUser = optionalUser.get();
+			session.invalidate();
 
-		// 入力値チェック
+			mav.addObject(
+					"errorMessage",
+					"会員情報を確認できませんでした。");
+
+			mav.setViewName(
+					"view/error");
+
+			return mav;
+		}
+
+		/*
+		 *入力エラーがある場合.
+		 */
 		if (result.hasErrors()) {
-			
-			
 
-			if (checkUser.getNewPassword() == "") {
-				mav.addObject("passwordError", "パスワードを入力してください");
+			mav.addObject(
+					"message",
+					"入力内容に誤りがあります。");
 
-			}
+			mav.setViewName(
+					"view/memberChange");
 
-			mav.addObject("message", "入力内容に誤りがあります");
-			mav.addObject("oldUser", oldUser); // 古い値も渡す必要あり
-			mav.addObject("checkUser", checkUser);
-			mav.setViewName("view/memberChange");
 			return mav;
-
 		}
 
-		if (!checkUser.getNewPassword().equals(checkUser.getConfirmPassword())) {
-			mav.addObject("message", "新パスワードと確認パスワードが合っていません");
-			mav.addObject("oldUser", oldUser); // 古い値も渡す必要あり
-			mav.addObject("checkUser", checkUser);
-			mav.setViewName("view/memberChange");
-			return mav;
+		/*
+		 *現在のパスワードを確認.
+		 */
+		if (!oldUser.getPassword().equals(
+				checkUser.getOldPassword())) {
 
+			mav.addObject(
+					"message",
+					"現在のパスワードが違います。");
+
+			mav.setViewName(
+					"view/memberChange");
+
+			return mav;
 		}
 
-		// エラーがなければoldUserに登録
-		oldUser.setUserid(checkUser.getUserid());
-		oldUser.setEmail(checkUser.getEmail());
-		oldUser.setPassword(checkUser.getNewPassword());
-		oldUser.setName(checkUser.getName());
-		oldUser.setAddress(checkUser.getAddress());
+		/*
+		 *新しいパスワードの未入力確認.
+		 */
+		if (checkUser.getNewPassword() == null
+				|| checkUser
+						.getNewPassword()
+						.isBlank()) {
 
-		userinfo.saveAndFlush(oldUser);
+			mav.addObject(
+					"passwordError",
+					"新しいパスワードを"
+							+ "入力してください。");
 
-		mav = new ModelAndView("redirect:/memberChange");
+			mav.addObject(
+					"message",
+					"入力内容に誤りがあります。");
+
+			mav.setViewName(
+					"view/memberChange");
+
+			return mav;
+		}
+
+		/*
+		 *新しいパスワードと.
+		 *確認用パスワードを比較.
+		 */
+		if (!checkUser
+				.getNewPassword()
+				.equals(
+						checkUser
+								.getConfirmPassword())) {
+
+			mav.addObject(
+					"message",
+					"新しいパスワードと"
+							+ "確認用パスワードが"
+							+ "一致しません。");
+
+			mav.setViewName(
+					"view/memberChange");
+
+			return mav;
+		}
+
+		/*
+		 *メールアドレスの簡単な確認.
+		 */
+		if (checkUser.getEmail() == null
+				|| !checkUser
+						.getEmail()
+						.contains("@")) {
+
+			mav.addObject(
+					"message",
+					"メールアドレスを"
+							+ "正しく入力してください。");
+
+			mav.setViewName(
+					"view/memberChange");
+
+			return mav;
+		}
+
+		/*
+		 *DBへ更新内容を設定.
+		 *useridは主キーなので変更しない.
+		 */
+		oldUser.setName(
+				checkUser
+						.getName()
+						.trim());
+
+		oldUser.setEmail(
+				checkUser
+						.getEmail()
+						.trim());
+
+		oldUser.setAddress(
+				checkUser
+						.getAddress()
+						.trim());
+
+		oldUser.setPassword(
+				checkUser
+						.getNewPassword());
+
+		/*
+		 *DBへ保存.
+		 */
+		userRepository.saveAndFlush(
+				oldUser);
+
+		/*
+		 *セッション内の表示名も更新.
+		 */
+		session.setAttribute(
+				"loginUserName",
+				oldUser.getName());
+
+		/*
+		 *リダイレクト後に表示する.
+		 *完了メッセージ.
+		 */
+		redirectAttributes.addFlashAttribute(
+				"successMessage",
+				"会員情報を更新しました。");
+
+		/*
+		 *二重送信を防ぐためリダイレクト.
+		 */
+		mav.setViewName(
+				"redirect:/memberChange");
 
 		return mav;
-
 	}
-	
-
 }
