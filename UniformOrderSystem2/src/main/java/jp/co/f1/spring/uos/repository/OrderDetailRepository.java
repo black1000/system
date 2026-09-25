@@ -11,11 +11,7 @@ public interface OrderDetailRepository  extends JpaRepository<OrderDetail, Strin
 	public Iterable<OrderDetail> findByOrderno(String orderno);
 	
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> b087766432f08ede320c69fb78f44c9ed95d3eef
 }
 
 

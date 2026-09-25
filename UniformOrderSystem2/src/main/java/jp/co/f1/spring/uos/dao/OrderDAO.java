@@ -49,6 +49,8 @@ public class OrderDAO {
 		root = query.from(Order.class);
 	}
 	
+
+
 	public List<Order> findByMonth(String year, String month) {
 		// クエリビルダーを使用してCriteriaQueryを作成
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();

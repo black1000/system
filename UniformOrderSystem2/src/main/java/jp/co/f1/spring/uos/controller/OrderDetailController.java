@@ -1,30 +1,41 @@
 package jp.co.f1.spring.uos.controller;
 
-<<<<<<< HEAD
+
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.f1.spring.uos.dao.OrderDetailDAO;
+import jp.co.f1.spring.uos.dao.UserDAO;
 import jp.co.f1.spring.uos.entity.Order;
+import jp.co.f1.spring.uos.entity.OrderDetail;
 import jp.co.f1.spring.uos.repository.OrderDetailRepository;
 import jp.co.f1.spring.uos.repository.OrderRepository;
 
 @Controller
-public class OrderDetail {
+public class OrderDetailController {
 
+	
+	// DAO自動インスタンス化
+	@Autowired
+	private OrderDetailDAO orderDetailDao;
+	
 	private static final String ADMIN_AUTHORITY = "1";
 
+	@Autowired
 	private final OrderRepository orderRepository;
+	@Autowired
 	private final OrderDetailRepository orderDetailRepository;
 
 	/*
 	 *コンストラクタ.
 	 */
-	public OrderDetail(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
+	public OrderDetailController(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
 
 		this.orderRepository = orderRepository;
 
@@ -104,8 +115,6 @@ public class OrderDetail {
 		return mav;
 	}
 }
-=======
-public class OrderDetail {
 
-}
->>>>>>> b087766432f08ede320c69fb78f44c9ed95d3eef
+
+
