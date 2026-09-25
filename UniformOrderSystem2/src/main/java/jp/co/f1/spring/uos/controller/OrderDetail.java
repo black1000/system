@@ -1,7 +1,5 @@
 package jp.co.f1.spring.uos.controller;
 
-import java.util.List;
-
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -83,7 +81,7 @@ public class OrderDetail {
 		/*
 		 *注文番号から注文明細を取得.
 		 */
-		List<OrderDetail> orderDetails = orderDetailRepository.findByOrderno(orderno);
+		Iterable<OrderDetail> orderDetails = orderDetailRepository.findByOrderno(orderno);
 
 		/*
 		 *adminBuy.htmlへ渡す.
