@@ -26,7 +26,7 @@
 
     <!-- 注文1件ごとに繰り返す -->
     <section class="order-history"
-             th:each="order : ${orders}">
+             th:each="order : ${orderedList}">
 
       <div class="order-header">
         <p>
@@ -57,26 +57,26 @@
 
           <tbody>
             <!-- その注文に含まれる商品を繰り返す -->
-            <tr th:each="detail : ${order.details}">
+            <tr th:each="orderdetail : ${orderDetailList}">
 
-              <td th:text="${detail.productname}">
+              <td th:text="${orderdetail.productname}">
                 ユニフォームA
               </td>
 
               <td class="nowrap"
                   th:text="${#numbers.formatInteger(
-                    detail.price, 1, 'COMMA'
+                    orderdetail.price, 1, 'COMMA'
                   )} + '円'">
                 3,000円
               </td>
 
-              <td th:text="${detail.quantity} + '枚'">
+              <td th:text="${orderdetail.quantity} + '枚'">
                 2枚
               </td>
 
               <td class="nowrap"
                   th:text="${#numbers.formatInteger(
-                    detail.price * detail.quantity,
+                    orderdetail.price * orderdetail.quantity,
                     1,
                     'COMMA'
                   )} + '円'">

@@ -58,7 +58,7 @@ public class InsertNewMemberController {
 	private HttpSession session;
 
 	/*
-	 * 「insertUser」にアクセスがあった場合
+	 * 「insertNewUser」にアクセスがあった場合
 	 */
 	@GetMapping("/insertNewUser")
 	public ModelAndView insertUser(@ModelAttribute CheckUser checkUser, ModelAndView mav) {
@@ -70,7 +70,7 @@ public class InsertNewMemberController {
 	}
 
 	/*
-	 * 「insertUser」にPost送信でアクセスがあった場合
+	 * 「insertNewUser」にPost送信でアクセスがあった場合
 	 */
 	@PostMapping("/insertNewUser")
 	public ModelAndView postInsertUser(@ModelAttribute @Validated CheckUser checkUser, BindingResult result,
