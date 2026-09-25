@@ -1,9 +1,13 @@
-
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0">
 
   <title>会員情報変更</title>
 
@@ -13,64 +17,224 @@
 </head>
 
 <body>
-  <main class="member-menu-container">
+  <main class="member-change-container">
 
-    <h1 class="page-title">会員メニュー</h1>
+    <h1 class="page-title">
+      会員情報変更
+    </h1>
 
-    <!-- ログイン中の会員名を表示する場合 -->
-    <p class="welcome-message"
-       th:if="${session.loginUser != null}">
-      <span th:text="${session.loginUser.name}">
-        神田太郎
-      </span>
-      様、ようこそ
+    <p class="page-description">
+      変更する会員情報を入力してください。
     </p>
 
-    <nav aria-label="会員メニュー">
-      <ul class="menu-list">
+    <!-- エラーメッセージ -->
+    <p class="error-message"
+       th:if="${message}"
+       th:text="${message}">
+      入力内容を確認してください。
+    </p>
 
-        <li>
-          <a class="menu-link"
-             href="#"
-             th:href="@{/products}">
-            商品を見る
-          </a>
-        </li>
+    <!-- 更新完了メッセージ -->
+    <p class="success-message"
+       th:if="${successMessage}"
+       th:text="${successMessage}">
+      会員情報を更新しました。
+    </p>
 
-        <li>
-          <a class="menu-link"
-             href="#"
-             th:href="@{/cart}">
-            カートを見る
-          </a>
-        </li>
-
-        <li>
-          <a class="menu-link"
-             href="#"
-             th:href="@{/member/orders}">
-            注文履歴
-          </a>
-        </li>
-
-        <li>
-          <a class="menu-link"
-             href="#"
-             th:href="@{/member/profile}">
-            会員情報
-          </a>
-        </li>
-
-        <li>
-          <a class="menu-link logout-link"
-             href="#"
-             th:href="@{/logout}">
-            ログアウト
-          </a>
-        </li>
-
-      </ul>
+    <nav class="top-navigation">
+      <a class="page-link"
+         href="/member/menu"
+         th:href="@{/member/menu}">
+        ［会員メニューに戻る］
+      </a>
     </nav>
+
+    <form action="/memberChange"
+          th:action="@{/memberChange}"
+          th:object="${checkUser}"
+          method="post">
+
+      <!-- ユーザーID -->
+      <input type="hidden"
+             th:field="*{userid}">
+
+      <table class="input-table">
+        <tbody>
+
+          <!-- 名前 -->
+          <tr>
+            <th>
+              <label for="name">
+                名前
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <input id="name"
+                     type="text"
+                     th:field="*{name}"
+                     maxlength="100"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">
+                名前を入力してください。
+              </p>
+            </td>
+          </tr>
+
+          <!-- メールアドレス -->
+          <tr>
+            <th>
+              <label for="email">
+                メールアドレス
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <input id="email"
+                     type="email"
+                     th:field="*{email}"
+                     maxlength="100"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+                メールアドレスを入力してください。
+              </p>
+            </td>
+          </tr>
+
+          <!-- 住所 -->
+          <tr>
+            <th>
+              <label for="address">
+                住所
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <textarea id="address"
+                        th:field="*{address}"
+                        rows="5"
+                        maxlength="255"
+                        required></textarea>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors('address')}"
+                 th:errors="*{address}">
+                住所を入力してください。
+              </p>
+            </td>
+          </tr>
+
+          <!-- 現在のパスワード -->
+          <tr>
+            <th>
+              <label for="oldPassword">
+                現在のパスワード
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <input id="oldPassword"
+                     type="password"
+                     th:field="*{oldPassword}"
+                     maxlength="20"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors(
+                   'oldPassword'
+                 )}"
+                 th:errors="*{oldPassword}">
+                現在のパスワードを
+                入力してください。
+              </p>
+            </td>
+          </tr>
+
+          <!-- 新しいパスワード -->
+          <tr>
+            <th>
+              <label for="newPassword">
+                新しいパスワード
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <input id="newPassword"
+                     type="password"
+                     th:field="*{newPassword}"
+                     maxlength="20"
+                     required>
+
+              <p class="field-error"
+                 th:if="${passwordError}"
+                 th:text="${passwordError}">
+                新しいパスワードを
+                入力してください。
+              </p>
+            </td>
+          </tr>
+
+          <!-- 新しいパスワード確認 -->
+          <tr>
+            <th>
+              <label for="confirmPassword">
+                新しいパスワード確認
+                <span class="required">
+                  必須
+                </span>
+              </label>
+            </th>
+
+            <td>
+              <input id="confirmPassword"
+                     type="password"
+                     th:field="*{confirmPassword}"
+                     maxlength="20"
+                     required>
+
+              <p class="field-error"
+                 th:if="${#fields.hasErrors(
+                   'confirmPassword'
+                 )}"
+                 th:errors="*{confirmPassword}">
+                確認用パスワードを
+                入力してください。
+              </p>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="button-area">
+        <button class="update-button"
+                type="submit">
+          変更内容を保存
+        </button>
+      </div>
+
+    </form>
 
   </main>
 </body>

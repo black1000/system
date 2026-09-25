@@ -32,133 +32,120 @@ public class ShowCartController {
 	 *カート画面を表示.
 	 */
 	@GetMapping("/cart")
-    public ModelAndView showCart(
-            HttpSession session,
-            ModelAndView mav) {
+	public ModelAndView showCart(
+			HttpSession session,
+			ModelAndView mav) {
 
-        /*
-         * セッションからカートを取得.
-         */
-        Object cartObject =
-                session.getAttribute(
-                        CART_SESSION_NAME);
+		/*
+		 * セッションからカートを取得.
+		 */
+		Object cartObject = session.getAttribute(
+				CART_SESSION_NAME);
 
-        Map<String, Integer> cart;
+		Map<String, Integer> cart;
 
-        /*
-         * カートが存在する場合.
-         */
-        if (cartObject instanceof Map<?, ?>) {
+		/*
+		 * カートが存在する場合.
+		 */
+		if (cartObject instanceof Map<?, ?>) {
 
-            @SuppressWarnings("unchecked")
-            Map<String, Integer> sessionCart =
-                    (Map<String, Integer>)
-                    cartObject;
+			@SuppressWarnings("unchecked")
+			Map<String, Integer> sessionCart = (Map<String, Integer>) cartObject;
 
-            cart = sessionCart;
+			cart = sessionCart;
 
-        } else {
+		} else {
 
-            /*
-             *カートが存在しない場合.
-             */
-            cart =
-                    new LinkedHashMap<>();
-        }
+			/*
+			 *カートが存在しない場合.
+			 */
+			cart = new LinkedHashMap<>();
+		}
 
-        /*
-         * HTMLへ渡すカート商品.
-         */
-        List<OrderDetail> cartItems =
-                new ArrayList<>();
+		/*
+		 * HTMLへ渡すカート商品.
+		 */
+		List<OrderDetail> cartItems = new ArrayList<>();
 
-        int totalPrice = 0;
+		int totalPrice = 0;
 
-        /*
-         *カート内の商品を順番に取得.
-         */
-        for (Map.Entry<String, Integer> entry
-                : cart.entrySet()) {
+		/*
+		 *カート内の商品を順番に取得.
+		 */
+		for (Map.Entry<String, Integer> entry : cart.entrySet()) {
 
-            String productno =
-                    entry.getKey();
+			String productno = entry.getKey();
 
-            Integer quantity =
-                    entry.getValue();
+			Integer quantity = entry.getValue();
 
-            /*
-             *個数が正しくない場合は除外.
-             */
-            if (quantity == null
-                    || quantity <= 0) {
+			/*
+			 *個数が正しくない場合は除外.
+			 */
+			if (quantity == null || quantity <= 0) {
+				continue;
+			}
 
-                continue;
-            }
+			/*
+			 *商品番号から商品を検索.
+			 */
+			Uniform uniform = uniformRepository
+					.findById(productno)
+					.orElse(null);
 
-            /*
-             *商品番号から商品を検索.
-             */
-            Uniform uniform =
-                    uniformRepository
-                            .findById(productno)
-                            .orElse(null);
+			/*
+			 *商品が削除されている場合.
+			 */
+			if (uniform == null) {
+				continue;
+			}
 
-            /*
-             *商品が削除されている場合.
-             */
-            if (uniform == null) {
-                continue;
-            }
+			/*
+			 *カート表示用データを作成.
+			 */
+			OrderDetail item = new OrderDetail();
 
-            /*
-             *カート表示用データを作成.
-             */
-            OrderDetail item =
-                    new OrderDetail();
+			item.setProductno(
+					uniform.getProductNo());
 
-            item.setProductno(
-                    uniform.getProductNo());
+			item.setProductname(
+					uniform.getProductNo());
 
-            item.setProductname(
-                    uniform.getProductNo());
+			item.setPrice(
+					uniform.getPrice());
 
-            item.setPrice(
-                    uniform.getPrice());
+			item.setQuantity(
+					quantity);
 
-            item.setQuantity(
-                    quantity);
+			cartItems.add(item);
 
-            cartItems.add(item);
+			/*
+			 * 合計金額を計算.
+			 */
+			totalPrice += uniform.getPrice() * quantity;
+		}
 
-            /*
-             * 合計金額を計算.
-             */
-            totalPrice +=
-                    uniform.getPrice() * quantity;
-        }
-
-        /*
+		/*
 		 *showcart.htmlへ渡す.
-         */
-        mav.addObject(
-                "cartItems",
-                cartItems);
+		 */
+		mav.addObject(
+				"cartItems",
+				cartItems);
 
-        mav.addObject(
-                "totalPrice",
-                totalPrice);
+		mav.addObject(
+				"totalPrice",
+				totalPrice);
 
-        mav.addObject(
-                "loginUserId",
-                session.getAttribute(
-                        "loginUserId"));
+		mav.addObject(
+				"loginUserId",
+				session.getAttribute(
+						"loginUserId"));
 
-        /*
-         * templates/view/showcart.html.
-         */
-        mav.setViewName(
-                "view/showcart");
+		/*
+		 * templates/view/showcart.html.
+		 */
+		mav.setViewName(
+				"view/showcart");
 
-        return mav;
-    }
+		return mav;
+	}
 }
