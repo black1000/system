@@ -8,8 +8,8 @@
   <title>商品情報変更</title>
 
   <link rel="stylesheet"
-        href="/css/update.css"
-        th:href="@{/css/update.css}">
+        href="/css/style.css"
+        th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -47,9 +47,9 @@
 
     <form action="#"
           th:action="@{/admin/products/{id}(
-            id=${product.productno}
+            id=${uniform.productno}
           )}"
-          th:object="${product}"
+          th:object="${uniform}"
           method="post">
 
       <table class="input-table">

@@ -45,26 +45,26 @@
 
           <tbody>
             <!-- DBから取得した商品を繰り返し表示 -->
-            <tr th:each="product : ${products}"
-                th:classappend="${product.stock == 0}
+            <tr th:each="products : ${products}"
+                th:classappend="${products.stock == 0}
                   ? 'sold-out-row'">
 
               <td>
                 <a class="product-link"
                    href="/products/0001"
                    th:href="@{/products/{id}(
-                     id=${product.productno}
+                     id=${products.productno}
                    )}"
-                   th:text="${product.productname}">
+                   th:text="${products.productname}">
                   ユニフォームA
                 </a>
 
                 <!-- 在庫がある商品だけ送信する -->
-                <input th:if="${product.stock > 0}"
+                <input th:if="${products.stock > 0}"
                        type="hidden"
                        name="productIds"
                        value="0001"
-                       th:value="${product.productno}">
+                       th:value="${products.productno}">
               </td>
 
               <td class="nowrap"
@@ -75,28 +75,28 @@
               </td>
 
               <!-- 在庫がある場合 -->
-              <td th:if="${product.stock > 0}"
-                  th:text="${product.stock} + '枚'">
+              <td th:if="${products.stock > 0}"
+                  th:text="${products.stock} + '枚'">
                 10枚
               </td>
 
               <!-- 在庫が0の場合 -->
               <td class="sold-out"
-                  th:if="${product.stock == 0}">
+                  th:if="${products.stock == 0}">
                 売り切れ
               </td>
 
               <!-- 在庫がある場合の個数選択 -->
-              <td th:if="${product.stock > 0}">
+              <td th:if="${products.stock > 0}">
                 <select class="quantity-select"
                         name="quantities"
                         aria-describedby="quantity-help"
                         th:attr="aria-label=
-                          ${product.productname} + 'の購入個数'">
+                          ${products.productname} + 'の購入個数'">
 
                   <!-- 0から在庫数まで自動生成 -->
                   <option th:each="count :
-                            ${#numbers.sequence(0, product.stock)}"
+                            ${#numbers.sequence(0, products.stock)}"
                           th:value="${count}"
                           th:text="${count} + '枚'">
                     0枚
@@ -106,7 +106,7 @@
 
               <!-- 在庫が0の場合 -->
               <td class="cannot-purchase"
-                  th:if="${product.stock == 0}">
+                  th:if="${products.stock == 0}">
                 購入できません
               </td>
             </tr>

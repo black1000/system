@@ -66,7 +66,7 @@ public class ListController {
 				session.getAttribute(
 						SESSION_LOGIN_USER_ID));
 
-		mav.setViewName("list");
+		mav.setViewName("view/list");
 
 		return mav;
 	}
@@ -74,7 +74,7 @@ public class ListController {
 	/*
 	 * 管理者用の商品一覧.
 	 */
-	@GetMapping("/admin/list")
+	@GetMapping("view/admin/list")
 	public ModelAndView showAdminProductList(
 			HttpSession session,
 			ModelAndView mav) {
@@ -92,6 +92,8 @@ public class ListController {
 
 		List<Uniform> products = uniformRepository
 				.findAllByOrderByProductnoAsc();
+		
+	
 
 		// 在庫数が0の商品があるか確認
 		boolean hasSoldOutProduct = products.stream()
@@ -104,7 +106,7 @@ public class ListController {
 				"hasSoldOutProduct",
 				hasSoldOutProduct);
 
-		mav.setViewName("adminList");
+		mav.setViewName("view/admin/list");
 
 		return mav;
 	}

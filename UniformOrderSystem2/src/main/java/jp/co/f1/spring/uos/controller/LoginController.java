@@ -41,7 +41,7 @@ public class LoginController {
 			ModelAndView mav) {
 
 		mav.addObject("adminLogin", false);
-		mav.setViewName("login");
+		mav.setViewName("view/login");
 
 		return mav;
 	}
@@ -54,7 +54,7 @@ public class LoginController {
 			ModelAndView mav) {
 
 		mav.addObject("adminLogin", true);
-		mav.setViewName("login");
+		mav.setViewName("view/login");
 
 		return mav;
 	}
@@ -115,7 +115,7 @@ public class LoginController {
 		 */
 		mav.addObject("adminLogin", adminLogin);
 		mav.addObject("userid", userid);
-		mav.setViewName("login");
+		mav.setViewName("view/login");
 
 		/*
 		 *未入力確認.
