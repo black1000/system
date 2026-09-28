@@ -211,22 +211,31 @@ public class BuyConfirmController {
 			order.setAddress(address);
 			order.setRemarks(remarks);
 		}
+		
 		/*
 		 * 保存する注文明細
 		 */
 		List<OrderDetail> orderDetails = new ArrayList<>();
+		
+		
 		/*
 		 * 在庫を更新する商品
 		 */
 		List<Uniform> orderedUniforms = new ArrayList<>();
 		int totalPrice = 0;
 		int totalQuantity = 0;
+		
+		
+		
 		/*
 		 * カート内の商品を確認
 		 */
 		for (Map.Entry<String, Integer> entry : cart.entrySet()) {
 			String productno = entry.getKey();
 			Integer quantity = entry.getValue();
+			
+			
+			
 			/*
 			 * 個数が正しくない場合
 			 */
@@ -234,12 +243,18 @@ public class BuyConfirmController {
 					|| quantity <= 0) {
 				continue;
 			}
+			
+			
+			
 			/*
 			 * 商品をDBから取得
 			 */
 			Uniform uniform = uniformRepository
 					.findById(productno)
 					.orElse(null);
+			
+			
+			
 			/*
 			 * 商品が削除されていた場合
 			 */
@@ -252,6 +267,9 @@ public class BuyConfirmController {
 						"redirect:/cart");
 				return mav;
 			}
+			
+			
+			
 			/*
 			 * 在庫を再確認
 			 */
@@ -265,6 +283,9 @@ public class BuyConfirmController {
 						"redirect:/cart");
 				return mav;
 			}
+			
+			
+			
 			/*
 			 * 注文明細を作成
 			 */
@@ -273,6 +294,9 @@ public class BuyConfirmController {
 					uniform.getProductno());
 			detail.setProductname(
 					uniform.getProductno());
+			
+			
+			
 			/*
 			 * 購入時点の価格を保存
 			 */
@@ -282,16 +306,26 @@ public class BuyConfirmController {
 					quantity);
 			orderDetails.add(detail);
 			orderedUniforms.add(uniform);
+			
+			
+			
+			
 			/*
 			 * 合計金額を計算
 			 */
 			totalPrice += uniform.getPrice()
 					* quantity;
+			
+			
+			
 			/*
 			 * 合計個数を計算
 			 */
 			totalQuantity += quantity;
 		}
+		
+		
+		
 		/*
 		 * 有効な購入商品がない場合
 		 */
@@ -304,6 +338,10 @@ public class BuyConfirmController {
 					"redirect:/list");
 			return mav;
 		}
+		
+		
+		
+		
 		/*
 		 * 注文情報を設定
 		 */
@@ -328,6 +366,10 @@ public class BuyConfirmController {
 		 */
 		Order savedOrder = orderRepository
 				.saveAndFlush(order);
+		
+		
+		
+		
 		/*
 		 * 注文明細へ注文番号を設定し、
 		 * 商品在庫を減らす
@@ -335,11 +377,20 @@ public class BuyConfirmController {
 		for (int i = 0; i < orderDetails.size(); i++) {
 			OrderDetail detail = orderDetails.get(i);
 			Uniform uniform = orderedUniforms.get(i);
+			
+			
+			
+			
 			/*
 			 * 保存された注文番号
 			 */
 			detail.setOrderno(
 					savedOrder.getOrderno());
+			
+			
+			
+			
+			
 			/*
 			 * 在庫数から購入個数を引く
 			 */
@@ -347,16 +398,30 @@ public class BuyConfirmController {
 					uniform.getStock()
 							- detail.getQuantity());
 		}
+		
+		
+		
+		
+		
 		/*
 		 * orderdetailへ保存
 		 */
 		List<OrderDetail> savedOrderDetails = orderDetailRepository
 				.saveAll(orderDetails);
+		
+		
+		
+		
 		/*
 		 * 更新した在庫数を保存
 		 */
 		uniformRepository
 				.saveAll(orderedUniforms);
+		
+		
+		
+		
+		
 		/*
 		 * 購入内容と振込先を
 		 * 注文者へメール送信
@@ -373,6 +438,10 @@ public class BuyConfirmController {
 		mav.addObject(
 				"orderDetails",
 				savedOrderDetails);
+		
+		
+		
+		
 		/*
 		 * 注文完了後に
 		 * カート情報を削除
@@ -382,6 +451,11 @@ public class BuyConfirmController {
 		session.removeAttribute("pendingOrder");
 		session.removeAttribute(
 				"pendingOrderDetails");
+		
+		
+		
+		
+		
 		/*
 		 * templates/view/Purchasecomplete.html
 		 */
@@ -389,6 +463,9 @@ public class BuyConfirmController {
 				"view/Purchasecomplete");
 		return mav;
 	}
+	
+	
+	
 
 	/*
 	 * 購入内容と振込先をメール送信
@@ -397,22 +474,35 @@ public class BuyConfirmController {
 			Order order,
 			List<OrderDetail> orderDetails) {
 		SimpleMailMessage message = new SimpleMailMessage();
+		
+		
+		
 		/*
 		 * 送信元
 		 */
 		message.setFrom(
 				fromAddress);
+		
+		
+		
 		/*
 		 * 送信先
 		 */
-		message.setTo(
-				order.getEmail());
+		message.setTo("tyrryk1030@gmail.com");
+		
+		/*order.getEmail()
+		
+		
+		
 		/*
 		 * 件名
 		 */
 		message.setSubject(
 				"【神田ユニフォーム】"
 						+ "ご注文ありがとうございます");
+		
+		
+		
 		/*
 		 * 本文
 		 */
@@ -429,6 +519,9 @@ public class BuyConfirmController {
 						order.getOrderno())
 				.append("\n\n");
 		text.append("【購入内容】\n");
+		
+		
+		
 		/*
 		 * 複数商品をメール本文へ追加
 		 */
@@ -455,6 +548,10 @@ public class BuyConfirmController {
 				.append(
 						order.getTotalprice())
 				.append("円\n\n");
+		
+		
+		
+		
 		/*
 		 * 実際の振込先へ変更する
 		 */
@@ -470,11 +567,16 @@ public class BuyConfirmController {
 						+ "発送準備を行います。\n");
 		message.setText(
 				text.toString());
+		
+		
+		
+		
 		/*
 		 * メールを送信
 		 */
 		mailSender.send(message);
 	}
+	
 
 	/*
 	 * nullを空文字へ変換し、
