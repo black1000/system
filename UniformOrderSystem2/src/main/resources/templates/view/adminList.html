@@ -100,19 +100,18 @@
                 </a>
 
                 <!-- 削除処理 -->
-                <form class="delete-form"
-                      action="/admin/products/0001/delete"
-                      th:action="@{/admin/products/{id}/delete(
-                        id=${product.productno}
-                      )}"
-                      method="post">
+                <a class="delete-form"
+                      href="/delete"
+                      th:href="@{/delete(productno=${product.productno})}"
+					  method = "GET"
+                     >
 
                   <button class="delete-button"
                           type="submit"
                           onclick="return confirm('この商品を削除してもよろしいですか？');">
                     削除
                   </button>
-                </form>
+                </a>
 
               </div>
             </td>
@@ -130,8 +129,8 @@
 
     <nav class="bottom-navigation">
       <a class="page-link"
-         href="/admin/products/new"
-         th:href="@{/admin/products/new}">
+         href="/insert"
+         th:href="@{/insert}">
         商品を新規登録する
       </a>
 
