@@ -23,7 +23,7 @@ public class LogoutController {
     	session.invalidate();
 
     	//リダイレクト先を指定
-    	mav = new ModelAndView("redirect:/login");
+    	mav = new ModelAndView("view/list");
     	// ModelとView情報を返す
     	return mav;
 	}

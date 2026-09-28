@@ -22,7 +22,11 @@
 
         <li>
           <a class="menu-link"
+<<<<<<< HEAD
+             href="/admin/orders"
+=======
              href="/orderedList"
+>>>>>>> 0a419a4b0263947aff791fd57c84e6d9784c2787
              th:href="@{/orderedList}">
             受注状況一覧
           </a>
@@ -30,7 +34,11 @@
 
         <li>
           <a class="menu-link"
+<<<<<<< HEAD
+             href="/admin/products"
+=======
              href="/adminList"
+>>>>>>> 0a419a4b0263947aff791fd57c84e6d9784c2787
              th:href="@{/adminList}">
             商品一覧
           </a>
@@ -38,12 +46,17 @@
 
         <li>
           <a class="menu-link"
+<<<<<<< HEAD
+             href="/admin/products/new"
+=======
              href="/insert"
+>>>>>>> 0a419a4b0263947aff791fd57c84e6d9784c2787
              th:href="@{/insert}">
             商品登録
           </a>
         </li>
         <li>
+<<<<<<< HEAD
 			<form action="/logout" 
 					th:action="${adminLogout} ? @{/admin/logout} : @{/logout}"
 					 method="post">
@@ -56,6 +69,13 @@
 				            </button>
 			 </nav>
           </form>
+=======
+          <a class="menu-link logout-link"
+             href="/logout"
+             th:href="@{/logout} ">
+            ログアウト
+          </a>
+>>>>>>> 2018e11a0c12de858c10181cf1e3f4c28bcc790d
         </li>
 
       </ul>
