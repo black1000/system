@@ -37,12 +37,20 @@
       ログアウトしました。
     </p>
 
+<<<<<<< HEAD
+    <form class="login-form"
+          action="/login"
+          th:action="
+		  			@{/login}"
+          method="post">
+=======
 	<form class="login-form" 
 		action="/login" 
 		th:action="${adminLogin} ? @{/admin/login} : @{/login}" 
 		method="post">
 
 
+>>>>>>> 06007deff7f501b41e3118c7863547641ed0c312
 
       <!-- 管理者ログインかどうかを引き継ぐ -->
       <input type="hidden"

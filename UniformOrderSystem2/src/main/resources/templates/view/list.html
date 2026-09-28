@@ -129,6 +129,7 @@
 
     </form>
 
+	<div th:if="${session.loginUserId == null}">
     <nav class="customer-navigation"
          aria-label="購入者用メニュー">
 
@@ -143,14 +144,28 @@
          th:href="@{/login}">
         ログイン
       </a>
+    </nav>
+	  </div>
 
+	  <nav>
       <a class="page-link"
          href="/cart"
          th:href="@{/cart}">
         カートを見る
       </a>
     </nav>
+	
+	<div th:if="${session.loginUserId != null}">
+	<nav>
+	      <a class="page-link"
+	         href="/menu"
+	         th:href="@{/menu}">
+	        会員メニューに戻る
+	      </a>
+	    </nav>
+	</div>
 
+	<div th:if="${session.loginUserId == null}">
     <nav class="admin-navigation"
          aria-label="管理者用メニュー">
 
@@ -160,6 +175,7 @@
         管理者としてログイン
       </a>
     </nav>
+	</div>
 
   </main>
 </body>
