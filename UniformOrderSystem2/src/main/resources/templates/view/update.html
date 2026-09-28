@@ -45,10 +45,8 @@
       </a>
     </nav>
 
-    <form action="#"
-          th:action="@{/admin/products/{id}(
-            id=${uniform.productno}
-          )}"
+    <form action="/update"
+        
           th:object="${uniform}"
           method="post">
 
@@ -155,7 +153,9 @@
       </table>
 
       <div class="button-area">
+		
         <button type="submit" class="update-button">
+			
           変更内容を保存
         </button>
       </div>
