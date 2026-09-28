@@ -34,6 +34,7 @@ import jp.co.f1.spring.uos.entity.Uniform;
 import jp.co.f1.spring.uos.entity.Order;
 import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.repository.UniformRepository;
+import jp.co.f1.spring.uos.repository.UserRepository;
 
 @Controller
 public class InsertController {
@@ -45,6 +46,8 @@ public class InsertController {
 	// DAO自動インスタンス化
 	@Autowired
 	private UniformDAO uniformDao;
+	
+	
 
 	@PostConstruct
 	public void init() {
@@ -54,6 +57,12 @@ public class InsertController {
 	// Repositoryインターフェースを自動インスタンス化
 	@Autowired
 	private UniformRepository uniforminfo;
+	
+	// Repositoryインターフェースを自動インスタンス化
+		@Autowired
+		private UserRepository userinfo;
+
+		private  User user = new User();
 
 	@Autowired
 	private HttpSession session;
@@ -82,20 +91,22 @@ public class InsertController {
 	public ModelAndView insertPost(@ModelAttribute @Validated(Uniform.All.class) Uniform uniform, BindingResult result,
 			HttpSession session, ModelAndView mav) {
 
-		// 権限振り分け用
+		// セッションを受け取る
+        String userid =  (String)session.getAttribute("loginUserId");
+       Optional <User>    optionalUser = userinfo. findByUserid(userid);
 
-		User user = (User) session.getAttribute("user");
+        // userがない(セッション切れ)の時
+        if (user == null) {
 
-		// userがない(セッション切れ)の時
-		if (user == null) {
+            mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
 
-			mav.addObject("errorMessage", "セッション切れの為、登録できません。 ");
+            mav.setViewName("view/error");
+            return mav;
 
-			mav.setViewName("view/error");
-			return mav;
+        }
 
-		}
-
+        mav.addObject("user", optionalUser);
+        user = optionalUser.get();
 		mav.addObject("user", user);
 
 		// 商品情報の検索
