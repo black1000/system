@@ -27,6 +27,7 @@ import jp.co.f1.spring.uos.entity.Uniform;
 import jp.co.f1.spring.uos.entity.Order;
 import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.repository.UniformRepository;
+import jp.co.f1.spring.uos.repository.UserRepository;
 
 
 @Controller
@@ -51,22 +52,47 @@ public class UpdateController {
 		@Autowired
 		private UniformRepository uniforminfo;
 
+		// Repositoryインターフェースを自動インスタンス化
+		@Autowired
+		private UserRepository userinfo;
+
 		@Autowired
 		private HttpSession session;
+		
+		private  User user = new User();
 		
 		/*
 		 * 「/update」へGET送信でアクセスがあった場合
 		 */
 		@GetMapping("/update")
 		public ModelAndView update(@RequestParam(required = true) String productno, ModelAndView mav) {
+		
+			// セッションを受け取る
+			String userid =  (String)session.getAttribute("loginUserId");
+		   Optional <User>	optionalUser = userinfo. findByUserid(userid);
+
+			// userがない(セッション切れ)の時
+			if (user == null) {
+
+				mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
+
+				mav.setViewName("view/error");
+				return mav;
+
+			}
+
+			mav.addObject("user", optionalUser);
+			user = optionalUser.get();
+
+			mav.addObject("user", user);
+			
 			// 商品情報の検索
 			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(productno);
 
 			// エラーチェック
 			if (optionalUniform.isEmpty()) {
 				mav.addObject("errorMessage", "更新対象の商品が存在しない為、変更画面は表示出来ませんでした。 ");
-				mav.addObject("cmd", "list");
-				mav.addObject("next", "[一覧表示に戻る]");
+	
 				mav.setViewName("view/error");
 				return mav;
 			}
@@ -89,22 +115,25 @@ public class UpdateController {
 		public ModelAndView postUpdate(@ModelAttribute @Validated(Uniform.All.class) Uniform uniform, BindingResult result,
 				@RequestParam(required = true) String productno, ModelAndView mav) {
 
-			// 権限振り分け用
-
-			User user = (User) session.getAttribute("user");
+			// セッションを受け取る
+			String userid =  (String)session.getAttribute("loginUserId");
+		   Optional <User>	optionalUser = userinfo. findByUserid(userid);
 
 			// userがない(セッション切れ)の時
 			if (user == null) {
 
-				mav.addObject("errorMessage", "セッション切れの為、更新できませんでした。 ");
-				mav.addObject("cmd", "logout");
-				mav.addObject("next", "[ログイン画面へ]");
+				mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
+
 				mav.setViewName("view/error");
 				return mav;
 
 			}
 
+			mav.addObject("user", optionalUser);
+			user = optionalUser.get();
+
 			mav.addObject("user", user);
+			
 			// 商品情報検索
 			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(productno);
 

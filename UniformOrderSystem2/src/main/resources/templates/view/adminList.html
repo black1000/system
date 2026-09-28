@@ -92,10 +92,10 @@
 
                 <!-- 変更画面 -->
                 <a class="page-link"
-                   href="/admin/products/0001/edit"
-                   th:href="@{/admin/products/{id}/edit(
-                     id=${product.productno}
-                   )}">
+                   href="/update"
+                   th:href="@{/update(productno=${product.productno})}"
+				   method = "GET"
+				   >
                   変更
                 </a>
 
