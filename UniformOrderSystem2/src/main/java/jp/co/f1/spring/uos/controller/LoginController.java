@@ -243,7 +243,7 @@ public class LoginController {
 
 			// 管理者メニューへ移動
 			mav.setViewName(
-					"redirect:/admin/menu");
+					"view/adminMenu");
 
 		} else {
 
@@ -271,8 +271,7 @@ public class LoginController {
 				 *カートがない場合は.
 				 *会員メニューへ移動.
 				 */
-				mav.setViewName(
-						"redirect:/member/menu");
+				mav.setViewName("view/membermenu");
 			}
 		}
 
