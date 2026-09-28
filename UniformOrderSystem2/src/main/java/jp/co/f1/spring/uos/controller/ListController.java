@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.entity.Uniform;
 import jp.co.f1.spring.uos.repository.UniformRepository;
 
@@ -44,6 +45,7 @@ public class ListController {
 	public ModelAndView showProductList(
 			HttpSession session,
 			ModelAndView mav) {
+		User user = (User) session.getAttribute("user");
 
 		String authority = (String) session.getAttribute(
 				SESSION_AUTHORITY);
@@ -51,8 +53,9 @@ public class ListController {
 		// 管理者は管理者用の商品一覧へ移動
 		if (ADMIN_AUTHORITY.equals(authority)) {
 
+			session.setAttribute("user", user);
 			mav.setViewName("redirect:/admin/list");
-
+			
 			return mav;
 		}
 
@@ -106,7 +109,7 @@ public class ListController {
 				"hasSoldOutProduct",
 				hasSoldOutProduct);
 
-		mav.setViewName("view/admin/list");
+		mav.setViewName("view/adminList");
 
 		return mav;
 	}
