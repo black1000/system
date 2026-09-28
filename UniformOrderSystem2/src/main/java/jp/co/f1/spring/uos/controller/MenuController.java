@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.f1.spring.uos.dao.UserDAO;
-import jp.co.f1.spring.uos.repository.UserRepository;
 import jp.co.f1.spring.uos.entity.User;
+import jp.co.f1.spring.uos.repository.UserRepository;
 
 @Controller
 public class MenuController {
