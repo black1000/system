@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +22,7 @@ public class LogoutController {
     	session.invalidate();
 
     	//リダイレクト先を指定
-    	mav = new ModelAndView("view/list");
+    	mav = new ModelAndView("redirect:/list");
     	// ModelとView情報を返す
     	return mav;
 	}

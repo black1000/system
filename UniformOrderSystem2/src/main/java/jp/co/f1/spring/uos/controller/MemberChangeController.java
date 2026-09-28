@@ -23,8 +23,7 @@ public class MemberChangeController {
 	private final UserRepository userRepository;
 
 	/*
-	
-	◦ コンストラクタ.
+	 *コンストラクタ.
 	 */
 	public MemberChangeController(
 			UserRepository userRepository) {
@@ -33,12 +32,9 @@ public class MemberChangeController {
 	}
 
 	/*
-	
-	◦ 会員情報変更画面を表示.
-	 *
-	
-	◦ 会員メニューのURLが.
-	◦ /member/profileの場合にも対応.
+	 *会員情報変更画面を表示.
+	 * 会員メニューのURLが.
+	 * /memberの場合にも対応.
 	 */
 	@GetMapping({"/memberChange"})
 	public ModelAndView showMemberChange(
@@ -46,8 +42,7 @@ public class MemberChangeController {
 			ModelAndView mav) {
 
 		/*
-		
-		◦ セッションからログイン情報を取得.
+		 *セッションからログイン情報を取得.
 		 */
 		String loginUserId = (String) session.getAttribute(
 				"loginUserId");
