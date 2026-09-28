@@ -16,23 +16,44 @@ import jp.co.f1.spring.uos.dao.OrderDAO;
 import jp.co.f1.spring.uos.entity.Order;
 import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.repository.OrderRepository;
+import jp.co.f1.spring.uos.repository.UserRepository;
 
 @Controller
 public class OrderedListController {
 
 	@Autowired
 	private HttpSession session;
+	private User user = new User();
+	
 	@Autowired
 	private OrderRepository orderinfo;;
 
 	@Autowired
 	private OrderDAO orderDao;
+	private UserRepository userinfo;
 
 	@GetMapping("orderedList")
 	public ModelAndView orderedList(HttpServletRequest request, ModelAndView mav) {
 
 		// セッションからユーザー情報取得
-		User user = (User) session.getAttribute("user");
+		//	User user = (User) session.getAttribute("user");
+
+		// セッションを受け取る
+		String userid = (String) session.getAttribute("loginUserId");
+		Optional<User> optionalUser = userinfo.findByUserid(userid);
+
+		// userがない(セッション切れ)の時
+		if (user == null) {
+
+			mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
+
+			mav.setViewName("view/error");
+			return mav;
+
+		}
+
+		mav.addObject("user", optionalUser);
+		user = optionalUser.get();
 
 		// セッション切れの場合
 		if (user == null) {

@@ -9,7 +9,7 @@
 
   <link rel="stylesheet"
         href="/css/style.css"
-        th:href="@{/css/stylei.css}">
+        th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -17,8 +17,12 @@
 
     <h1 class="page-title">注文履歴</h1>
 
+	
     <p class="customer-name">
-      <span th:text="${user.name}">
+		<!-- セッションで登録した名前取得
+			修正前： user.name
+		  -->
+      <span th:text="${session.loginUserName}">
         神田太郎
       </span>
       様
@@ -119,14 +123,14 @@
     <nav class="page-navigation">
 
       <a class="page-link"
-         href="#"
-         th:href="@{/member/menu}">
+         href="/membermenu"
+         th:href="@{/menu}">
         会員メニューへ
       </a>
 
       <a class="page-link"
-         href="#"
-         th:href="@{/products}">
+         href="/list"
+         th:href="@{/list}">
         商品一覧へ
       </a>
 
