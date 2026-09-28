@@ -43,13 +43,19 @@
             商品登録
           </a>
         </li>
-
         <li>
-          <a class="menu-link logout-link"
-             href="/logout"
-             th:href="@{/logout}">
-            ログアウト
-          </a>
+			<form action="/logout" 
+					th:action="${adminLogout} ? @{/admin/logout} : @{/logout}"
+					 method="post">
+			<nav class="bottom-navigation">
+				<div class="button-area">
+				  <button class="login-button" type="submit"
+								 href="/logout"
+				                 th:href="@{/logout}">
+				            ログアウト
+				            </button>
+			 </nav>
+          </form>
         </li>
 
       </ul>

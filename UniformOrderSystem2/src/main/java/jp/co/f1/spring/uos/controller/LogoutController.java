@@ -16,7 +16,7 @@ public class LogoutController {
 		@Autowired
 		private HttpSession session;
 
-	@GetMapping("/logout")
+	@PostMapping("/logout")
     public ModelAndView logoutForm(ModelAndView mav,HttpServletRequest request) {
 
     	//セッション情報をクリアする
