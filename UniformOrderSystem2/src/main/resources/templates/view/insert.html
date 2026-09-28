@@ -31,14 +31,14 @@
 
     <nav class="top-navigation">
       <a class="page-link"
-         href="/admin/menu"
-         th:href="@{/admin/menu}">
+         href="/menu"
+         th:href="@{/menu}">
         ［管理者メニューに戻る］
       </a>
     </nav>
 
-    <form action="/admin/products"
-          th:action="@{/admin/products}"
+    <form action="/insert"
+          th:action="@{/insert}"
           th:object="${uniform}"
           method="post">
 
@@ -96,8 +96,10 @@
                      step="1"
                      placeholder="3000"
                      required>
-
+					
               <span class="unit">円</span>
+			  <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" th:errorclass="error-message"></p>
+			 
             </td>
           </tr>
 
@@ -117,8 +119,9 @@
                      step="1"
                      placeholder="10"
                      required>
-
+					 
               <span class="unit">枚</span>
+			  <p th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" th:errorclass="error-message"></p>
             </td>
           </tr>
         </tbody>

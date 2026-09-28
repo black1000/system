@@ -108,5 +108,18 @@ public class ShowOrderedHistoryController {
 			mav.setViewName("view/orderHistory");
 			return mav;
 		}
+		/**
+		 * Exception発生時の処理メソッド.
+		 */
+		@ExceptionHandler(Exception.class)
+		public ModelAndView ExceptionHandler(Exception e) {
+			ModelAndView mav = new ModelAndView();
+
+			mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+			// 画面に出力するViewを指定
+			mav.setViewName("view/error");
+			// ModelとView情報を返す
+			return mav;
+		}
 	
 }
