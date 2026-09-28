@@ -74,7 +74,7 @@ public class ListController {
 	/*
 	 * 管理者用の商品一覧.
 	 */
-	@GetMapping("view/adminList")
+	@GetMapping("/admin/list")
 	public ModelAndView showAdminProductList(
 			HttpSession session,
 			ModelAndView mav) {
