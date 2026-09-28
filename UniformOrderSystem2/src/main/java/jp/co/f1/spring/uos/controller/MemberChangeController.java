@@ -40,10 +40,7 @@ public class MemberChangeController {
 	◦ 会員メニューのURLが.
 	◦ /member/profileの場合にも対応.
 	 */
-	@GetMapping({
-			"/memberChange",
-			"/member/profile"
-	})
+	@GetMapping({"/memberChange"})
 	public ModelAndView showMemberChange(
 			HttpSession session,
 			ModelAndView mav) {
@@ -59,9 +56,8 @@ public class MemberChangeController {
 				"authority");
 
 		/*
-		
-		◦ 未ログインまたは.
-		◦ 一般会員ではない場合.
+		 *未ログインまたは.
+		 * 一般会員ではない場合.
 		 */
 		if (loginUserId == null
 				|| !MEMBER_AUTHORITY.equals(
@@ -79,16 +75,14 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ DBから会員情報を取得.
+		 *DBから会員情報を取得.
 		 */
 		User user = userRepository
 				.findById(loginUserId)
 				.orElse(null);
 
 		/*
-		
-		◦ 会員情報が存在しない場合.
+		 *会員情報が存在しない場合.
 		 */
 		if (user == null) {
 
@@ -106,9 +100,8 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ HTMLのth:object="${checkUser}".
-		◦ へ渡すフォームを作成.
+		 *HTMLのth:object="${checkUser}".
+		 *へ渡すフォームを作成.
 		 */
 		CheckUser checkUser = new CheckUser();
 
@@ -125,8 +118,7 @@ public class MemberChangeController {
 				user.getAddress());
 
 		/*
-		
-		◦ パスワードは画面へ渡さない.
+		 *パスワードは画面へ渡さない.
 		 */
 		checkUser.setOldPassword("");
 		checkUser.setNewPassword("");
@@ -137,8 +129,7 @@ public class MemberChangeController {
 				checkUser);
 
 		/*
-		
-		◦ templates/view/memberChange.html.
+		 *templates/view/memberChange.html.
 		 */
 		mav.setViewName(
 				"view/memberChange");
@@ -147,8 +138,7 @@ public class MemberChangeController {
 	}
 
 	/*
-	
-	◦ 会員情報を変更.
+	 *会員情報を変更.
 	 */
 	@PostMapping("/memberChange")
 	public ModelAndView updateMember(
@@ -160,8 +150,7 @@ public class MemberChangeController {
 			ModelAndView mav) {
 
 		/*
-		
-		◦ セッションからログイン情報を取得.
+		 *セッションからログイン情報を取得.
 		 */
 		String loginUserId = (String) session.getAttribute(
 				"loginUserId");
@@ -170,9 +159,8 @@ public class MemberChangeController {
 				"authority");
 
 		/*
-		
-		◦ 未ログインまたは.
-		◦ 一般会員ではない場合.
+		 *未ログインまたは.
+		 *一般会員ではない場合.
 		 */
 		if (loginUserId == null
 				|| !MEMBER_AUTHORITY.equals(
@@ -190,16 +178,14 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ 送信されたユーザーIDを信用せず、.
-		◦ セッションのIDを設定.
+		 *送信されたユーザーIDを信用せず、.
+		 *セッションのIDを設定.
 		 */
 		checkUser.setUserid(
 				loginUserId);
 
 		/*
-		
-		◦ DBから現在の会員情報を取得.
+		 *DBから現在の会員情報を取得.
 		 */
 		User oldUser = userRepository
 				.findById(loginUserId)
@@ -220,8 +206,7 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ 入力エラーがある場合.
+		 *入力エラーがある場合.
 		 */
 		if (result.hasErrors()) {
 
@@ -236,8 +221,7 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ 現在のパスワードを確認.
+		 *現在のパスワードを確認.
 		 */
 		if (!oldUser.getPassword().equals(
 				checkUser.getOldPassword())) {
@@ -253,8 +237,7 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ 新しいパスワードの未入力確認.
+		 * 新しいパスワードの未入力確認.
 		 */
 		if (checkUser.getNewPassword() == null
 				|| checkUser
@@ -277,9 +260,8 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ 新しいパスワードと.
-		◦ 確認用パスワードを比較.
+		 *新しいパスワードと.
+		 *確認用パスワードを比較.
 		 */
 		if (!checkUser
 				.getNewPassword()
@@ -300,8 +282,7 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ メールアドレスの簡単な確認.
+		 *メールアドレスの簡単な確認.
 		 */
 		if (checkUser.getEmail() == null
 				|| !checkUser
@@ -320,11 +301,9 @@ public class MemberChangeController {
 		}
 
 		/*
-		
-		◦ DBへ更新内容を設定.
+		 *DBへ更新内容を設定.
 		 *
-		
-		◦ useridは主キーなので変更しない.
+		 *useridは主キーなので変更しない.
 		 */
 		oldUser.setName(
 				checkUser
@@ -346,32 +325,28 @@ public class MemberChangeController {
 						.getNewPassword());
 
 		/*
-		
-		◦ DBへ保存.
+		 *DBへ保存.
 		 */
 		userRepository.saveAndFlush(
 				oldUser);
 
 		/*
-		
-		◦ セッション内の表示名も更新.
+		 *セッション内の表示名も更新.
 		 */
 		session.setAttribute(
 				"loginUserName",
 				oldUser.getName());
 
 		/*
-		
-		◦ リダイレクト後に表示する.
-		◦ 完了メッセージ.
+		 *リダイレクト後に表示する.
+		 *完了メッセージ.
 		 */
 		redirectAttributes.addFlashAttribute(
 				"successMessage",
 				"会員情報を更新しました。");
 
 		/*
-		
-		◦ 二重送信を防ぐためリダイレクト.
+		 *二重送信を防ぐためリダイレクト.
 		 */
 		mav.setViewName(
 				"redirect:/memberChange");
