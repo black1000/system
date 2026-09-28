@@ -6,7 +6,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.GroupSequence;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name="uniforminfo")
@@ -48,9 +51,8 @@ public class Uniform {
 
 	// 価格
 	@Column(length = 11, nullable = true)
-	@NotEmpty(message="価格を入力してください", groups = Group1.class)
-	@Pattern(regexp = "^[0-9]+$", message = "価格は数字のみで入力してください", groups = Group2.class)
-	
+	@NotNull(message="価格を入力してください", groups = Group1.class)
+	@Range(min = 1,  groups = Group2.class, message = "1以上の数字で入力してください")
 	private int price;
 
 	public int getPrice() {
@@ -62,8 +64,8 @@ public class Uniform {
 	}
 	// 在庫数
 	@Column(length = 11, nullable = true)
-	@NotEmpty(message="在庫数を入力してください", groups = Group1.class)
-	@Pattern(regexp = "^[0-9]+$", message = "在庫数は数字のみで入力してください", groups = Group2.class)
+	@NotNull(message="在庫数を入力してください", groups = Group1.class)
+	@Range(min = 1,  groups = Group2.class, message = "1以上の数字で入力してください")
 	
 	private int stock;
 

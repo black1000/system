@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,7 +72,8 @@ public class MenuController {
 			mav.addObject("auth", auth);
 
 			// 画面に出力するViewを指定
-			mav.setViewName("view/membermenu");
+			mav.setViewName("view/adminMenu");
+			
 			
 		} else if (user.getAuthority().equals("2")) {
 			auth = "管理者";
@@ -79,7 +81,7 @@ public class MenuController {
 			mav.addObject("auth", auth);
 
 			// 画面に出力するViewを指定
-			mav.setViewName("view/adminMenu");
+			mav.setViewName("view/membermenu");
 		}
 
 
@@ -87,5 +89,18 @@ public class MenuController {
 		// ModelとView情報を返す
 		return mav;
 	}
+	/**
+	 * Exception発生時の処理メソッド.
+	 */
+	@ExceptionHandler(Exception.class)
+	public ModelAndView ExceptionHandler(Exception e) {
+		ModelAndView mav = new ModelAndView();
 
+	
+		mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+		// 画面に出力するViewを指定
+		mav.setViewName("view/error");
+		// ModelとView情報を返す
+		return mav;
+	}
 }

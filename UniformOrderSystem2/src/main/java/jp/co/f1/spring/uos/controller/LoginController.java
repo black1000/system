@@ -244,6 +244,7 @@ public class LoginController {
 			// 管理者メニューへ移動
 			mav.setViewName(
 					"view/adminMenu");
+			session.setAttribute("user", user);
 
 		} else {
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -127,5 +128,17 @@ public class InsertNewMemberController {
 		// ModelとView情報を返す
 		return mav;
 	}
+	/**
+	 * Exception発生時の処理メソッド.
+	 */
+	@ExceptionHandler(Exception.class)
+	public ModelAndView ExceptionHandler(Exception e) {
+		ModelAndView mav = new ModelAndView();
 
+		mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+		// 画面に出力するViewを指定
+		mav.setViewName("view/error");
+		// ModelとView情報を返す
+		return mav;
+	}
 }
