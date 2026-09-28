@@ -35,109 +35,116 @@ import jp.co.f1.spring.uos.entity.Order;
 import jp.co.f1.spring.uos.entity.User;
 import jp.co.f1.spring.uos.repository.UniformRepository;
 
-
 @Controller
 public class InsertController {
-	
 
+	// EntityManager自動インスタンス化
+	@PersistenceContext
+	private EntityManager entityManager;
 
-		// EntityManager自動インスタンス化
-		@PersistenceContext
-		private EntityManager entityManager;
+	// DAO自動インスタンス化
+	@Autowired
+	private UniformDAO uniformDao;
 
-		// DAO自動インスタンス化
-		@Autowired
-		private UniformDAO uniformDao;
+	@PostConstruct
+	public void init() {
+		uniformDao = new UniformDAO(entityManager);
+	}
 
-		@PostConstruct
-		public void init() {
-			uniformDao = new UniformDAO(entityManager);
+	// Repositoryインターフェースを自動インスタンス化
+	@Autowired
+	private UniformRepository uniforminfo;
+
+	@Autowired
+	private HttpSession session;
+
+	/*
+	 * 「/insert」へGET送信アクセスがあった場合
+	 */
+	@GetMapping("/insert")
+	public ModelAndView insert(@ModelAttribute Uniform uniform, HttpSession session, ModelAndView mav) {
+
+		// Viewに渡す変数をModelに格納
+		mav.addObject("uniform", uniform);
+
+		// 画面に出力するViewを指定
+		mav.setViewName("view/insert");
+
+		// ModelとView情報を返す
+		return mav;
+	}
+
+	/*
+	 * 「/insert」へPOST送信された場合
+	 */
+	@PostMapping(value = "/insert")
+	// POSTデータをUniformインスタンスとして受け取る
+	public ModelAndView insertPost(@ModelAttribute @Validated(Uniform.All.class) Uniform uniform, BindingResult result,
+			HttpSession session, ModelAndView mav) {
+
+		// 権限振り分け用
+
+		User user = (User) session.getAttribute("user");
+
+		// userがない(セッション切れ)の時
+		if (user == null) {
+
+			mav.addObject("errorMessage", "セッション切れの為、登録できません。 ");
+
+			mav.setViewName("view/error");
+			return mav;
+
 		}
 
-		// Repositoryインターフェースを自動インスタンス化
-		@Autowired
-		private UniformRepository uniforminfo;
+		mav.addObject("user", user);
 
-		@Autowired
-		private HttpSession session;
-		
-		/*
-		 * 「/insert」へGET送信アクセスがあった場合
-		 */
-		@GetMapping("/insert")
-		public ModelAndView insert(@ModelAttribute Uniform uniform, ModelAndView mav) {
+		// 商品情報の検索
+		Optional<Uniform> optionalUniform = uniforminfo.findByProductno(uniform.getProductno());
 
-			// Viewに渡す変数をModelに格納
-			mav.addObject("uniform", uniform);
+		// 入力エラーがある場合
+		if (result.hasErrors()) {
+			// エラーメッセージ
+			mav.addObject("message", "入力内容に誤りがあります");
 
 			// 画面に出力するViewを指定
 			mav.setViewName("view/insert");
 
 			// ModelとView情報を返す
 			return mav;
-		}
 
-		/*
-		 * 「/insert」へPOST送信された場合
-		 */
-		@PostMapping(value = "/insert")
-		// POSTデータをUniformインスタンスとして受け取る
-		public ModelAndView insertPost(@ModelAttribute @Validated(Uniform.All.class) Uniform uniform, BindingResult result,
-				ModelAndView mav) {
+			// 商品番号の重複チェック
+		} else if (optionalUniform.isPresent()) {
+			// エラーメッセージ
 
-			// 権限振り分け用
+			mav.addObject("errorMessage", "入力した商品番号は既に登録済みの為、商品登録処理は行えませんでした。 ");
 
-			User user = (User) session.getAttribute("user");
-
-			// userがない(セッション切れ)の時
-			if (user == null) {
-
-				mav.addObject("errorMessage", "セッション切れの為、登録できません。 ");
-				mav.addObject("cmd", "logout");
-				mav.addObject("next", "[ログイン画面へ]");
-				mav.setViewName("view/error");
-				return mav;
-
-			}
-
-			mav.addObject("user", user);
-
-			// 商品情報の検索
-			Optional<Uniform> optionalUniform = uniforminfo.findByProductno(uniform.getProductno());
-
-			// 入力エラーがある場合
-			if (result.hasErrors()) {
-				// エラーメッセージ
-				mav.addObject("message", "入力内容に誤りがあります");
-
-				// 画面に出力するViewを指定
-				mav.setViewName("view/insert");
-
-				// ModelとView情報を返す
-				return mav;
-
-				// 商品番号の重複チェック
-			} else if (optionalUniform.isPresent()) {
-				// エラーメッセージ
-
-				mav.addObject("errorMessage", "入力した商品番号は既に登録済みの為、商品登録処理は行えませんでした。 ");
-				mav.addObject("cmd", "insert");
-				mav.addObject("next", "[登録画面に戻る]");
-				mav.setViewName("view/error");
-				return mav;
-
-			}
-
-			// 入力されたデータをDBに保存
-			uniforminfo.saveAndFlush(uniform);
-
-			// リダイレクト先を指定
-			mav = new ModelAndView("redirect:/list");
-
-			// ModelとView情報を返す
+			mav.setViewName("view/error");
 			return mav;
+
 		}
 
-	
+		// 入力されたデータをDBに保存
+		uniforminfo.saveAndFlush(uniform);
+
+		// リダイレクト先を指定
+		mav = new ModelAndView("redirect:/list");
+
+		// ModelとView情報を返す
+		return mav;
+	}
+
+	/**
+	 * Exception発生時の処理メソッド.
+	 */
+	@ExceptionHandler(Exception.class)
+	public ModelAndView ExceptionHandler(Exception e) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+		// 画面に出力するViewを指定
+		mav.setViewName("view/error");
+		// ModelとView情報を返す
+		return mav;
+	}
 
 }

@@ -111,8 +111,7 @@ public class UpdateController {
 			// エラーチェック
 			if (optionalUniform.isEmpty()) {
 				mav.addObject("errorMessage", "更新対象の商品が存在しない為、更新処理は行えませんでした。 ");
-				mav.addObject("cmd", "list");
-				mav.addObject("next", "[一覧表示に戻る]");
+	
 				mav.setViewName("view/error");
 				return mav;
 
@@ -130,6 +129,19 @@ public class UpdateController {
 
 			mav = new ModelAndView("redirect:/list");
 
+			return mav;
+		}
+		/**
+		 * Exception発生時の処理メソッド.
+		 */
+		@ExceptionHandler(Exception.class)
+		public ModelAndView ExceptionHandler(Exception e) {
+			ModelAndView mav = new ModelAndView();
+
+			mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+			// 画面に出力するViewを指定
+			mav.setViewName("view/error");
+			// ModelとView情報を返す
 			return mav;
 		}
 }

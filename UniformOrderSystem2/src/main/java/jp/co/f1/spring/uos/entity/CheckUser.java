@@ -37,9 +37,9 @@ public class CheckUser {
 		this.name = name;
 	}
 
+	
 	//旧パスワード
-	@Column(length = 100, nullable = false)
-	@NotEmpty(message = "パスワードを入力してください")
+	@Column(length = 100, nullable = true)
 	private String oldPassword;
 
 	public String getOldPassword() {

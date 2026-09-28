@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,11 +31,11 @@ public class InsertNewMemberController {
 	// DAO自動インスタンス化
 	@Autowired
 	private UserDAO userDao;
-	
+
 	// Repositoryインターフェースを自動インスタンス化
 	@Autowired
 	private UserRepository userinfo;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -57,14 +58,12 @@ public class InsertNewMemberController {
 	public ModelAndView postInsertUser(@ModelAttribute @Validated CheckUser checkUser, BindingResult result,
 			ModelAndView mav) {
 
-
-
 		Optional<User> optionalUser = userinfo.findByUserid(checkUser.getUserid());
 
 		// エラーチェック
 		if (optionalUser.isPresent()) {
 
-			mav.addObject("message", "入力ユーザー名は既に使用済みの為、登録できません。");
+			mav.addObject("message", "入力ユーザーIDは既に使用済みの為、登録できません。");
 
 			mav.setViewName("view/insertNewUser");
 			return mav;
@@ -99,6 +98,12 @@ public class InsertNewMemberController {
 			return mav;
 		}
 
+		/*
+		 * 新規会員登録フォームから権限は登録できないのでユーザーの登録の場合必ずnullになる
+		 * それを利用して新規会員登録の際にnewUserに格納する権限を2にできるようにしておく
+		 */
+		boolean isAuthorityNull = checkUser.getAuthority() == null || checkUser.getAuthority().isEmpty();
+
 		// 確認用のクラスからUserのオブジェクトに格納
 		User newUser = new User();
 		newUser.setUserid(checkUser.getUserid());
@@ -106,11 +111,14 @@ public class InsertNewMemberController {
 		newUser.setEmail(checkUser.getEmail());
 		newUser.setName(checkUser.getName());
 		newUser.setAddress(checkUser.getAddress());
-		newUser.setAuthority(checkUser.getAuthority());
-	
+
+		if (isAuthorityNull) {
+			newUser.setAuthority("2");
+
+		}
 
 		// 入力されたデータをDBに保存
-		userinfo.saveAndFlush(newUser); 
+		userinfo.saveAndFlush(newUser);
 
 		// Viewに渡す変数をModelに格納
 		mav.addObject("message", "ユーザー登録完了しました！");
@@ -120,5 +128,17 @@ public class InsertNewMemberController {
 		// ModelとView情報を返す
 		return mav;
 	}
+	/**
+	 * Exception発生時の処理メソッド.
+	 */
+	@ExceptionHandler(Exception.class)
+	public ModelAndView ExceptionHandler(Exception e) {
+		ModelAndView mav = new ModelAndView();
 
+		mav.addObject("errorMessage", "エラー内容：" + e.getMessage());
+		// 画面に出力するViewを指定
+		mav.setViewName("view/error");
+		// ModelとView情報を返す
+		return mav;
+	}
 }

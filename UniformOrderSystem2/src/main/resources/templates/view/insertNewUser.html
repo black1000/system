@@ -21,9 +21,9 @@
       会員情報を入力してください。
     </p>
 
-    <p class="error-message"
-       th:if="${errorMessage}"
-       th:text="${errorMessage}">
+    <p class="error-message" background-color="red"
+       th:if="${message}"
+       th:text="${message}">
       入力内容を確認してください。
     </p>
 
@@ -190,9 +190,9 @@
       </table>
 
       <div class="button-area">
+	
         <button class="register-button" type="submit">
-			<!-- 隠しフィールドで権限＝２（一般ユーザー）を固定値で送る -->
-			<input type="hidden" name="auhtority" value="2">
+		
           会員登録
         </button>
       </div>

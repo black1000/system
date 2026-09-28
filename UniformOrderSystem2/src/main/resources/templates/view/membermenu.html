@@ -31,7 +31,11 @@
 
         <li>
           <a class="menu-link"
+<<<<<<< HEAD
              href="#"
+=======
+             href="list"
+>>>>>>> 06007deff7f501b41e3118c7863547641ed0c312
              th:href="@{/list}">
             商品を見る
           </a>
@@ -39,8 +43,8 @@
 
         <li>
           <a class="menu-link"
-             href="#"
-             th:href="@{/cart}">
+             href="showCart"
+             th:href="@{/showCart}">
             カートを見る
           </a>
         </li>
@@ -62,11 +66,18 @@
         </li>
 
         <li>
-          <a class="menu-link logout-link"
-             href="#"
-             th:href="@{/logout}">
-            ログアウト
-          </a>
+			<form action="/logout" 
+							th:action="${adminLogout} ? @{/admin/logout} : @{/logout}"
+							 method="post">
+					<nav class="bottom-navigation">
+						<div class="button-area">
+						  <button class="login-button" type="submit"
+										 href="/logout"
+						                 th:href="@{/logout}">
+						            ログアウト
+						            </button>
+					 </nav>
+			      </form>
         </li>
 
       </ul>
