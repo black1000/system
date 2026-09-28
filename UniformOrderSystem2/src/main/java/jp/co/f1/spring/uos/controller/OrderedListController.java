@@ -30,20 +30,22 @@ public class OrderedListController {
 
 	@Autowired
 	private OrderDAO orderDao;
+	
+	@Autowired
 	private UserRepository userinfo;
 
-	@GetMapping("orderedList")
+	@GetMapping("/orderedList")
 	public ModelAndView orderedList(HttpServletRequest request, ModelAndView mav) {
 
 		// セッションからユーザー情報取得
 		//	User user = (User) session.getAttribute("user");
 
 		// セッションを受け取る
-		String userid = (String) session.getAttribute("loginUserId");
-		Optional<User> optionalUser = userinfo.findByUserid(userid);
+		String authAdminCheck = (String) session.getAttribute("authority");
+		Optional<User> optionalUser = userinfo.findByAuthority(authAdminCheck);
 
 		// userがない(セッション切れ)の時
-		if (user == null) {
+		if (optionalUser.isEmpty()) {
 
 			mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
 

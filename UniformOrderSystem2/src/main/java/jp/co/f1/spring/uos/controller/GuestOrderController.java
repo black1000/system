@@ -72,7 +72,7 @@ public class GuestOrderController {
 				"guestOrder",
 				guestOrder);
 
-		mav.setViewName("GestOrderlist");
+		mav.setViewName("view/GuestOrder");
 
 		return mav;
 	}
@@ -138,7 +138,7 @@ public class GuestOrderController {
 					"メールアドレス、名前、住所を"
 							+ "すべて入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}
@@ -153,7 +153,7 @@ public class GuestOrderController {
 					"メールアドレスを"
 							+ "正しく入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}
@@ -168,7 +168,7 @@ public class GuestOrderController {
 					"メールアドレスは100文字以内で"
 							+ "入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}
@@ -180,7 +180,7 @@ public class GuestOrderController {
 					"名前は100文字以内で"
 							+ "入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}
@@ -192,7 +192,7 @@ public class GuestOrderController {
 					"住所は255文字以内で"
 							+ "入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}
@@ -204,7 +204,7 @@ public class GuestOrderController {
 					"備考は200文字以内で"
 							+ "入力してください。");
 
-			mav.setViewName("GestOrderlist");
+			mav.setViewName("view/GuestOrder");
 
 			return mav;
 		}

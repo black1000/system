@@ -57,7 +57,7 @@ public class MenuController {
 	   Optional <User>	optionalUser = userinfo. findByUserid(userid);
 
 		// userがない(セッション切れ)の時
-		if (user == null) {
+		if (optionalUser.isEmpty()) {
 
 			mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
 
