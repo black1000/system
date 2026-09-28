@@ -1,5 +1,7 @@
 package jp.co.f1.spring.uos.controller;
 
+import java.util.Optional;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -40,7 +42,9 @@ public class MenuController {
 
 	@Autowired
 	private HttpSession session;
-
+	
+	private  User user = new User();
+ 
 	
 	/*
 	 * 「menu」にアクセスがあった場合
@@ -49,20 +53,21 @@ public class MenuController {
 	public ModelAndView menu(ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
 
 		// セッションを受け取る
-		User user = (User) session.getAttribute("user");
+		String userid =  (String)session.getAttribute("loginUserId");
+	   Optional <User>	optionalUser = userinfo. findByUserid(userid);
 
 		// userがない(セッション切れ)の時
 		if (user == null) {
 
 			mav.addObject("errorMessage", "セッション切れの為、商品一覧に戻ります。");
-			mav.addObject("cmd", "list");
-			mav.addObject("next", "[商品一覧へ]");
+
 			mav.setViewName("view/error");
 			return mav;
 
 		}
 
-		mav.addObject("user", user);
+		mav.addObject("user", optionalUser);
+		user = optionalUser.get();
 
 		String auth = null;
 		if (user.getAuthority().equals("1")) {
@@ -70,7 +75,7 @@ public class MenuController {
 			auth = "一般ユーザー";
 			mav.addObject("userid", user.getUserid());
 			mav.addObject("auth", auth);
-
+			session.setAttribute("user", user);
 			// 画面に出力するViewを指定
 			mav.setViewName("view/adminMenu");
 			
@@ -79,7 +84,7 @@ public class MenuController {
 			auth = "管理者";
 			mav.addObject("userid", user.getUserid());
 			mav.addObject("auth", auth);
-
+			session.setAttribute("user", user);
 			// 画面に出力するViewを指定
 			mav.setViewName("view/membermenu");
 		}
