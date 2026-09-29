@@ -1,0 +1,2365 @@
+/* 共通レイアウト */
+
+/* adminBuy.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.admin-order-detail {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  min-height: 15vh;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-align: center;
+}
+
+.section-title {
+  margin: 32px 0 16px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.detail-table,
+.product-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.detail-table th,
+.detail-table td,
+.product-table th,
+.product-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.detail-table th {
+  width: 35%;
+  background-color: #dbeafe;
+}
+
+.product-table thead {
+  background-color: #dbeafe;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.total-table {
+  margin-top: 24px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.page-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .admin-order-detail {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .detail-table th,
+  .detail-table td,
+  .product-table th,
+  .product-table td {
+    padding: 8px;
+  }
+}
+
+
+
+
+/*adminList.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.admin-product-list {
+  width: 100%;
+  max-width: 960px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.warning-message {
+  margin: 0 0 16px;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.success-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #86efac;
+  border-radius: 4px;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.top-navigation {
+  margin-bottom: 16px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.product-table thead {
+  background-color: #dbeafe;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.product-table th {
+  white-space: nowrap;
+}
+
+.sold-out-row {
+  background-color: #f9fafb;
+}
+
+.sold-out {
+  color: #b91c1c;
+  font-weight: bold;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.delete-form {
+  margin: 0;
+}
+
+.delete-button {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: #b91c1c;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: #7f1d1d;
+}
+
+.bottom-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.login-status {
+  color: #16a34a;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .admin-product-list {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 8px;
+  }
+
+  .bottom-navigation {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+
+
+/* adminMenu.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.admin-menu {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.menu-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.menu-link {
+  display: block;
+  padding: 8px 16px;
+  color: #1d4ed8;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.menu-link:hover {
+  color: #1e3a8a;
+}
+
+.logout-link {
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 20px;
+}
+
+.logout-link:hover {
+  color: #111827;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .admin-menu {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .menu-link {
+    font-size: 20px;
+  }
+}
+
+
+/*error.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #000;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.error-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #000000;
+  font-size: 24px;
+  text-align: center;
+}
+
+.error-message {
+  margin: 32px 0;
+  padding: 20px;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  background-color: #fef2f2;
+  color: #991b1b;
+  font-size: 18px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.error-message p {
+  margin: 0;
+}
+
+.page-navigation {
+  text-align: center;
+}
+
+.return-link {
+  display: inline-block;
+  padding: 10px 16px;
+  color: #1d4ed8;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.return-link:hover {
+  color: #1e3a8a;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .error-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .error-message {
+    font-size: 16px;
+  }
+
+  .return-link {
+    font-size: 18px;
+  }
+}
+
+
+/*GestOrdeerlist.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.guest-order-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page-description {
+  margin: 0 0 24px;
+  color: #4b5563;
+  text-align: center;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 35%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.required {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.input-help {
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.order-button {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.order-button:hover {
+  background-color: #1d4ed8;
+}
+
+.order-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.page-navigation {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .guest-order-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+}
+
+
+
+/*insert.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.product-registration {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.top-navigation {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 35%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.required {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.unit {
+  margin-left: 6px;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.register-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #1d4ed8;
+}
+
+.register-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.success-message,
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.success-message {
+  border: 1px solid #86efac;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.error-message {
+  border: 1px solid #fca5a5;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .product-registration {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+}
+
+
+
+/*insertNewUser.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.user-registration {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page-description {
+  margin: 0 0 24px;
+  color: #4b5563;
+  text-align: center;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 35%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.required {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.input-help {
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.register-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #1d4ed8;
+}
+
+.register-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.page-navigation {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .user-registration {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+}
+
+
+
+/*jutyuuList.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.order-list-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.sales-summary {
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.sales-summary p {
+  margin: 6px 0;
+}
+
+.top-navigation {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.success-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #86efac;
+  border-radius: 4px;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.order-table thead {
+  background-color: #dbeafe;
+}
+
+.order-table th,
+.order-table td {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+}
+
+.order-table th {
+  white-space: nowrap;
+}
+
+.order-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.status {
+  display: inline-block;
+  min-width: 90px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status-complete {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-waiting {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .order-list-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .sales-summary {
+    text-align: left;
+  }
+
+  .order-table th,
+  .order-table td {
+    padding: 8px;
+  }
+}
+
+
+
+/*list.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.product-list-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page-description {
+  margin: 0 0 20px;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.product-table thead {
+  background-color: #dbeafe;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.product-table th {
+  white-space: nowrap;
+}
+
+.product-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.sold-out-row {
+  background-color: #f3f4f6;
+}
+
+.product-link,
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.product-link:hover,
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.sold-out {
+  color: #b91c1c;
+  font-weight: bold;
+}
+
+.cannot-purchase {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.quantity-select {
+  width: 96px;
+  padding: 8px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+.quantity-select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.cart-button {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-button:hover {
+  background-color: #1d4ed8;
+}
+
+.cart-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.customer-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.admin-navigation {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.admin-link {
+  color: #4b5563;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.admin-link:hover {
+  color: #111827;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .product-list-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 8px;
+  }
+
+  .customer-navigation {
+    gap: 16px;
+  }
+}
+
+
+
+/*login.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 35%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.login-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.error-message,
+.success-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.error-message {
+  border: 1px solid #fca5a5;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.success-message {
+  border: 1px solid #86efac;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.customer-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.bottom-navigation {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .login-container {
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+
+  .customer-navigation {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+
+/*memberChange.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.member-change-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page-description {
+  margin: 0 0 20px;
+  color: #4b5563;
+  text-align: center;
+}
+
+.top-navigation {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 33.333%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.input-help {
+  margin: 8px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.button-area {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.update-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.update-button:hover {
+  background-color: #1d4ed8;
+}
+
+.update-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.success-message,
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.success-message {
+  border: 1px solid #86efac;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.error-message {
+  border: 1px solid #fca5a5;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .member-change-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+}
+
+
+/*membermenu.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.member-menu-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.welcome-message {
+  margin: 0 0 20px;
+  color: #4b5563;
+  text-align: center;
+}
+
+.menu-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.menu-link {
+  display: block;
+  padding: 8px 16px;
+  color: #1d4ed8;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.menu-link:hover {
+  color: #1e3a8a;
+}
+
+.logout-link {
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 20px;
+}
+
+.logout-link:hover {
+  color: #111827;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .member-menu-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .menu-link {
+    font-size: 20px;
+  }
+}
+
+
+
+
+/*Purchasecomplete.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.purchase-complete-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.complete-message {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.complete-message p {
+  margin: 0;
+}
+
+.mail-message {
+  margin: 0 0 24px;
+  color: #4b5563;
+  font-size: 14px;
+  text-align: center;
+}
+
+.order-number {
+  margin: 0 0 16px;
+  text-align: right;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.purchase-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.purchase-table thead {
+  background-color: #dbeafe;
+}
+
+.purchase-table th,
+.purchase-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.purchase-table th {
+  white-space: nowrap;
+}
+
+.purchase-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.product-link,
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.product-link:hover,
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.total-area {
+  display: flex;
+  margin-top: 20px;
+  padding: 16px;
+  justify-content: flex-end;
+  gap: 10px;
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  background-color: #eff6ff;
+  font-size: 20px;
+}
+
+.page-navigation {
+  margin-top: 24px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .purchase-complete-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .purchase-table th,
+  .purchase-table td {
+    padding: 8px;
+  }
+
+  .complete-message {
+    font-size: 18px;
+  }
+
+  .total-area {
+    font-size: 18px;
+  }
+}
+
+
+
+
+/*rireki.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.history-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.customer-name {
+  margin: 0 0 24px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.order-history {
+  margin-bottom: 28px;
+  padding: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.order-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #eff6ff;
+}
+
+.order-header p {
+  margin: 0;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.history-table thead {
+  background-color: #dbeafe;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.history-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.order-information {
+  margin-top: 16px;
+}
+
+.order-information p {
+  margin: 8px 0;
+}
+
+.order-total {
+  font-size: 18px;
+  text-align: right;
+}
+
+.no-history {
+  padding: 24px;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.page-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .history-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .order-history {
+    padding: 12px;
+  }
+
+  .order-header {
+    display: block;
+  }
+
+  .order-header p + p {
+    margin-top: 8px;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 8px;
+  }
+
+  .order-total {
+    text-align: left;
+  }
+}
+
+
+
+
+
+/*showcart.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.cart-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.top-navigation {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  background-color: #fef2f2;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.cart-table thead {
+  background-color: #dbeafe;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.cart-table th {
+  white-space: nowrap;
+}
+
+.cart-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.total-area {
+  display: flex;
+  margin-top: 20px;
+  padding: 16px;
+  justify-content: flex-end;
+  gap: 10px;
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  background-color: #eff6ff;
+  font-size: 20px;
+}
+
+.button-area {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.purchase-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.purchase-button:hover {
+  background-color: #1d4ed8;
+}
+
+.purchase-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .cart-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 8px;
+  }
+
+  .total-area {
+    font-size: 18px;
+  }
+}
+
+
+/*update.css*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+.product-update-container {
+  width: 100%;
+  max-width: 768px;
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 15%);
+}
+
+.page-title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.page-description {
+  margin: 0 0 20px;
+  color: #4b5563;
+  text-align: center;
+}
+
+.top-navigation {
+  margin-bottom: 20px;
+}
+
+.page-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.page-link:hover {
+  color: #1e3a8a;
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th,
+.input-table td {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+}
+
+.input-table th {
+  width: 33.333%;
+  background-color: #dbeafe;
+  text-align: left;
+}
+
+.input-table td {
+  background-color: #ffffff;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.readonly-input {
+  border-color: #d1d5db;
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.input-with-unit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unit {
+  white-space: nowrap;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.success-message,
+.error-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.success-message {
+  border: 1px solid #86efac;
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.error-message {
+  border: 1px solid #fca5a5;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.button-area {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.update-button {
+  padding: 12px 32px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.update-button:hover {
+  background-color: #1d4ed8;
+}
+
+.update-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .product-update-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+
+  .input-table th,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .input-table th {
+    border-bottom: 0;
+  }
+}
