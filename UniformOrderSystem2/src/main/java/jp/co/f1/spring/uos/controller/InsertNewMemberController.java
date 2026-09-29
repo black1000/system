@@ -121,7 +121,7 @@ public class InsertNewMemberController {
 		userinfo.saveAndFlush(newUser);
 
 		// Viewに渡す変数をModelに格納
-		mav.addObject("message", "ユーザー登録完了しました！");
+		mav.addObject("successMessage", "ユーザー登録完了しました！");
 
 		// 画面に出力するViewを指定
 		mav.setViewName("view/insertNewUser");

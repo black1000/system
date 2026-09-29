@@ -26,6 +26,12 @@
        th:text="${message}">
       入力内容を確認してください。
     </p>
+	
+	<p class="success-message"
+	       th:if="${successMessage}"
+	       th:text="${successMessage}">
+	      ユーザー登録完了しました！
+	    </p>
 
     <form action="/insertNewUser"
           th:action="@{/insertNewUser}"
