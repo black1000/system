@@ -120,7 +120,7 @@ public class ShowCartController {
                     uniform.getProductno());
 
             item.setProductname(
-                    uniform.getProductno());
+                    uniform.getProductname());
 
             item.setPrice(
                     uniform.getPrice());
