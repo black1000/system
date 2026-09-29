@@ -59,13 +59,9 @@
               0001
             </td>
 
-            <td>
-              <a class="page-link"
-                 href="/products/0001"
-                 th:href="@{/products/{id}(id=${product.productno})}"
-                 th:text="${product.productname}">
+            <td th:text="${product.productname}">
                 ユニフォームA
-              </a>
+              
             </td>
 
             <td class="nowrap"
