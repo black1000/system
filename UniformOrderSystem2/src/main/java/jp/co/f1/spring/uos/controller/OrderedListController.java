@@ -328,7 +328,8 @@ public class OrderedListController {
 
 	@PostMapping("/orderedList/payment")
 	public String updatePayment(@RequestParam String orderno, @RequestParam String payment) {
-
+ 
+		
 		List<OrderDetail> orderDetails = new ArrayList<>();
 
 		orderDetails = (List<OrderDetail>) orderDetailRepository.findById_Orderno(orderno);
