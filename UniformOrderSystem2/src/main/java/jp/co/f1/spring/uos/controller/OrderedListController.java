@@ -328,19 +328,29 @@ public class OrderedListController {
 
 	@PostMapping("/orderedList/payment")
 	public String updatePayment(@RequestParam String orderno, @RequestParam String payment) {
+ 
 
 		List<OrderDetail> orderDetails = new ArrayList<>();
 
 		orderDetails = (List<OrderDetail>) orderDetailRepository.findById_Orderno(orderno);
-		Order order = orderinfo.findById(orderno).orElse(null);
+		 Order order = orderRepository.findById(orderno).orElse(null);
 
-		if (order != null) {
-			order.setPayment(payment);
-			orderinfo.save(order);
+		    if (order == null) {
+		        return "redirect:/orderedList";
+		    }
 
+		    // すでに入金済みなら何もしない
+		    if ("2".equals(order.getPayment())) {
+		        return "redirect:/orderedList";
+		    }
+
+		    // 入金済みに変更
+		    order.setPayment("2");
+		    orderRepository.save(order);
+		    
 			sendPaymentMail(order, orderDetails);
 
-		}
+		
 
 		return "redirect:/orderedList";
 	}
@@ -348,18 +358,28 @@ public class OrderedListController {
 	@PostMapping("/orderedList/shipment")
 	public String updateShipment(@RequestParam String orderno, @RequestParam String shipment) {
 
+	
+		
 		List<OrderDetail> orderDetails = new ArrayList<>();
 
 		orderDetails = (List<OrderDetail>) orderDetailRepository.findById_Orderno(orderno);
 		Order order = orderinfo.findById(orderno).orElse(null);
+		 if (order == null) {
+		        return "redirect:/orderedList";
+		    }
 
-		if (order != null) {
-			order.setShipment("2");
-			orderinfo.save(order);
+		    // すでに発送済みなら何もしない
+		    if ("2".equals(order.getShipment())) {
+		        return "redirect:/orderedList";
+		    }
 
+		    // 発送済みに変更
+		    order.setShipment("2");
+		    orderRepository.save(order);
+		    
 			sendShipmentMail(order, orderDetails);
 
-		}
+		
 
 		return "redirect:/orderedList";
 	}

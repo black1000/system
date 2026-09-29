@@ -63,11 +63,9 @@
 					          <tbody>
 						            <!-- 複数商品を繰り返し表示 -->
 						         <tr th:each="detail : ${orderDetails}">
-							              <td>
-								             <a class="page-link" th:href="@{/products/{id}(id=${detail.productno})}"
-									th:text="${detail.productname}">
+							              <td th:text="${detail.productname}">
 									ユニフォームA
-								</a>
+							
 							</td>
 
 							<td class="nowrap" th:text="${#numbers.formatInteger(detail.price, 1, 'COMMA')} + '円'">
