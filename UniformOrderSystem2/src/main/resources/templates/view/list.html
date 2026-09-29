@@ -49,13 +49,16 @@
 			    th:classappend="${products.stock == 0
 			      ? 'sold-out-row' : ''}">
 
-              <td href="/products/0001"
+              <td
+                   href="/products/0001"
                    th:href="@{/products/{id}(
-                     id=${products.productno} )}"
+                     id=${products.productno}
+                   )}"
                    th:text="${products.productname}">
                   ユニフォームA
-                
+              </td>
 
+			  
                 <!-- 在庫がある商品だけ送信する -->
                 <input th:if="${products.stock > 0}"
                        type="hidden"
