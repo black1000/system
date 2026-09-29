@@ -50,15 +50,10 @@
           <!-- 購入した商品を繰り返し表示 -->
           <tr th:each="detail : ${orderDetails}">
 
-            <td>
-              <a class="product-link"
-                 href="#"
-                 th:href="@{/products/{id}(
-                   id=${detail.productno}
-                 )}"
+            <td
                  th:text="${detail.productname}">
                 ユニフォームA
-              </a>
+             
             </td>
 
             <td class="nowrap"
