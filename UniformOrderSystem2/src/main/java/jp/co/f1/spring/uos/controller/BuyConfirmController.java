@@ -332,7 +332,7 @@ public class BuyConfirmController {
 		/*
 		 * 送信先
 		 */
-		message.setTo("kisaragi33pencilwonder@gmail.com");
+		message.setTo(order.getEmail());
 
 		/*
 		 * order.getEmail()
