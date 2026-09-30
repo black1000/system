@@ -84,7 +84,7 @@ public class OrderedListController {
 		/*
 		 * 送信先
 		 */
-		message.setTo("kisaragi33pencilwonder@gmail.com");
+		message.setTo(order.getEmail());
 
 		/*
 		 * order.getEmail()
@@ -156,7 +156,7 @@ public class OrderedListController {
 		/*
 		 * 送信先
 		 */
-		message.setTo("kisaragi33pencilwonder@gmail.com");
+		message.setTo(order.getEmail());
 
 		/*
 		 * order.getEmail()
