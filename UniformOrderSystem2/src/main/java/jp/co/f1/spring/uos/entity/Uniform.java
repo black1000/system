@@ -66,7 +66,7 @@ public class Uniform {
 	// 在庫数
 	@Column(length = 11, nullable = true)
 	@NotNull(message="在庫数を入力してください", groups = Group1.class)
-	@Range(min = 1,  groups = Group2.class, message = "1以上の数字で入力してください")
+	@Range(min = 0,  groups = Group2.class, message = "0以上の数字で入力してください")
 	
 	private int stock;
 
